@@ -4,22 +4,22 @@ import ChatSection from './elements/chat-section.js';
 import Popup from './elements/popup.js';
 import Spinner from './elements/spinner.js';
 import Sendbird from './sendbird.js';
-import { 
-  hide, 
-  show, 
-  addClass, 
-  removeClass, 
-  hasClass, 
-  getFullHeight, 
-  insertMessageInList, 
-  getLastItem, 
-  isEmptyString, 
-  xssEscape, 
+import {
+  hide,
+  show,
+  addClass,
+  removeClass,
+  hasClass,
+  getFullHeight,
+  insertMessageInList,
+  getLastItem,
+  isEmptyString,
+  xssEscape,
   createNotificationSound,
   requestNotification,
   setCookie,
   getCookie,
-  deleteCookie 
+  deleteCookie
 } from './utils.js';
 import { className, TYPE_STRING, MAX_COUNT } from './consts.js';
 
@@ -377,19 +377,19 @@ class SBWidget {
       this.setMessageItem(channelSet.channel, targetBoard, [message], false, isBottom, lastMessage);
       channel.markAsRead();
       this.updateUnreadMessageCount(channel);
-    } 
+    }
     if (!targetBoard) {
       if ('Notification' in window) {
         var notification = new Notification(
-          "New Message", 
+          "New Message",
           {
-            "body": message.isFileMessage() ? message.name : message.message, 
+            "body": message.isFileMessage() ? message.name : message.message,
             "icon": "http://qnimate.com/wp-content/uploads/2014/07/web-notification-api-300x150.jpg"
           }
         );
         notification.onclick = function() {
           window.focus();
-        }
+        };
         this.notificationSound.play();
       }
     }
@@ -401,9 +401,9 @@ class SBWidget {
       let channelSet = this.getChannelSet(channel.url);
       let newMessages = channelSet.message.map((msg) => {
         if (msg.messageId === message.messageId) {
-          return message
+          return message;
         } else {
-          return msg
+          return msg;
         }
       });
       channelSet.message = newMessages;
@@ -442,12 +442,12 @@ class SBWidget {
         this.listBoard.setChannelLastMessage(channel.url, lastMessage.isFileMessage() ? xssEscape(lastMessage.name) : xssEscape(lastMessage.message));
       } else {
         let newMessages = channelSet.message.filter((msg) => {
-          return msg.messageId.toString() !== messageId.toString()
+          return msg.messageId.toString() !== messageId.toString();
         });
         channelSet.message = newMessages;
       }
-      
-      let updatedMessage = document.getElementById(`${messageId}`)
+
+      let updatedMessage = document.getElementById(`${messageId}`);
       updatedMessage.remove();
     }
   }

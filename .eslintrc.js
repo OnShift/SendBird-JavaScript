@@ -12,7 +12,8 @@ module.exports = {
   'rules': {
     'indent': ['error', 2],
     'semi': 1,
-    'no-console': 1,
+    // TODO change to 2 when we do something more sane with the console errors
+    'no-console': 0,
     'camelcase': 1,
     'no-unused-vars': 1
   }
