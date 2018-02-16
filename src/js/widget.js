@@ -31,7 +31,6 @@ const KEY_DOWN_ENTER = 13;
 const KEY_DOWN_KR = 229;
 const CHAT_BOARD_WIDTH = 300;
 const ERROR_MESSAGE = 'Please create "sb_widget" element on first.';
-const ERROR_MESSAGE_SDK = 'Please import "SendBird SDK" on first.';
 const EVENT_TYPE_CLICK = 'click';
 
 window.WebFontConfig = {
@@ -58,10 +57,6 @@ class SBWidget {
   }
 
   startWithConnect(appId, userId, nickname, callback) {
-    if (!window.SendBird) {
-      console.error(ERROR_MESSAGE_SDK);
-      return;
-    }
     this._getGoogleFont();
     this.widget = document.getElementById(WIDGET_ID);
     if (this.widget) {
