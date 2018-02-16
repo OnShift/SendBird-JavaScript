@@ -6,7 +6,7 @@
   "scripts": {
     "prod-build": "webpack -p",
     "start-dev": "webpack-dev-server",
-    "start": "webpack -p && node server.js",
+    "start": "webpack -p && node test_server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "OnShift",
