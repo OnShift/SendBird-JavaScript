@@ -1,12 +1,14 @@
 import { MAX_COUNT } from './consts.js';
 import { xssEscape } from './utils.js';
 
+import SendBird from 'sendbird';
+
 const GLOBAL_HANDLER = 'GLOBAL_HANDLER';
 const GET_MESSAGE_LIMIT = 20;
 
 class Sendbird {
   constructor(appId) {
-    this.sb = new window.SendBird({ appId: appId });
+    this.sb = new SendBird({ appId: appId });
     this.channelListQuery = null;
     this.userListQuery = null;
   }
@@ -233,7 +235,7 @@ class Sendbird {
 
   getLastMessage(channel) {
     if (channel.lastMessage) {
-      return channel.lastMessage.isUserMessage() || channel.lastMessage.isAdminMessage() 
+      return channel.lastMessage.isUserMessage() || channel.lastMessage.isAdminMessage()
       ? channel.lastMessage.message : channel.lastMessage.name;
     }
     return '';

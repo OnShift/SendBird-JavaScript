@@ -44,10 +44,6 @@ class SBWidget {
   }
 
   start(appId) {
-    if (!window.SendBird) {
-      console.error(ERROR_MESSAGE_SDK);
-      return;
-    }
     this._getGoogleFont();
     this.widget = document.getElementById(WIDGET_ID);
     if (this.widget) {
