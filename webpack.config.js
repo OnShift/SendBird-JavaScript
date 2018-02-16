@@ -2,9 +2,7 @@ var path = require('path');
 
 module.exports = {
   context: path.resolve(__dirname + '/src'),
-  entry: {
-    widget: ['./js/widget.js']
-  },
+  entry: { widget: ['./js/widget.js'] },
   output: {
     path: path.resolve(__dirname + '/build'),
     filename: '[name].SendBird.js',

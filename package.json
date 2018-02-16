@@ -1,14 +1,15 @@
 {
-  "name": "Sample-JS-Web-Widget",
-  "version": "1.0.0",
-  "description": "SendBird Widget Sample",
+  "name": "OnShiftChatWidget",
+  "version": "0.1.0",
+  "description": "A chat widget based on and utilizing SendBird.",
   "main": "index.js",
   "scripts": {
+    "prod-build": "webpack -p",
     "start-dev": "webpack-dev-server",
     "start": "webpack -p && node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "SendBird",
+  "author": "OnShift",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.24.0",
