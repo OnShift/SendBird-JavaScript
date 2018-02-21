@@ -48,7 +48,7 @@ class Sendbird {
   }
 
   isCurrentUser(user) {
-    return this.sb.currentUser.userId == user.userId;
+    return this.sb.currentUser.userId === user.userId;
   }
 
   /*

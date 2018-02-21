@@ -30,7 +30,7 @@ const NEW_CHAT_BOARD_ID = 'NEW_CHAT';
 const KEY_DOWN_ENTER = 13;
 const KEY_DOWN_KR = 229;
 const CHAT_BOARD_WIDTH = 300;
-const ERROR_MESSAGE = 'Please create "sb_widget" element on first.';
+const ERROR_MESSAGE = 'Please create "sb_widget" element first.';
 const EVENT_TYPE_CLICK = 'click';
 
 window.WebFontConfig = {
