@@ -1,3 +1,5 @@
+'use strict';
+
 import WidgetBtn from './elements/widget-btn.js';
 import ListBoard from './elements/list-board.js';
 import ChatSection from './elements/chat-section.js';
@@ -848,4 +850,4 @@ class SBWidget {
   }
 }
 
-window.sbWidget = new SBWidget();
+export { SBWidget as default };
