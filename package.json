@@ -7,7 +7,8 @@
     "prod-build": "webpack -p",
     "start-dev": "webpack-dev-server",
     "start": "webpack -p && node test_server/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "webpack --config ./webpack.config.js --progress --colors", "start": "node test_server/server.js"
   },
   "author": "OnShift",
   "license": "ISC",
