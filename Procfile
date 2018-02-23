@@ -1,1 +1,1 @@
-web: webpack -p && node test_server/server.js
+web: node test_server/server.js
