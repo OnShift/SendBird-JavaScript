@@ -3,7 +3,7 @@
   "version": "0.1.1",
   "description": "A chat widget based on and utilizing SendBird.",
   "engines": {
-    "node": "8.9.1"
+    "node": "9.5.0"
   },
   "main": "index.js",
   "scripts": {
