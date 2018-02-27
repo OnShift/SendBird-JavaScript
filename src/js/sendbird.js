@@ -248,7 +248,7 @@ class Sendbird {
       'NOV', 'DEC'
     ];
 
-    var _getDay = (val) => {
+    let _getDay = (val) => {
       let day = parseInt(val);
       if (day == 1) {
         return day + 'st';
@@ -261,14 +261,14 @@ class Sendbird {
       }
     };
 
-    var _checkTime = (val) => {
+    let _checkTime = (val) => {
       return (+val < 10) ? '0' + val : val;
     };
 
     if (message) {
       const LAST_MESSAGE_YESTERDAY = 'YESTERDAY';
-      var _nowDate = new Date();
-      var _date = new Date(message.createdAt);
+      let _nowDate = new Date();
+      let _date = new Date(message.createdAt);
       if (_nowDate.getDate() - _date.getDate() == 1) {
         return LAST_MESSAGE_YESTERDAY;
       } else if (_nowDate.getFullYear() == _date.getFullYear()
@@ -280,10 +280,6 @@ class Sendbird {
       }
     }
     return '';
-  }
-
-  getMessageReadReceiptCount(channel, message) {
-    return channel.getReadReceipt(message);
   }
 
   getChannelUnreadCount(channel) {
