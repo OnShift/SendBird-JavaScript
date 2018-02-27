@@ -20,8 +20,7 @@ import {
   createNotificationSound,
   requestNotification,
   setCookie,
-  getCookie,
-  deleteCookie
+  getCookie
 } from './utils.js';
 import { className, TYPE_STRING, MAX_COUNT } from './consts.js';
 
