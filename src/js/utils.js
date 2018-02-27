@@ -125,7 +125,7 @@ export function requestNotification() {
 }
 
 export function setCookie(userId, nickname) {
-  var date = new Date();
+  let date = new Date();
   date.setDate(date.getDate() + 1);
   let expires = date.toGMTString();
   document.cookie = 'sendbirdUserId=' + userId + ';expires=' + expires;

@@ -1,5 +1,5 @@
 import { className, MAX_COUNT, MAX_FONT_SIZE } from '../consts.js';
-import { show, hide, hasClass, removeClass, addClass, isEmptyString, removeWhiteSpace } from '../utils.js';
+import { show, hide, isEmptyString, removeWhiteSpace } from '../utils.js';
 import Element from './elements.js';
 
 const EMPTY_STRING = '';
