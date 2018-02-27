@@ -153,11 +153,3 @@ export function getCookie() {
   }
   return sendbirdUserInfo;
 }
-
-export function deleteCookie() {
-  const userInfo = getCookie();
-  if (userInfo.userId) {
-    document.cookie = 'sendbirdUserId=' + userInfo.userId + ';expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    document.cookie = 'sendbirdNickname=' + userInfo.nickname + ';expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-  }
-}
