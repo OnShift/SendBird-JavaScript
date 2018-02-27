@@ -322,7 +322,7 @@ class SBWidget {
             }
           }
         },
-        (channel, user) => {
+        (channel) => {
           this.listBoard.setChannelTitle(channel.url, this.sb.getNicknamesString(channel));
           let targetChatBoard = this.chatSection.getChatBoard(channel.url);
           if (targetChatBoard) {
