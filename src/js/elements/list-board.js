@@ -48,13 +48,6 @@ class ListBoard extends Element {
     this._setClass(this.btnMini, [className.BTN, className.IC_MINIMIZE]);
     boardTop.appendChild(this.btnMini);
 
-    this.btnOption = this.createDiv();
-    this._setClass(this.btnOption, [className.BTN, className.IC_OPTION]);
-
-    boardTop.appendChild(this.btnOption);
-
-    this.addOptionClickEvent();
-
     this.btnNewChat = this.createDiv();
     this._setClass(this.btnNewChat, [className.BTN, className.IC_NEW_CHAT]);
 
@@ -69,14 +62,6 @@ class ListBoard extends Element {
 
   addMinimizeClickEvent(action) {
     this._setClickEvent(this.btnMini, action);
-  }
-
-  addOptionClickEvent() {
-    this._setClickEvent(this.btnOption, () => {
-      if (!hasClass(this.btnOption, className.ACTIVE)) {
-        addClass(this.btnOption, className.ACTIVE);
-      }
-    });
   }
 
   addNewChatClickEvent(action) {
