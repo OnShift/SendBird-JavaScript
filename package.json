@@ -1,6 +1,6 @@
 {
   "name": "onshift-chat-widget",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A chat widget based on and utilizing SendBird.",
   "engines": {
     "node": "9.5.0"
