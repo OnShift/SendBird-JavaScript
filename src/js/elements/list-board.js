@@ -115,7 +115,7 @@ class ListBoard extends Element {
   }
 
   showLoginForm() {
-    if (this.self.lastElementChild == this.listContent) {
+    if (this.self.lastElementChild === this.listContent) {
       this.self.removeChild(this.listContent);
     }
     this._setContent(this.topTitle, TITLE_TOP_LOGIN);
@@ -136,7 +136,7 @@ class ListBoard extends Element {
 
   _toggleLoginBtn() {
     if(!isEmptyString(removeWhiteSpace(this.userId.value)) && !isEmptyString(removeWhiteSpace(this.nickname.value))) {
-      if (this.btnLogin.innerHTML == TITLE_LOGIN_BTN) {
+      if (this.btnLogin.innerHTML === TITLE_LOGIN_BTN) {
         this.enabledToggle(this.btnLogin, true);
       }
     } else {
@@ -174,7 +174,7 @@ class ListBoard extends Element {
   }
 
   showChannelList() {
-    if (this.self.lastElementChild == this.loginForm) {
+    if (this.self.lastElementChild === this.loginForm) {
       this.self.removeChild(this.loginForm);
       this._cleanLoginForm();
     }
@@ -200,14 +200,14 @@ class ListBoard extends Element {
     let message = args[4];
     let unread = args[5];
 
-    var item = this.createDiv();
+    let item = this.createDiv();
     this._setClass(item, [className.ITEM]);
-    var itemImg = this.createDiv();
+    let itemImg = this.createDiv();
     this._setClass(itemImg, [className.IMAGE]);
     this._setBackgroundImage(itemImg, coverUrl);
     item.appendChild(itemImg);
 
-    var itemContent = this.createDiv();
+    let itemContent = this.createDiv();
     this._setClass(itemContent, [className.CONTENT]);
 
     var contentTop = this.createDiv();
@@ -283,9 +283,10 @@ class ListBoard extends Element {
 
   setUnreadCount(target, count) {
     count = parseInt(count);
-    this._setContent(target, (count > 9) ? MAX_COUNT : count.toString());
-    this._setFontSize(target, (count > 9) ? MAX_FONT_SIZE : null);
-    (count > 0) ? show(target) : hide(target);
+    let sanitizeValue = (trueCondition, falseCondition) => {return count > 9 ? trueCondition : falseCondition;};
+    this._setContent(target, sanitizeValue(MAX_COUNT, count.toString()));
+    this._setFontSize(target, sanitizeValue(MAX_FONT_SIZE, null));
+    count > 0 ? show(target) : hide(target);
   }
 
   addChannelClickEvent(target, action) {
@@ -299,7 +300,7 @@ class ListBoard extends Element {
   addListOnFirstIndex(target) {
     let items = this._getListItemsArray();
     items.filter((item) => {
-      if (item.getAttribute('data-channel-url') == target.getAttribute('data-channel-url')) {
+      if (item.getAttribute('data-channel-url') === target.getAttribute('data-channel-url')) {
         this.list.removeChild(item);
       }
     });
@@ -309,9 +310,9 @@ class ListBoard extends Element {
   getChannelItem(channelUrl) {
     let items = this._getListItemsArray();
     let targetChannel;
-    for (var i = 0 ; i < items.length ; i++) {
+    for (let i = 0 ; i < items.length ; i++) {
       let item = items[i];
-      if (item.getAttribute('data-channel-url') == channelUrl) {
+      if (item.getAttribute('data-channel-url') === channelUrl) {
         targetChannel = item;
         break;
       }
