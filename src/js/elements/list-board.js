@@ -1,10 +1,9 @@
 import { className, MAX_COUNT, MAX_FONT_SIZE } from '../consts.js';
-import { show, hide, hasClass, removeClass, addClass, isEmptyString, removeWhiteSpace } from '../utils.js';
+import { show, hide, isEmptyString, removeWhiteSpace } from '../utils.js';
 import Element from './elements.js';
 
 const EMPTY_STRING = '';
 
-const OPTION_TOOLTIP_TEXT = 'Log out';
 const NEW_CHAT_TOOLTIP_TEXT = 'New Message';
 
 const TITLE_TOP_LOGIN = 'SendBird Widget';
@@ -17,8 +16,6 @@ const TITLE_EMPTY_BTN = 'Create';
 
 const INPUT_TYPE = 'text';
 const INPUT_MAX_LENGTH = 20;
-
-let isLogoutClick = false;
 
 class ListBoard extends Element {
   constructor(widget) {
@@ -51,21 +48,6 @@ class ListBoard extends Element {
     this._setClass(this.btnMini, [className.BTN, className.IC_MINIMIZE]);
     boardTop.appendChild(this.btnMini);
 
-    this.btnOption = this.createDiv();
-    this._setClass(this.btnOption, [className.BTN, className.IC_OPTION]);
-
-    this.btnLogout = this.createDiv();
-    this._setClass(this.btnLogout, [className.OPTION_MENU]);
-    var logoutText = this.createDiv();
-    this._setClass(logoutText, [className.OPTION_CONTENT]);
-    this._setContent(logoutText, OPTION_TOOLTIP_TEXT);
-    this.btnLogout.appendChild(logoutText);
-
-    this.btnOption.appendChild(this.btnLogout);
-    boardTop.appendChild(this.btnOption);
-
-    this.addOptionClickEvent();
-
     this.btnNewChat = this.createDiv();
     this._setClass(this.btnNewChat, [className.BTN, className.IC_NEW_CHAT]);
 
@@ -80,36 +62,6 @@ class ListBoard extends Element {
 
   addMinimizeClickEvent(action) {
     this._setClickEvent(this.btnMini, action);
-  }
-
-  addOptionClickEvent() {
-    if (!this._getOptionEventLock()) {
-      this._setClickEvent(this.btnOption, () => {
-        if (hasClass(this.btnOption, className.ACTIVE)) {
-          this.hideLogoutBtn();
-        } else {
-          addClass(this.btnOption, className.ACTIVE);
-          show(this.btnLogout);
-        }
-      });
-    }
-  }
-
-  addLogoutClickEvent(action) {
-    this.setOptionEventLock(true);
-    this._setClickEvent(this.btnLogout, action);
-  }
-
-  setOptionEventLock(value) {
-    isLogoutClick = value;
-  }
-  _getOptionEventLock() {
-    return isLogoutClick;
-  }
-
-  hideLogoutBtn() {
-    removeClass(this.btnOption, className.ACTIVE);
-    hide(this.btnLogout);
   }
 
   addNewChatClickEvent(action) {

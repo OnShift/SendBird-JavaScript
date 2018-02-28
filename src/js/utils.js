@@ -125,24 +125,24 @@ export function requestNotification() {
 }
 
 export function setCookie(userId, nickname) {
-  var date = new Date();
+  let date = new Date();
   date.setDate(date.getDate() + 1);
-  var expires = date.toGMTString();
+  let expires = date.toGMTString();
   document.cookie = 'sendbirdUserId=' + userId + ';expires=' + expires;
   document.cookie = 'sendbirdNickname=' + nickname + ';expires=' + expires;
 }
 
 export function getCookie() {
-  var sendbirdUserInfo = {
+  let sendbirdUserInfo = {
     "userId": '',
     "nickname": ''
   };
-  var cUserId = 'sendbirdUserId=';
-  var cNickname = 'sendbirdNickname=';
-  var cList = document.cookie.split(';');
-  for (var i = 0 ; i < cList.length ; i++) {
-    var c = cList[i];
-    while(c.charAt(0)==' ') {
+  let cUserId = 'sendbirdUserId=';
+  let cNickname = 'sendbirdNickname=';
+  let cList = document.cookie.split(';');
+  for (let i = 0 ; i < cList.length ; i++) {
+    let c = cList[i];
+    while(c.charAt(0) === ' ') {
       c = c.substring(1);
     }
     if (c.indexOf(cUserId) === 0) {
@@ -152,12 +152,4 @@ export function getCookie() {
     }
   }
   return sendbirdUserInfo;
-}
-
-export function deleteCookie() {
-  const userInfo = getCookie();
-  if (userInfo.userId) {
-    document.cookie = 'sendbirdUserId=' + userInfo.userId + ';expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    document.cookie = 'sendbirdNickname=' + userInfo.nickname + ';expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-  }
 }

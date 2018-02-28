@@ -20,8 +20,7 @@ import {
   createNotificationSound,
   requestNotification,
   setCookie,
-  getCookie,
-  deleteCookie
+  getCookie
 } from './utils.js';
 import { className, TYPE_STRING, MAX_COUNT } from './consts.js';
 
@@ -201,7 +200,6 @@ class SBWidget {
     });
 
     this.listBoard.addNewChatClickEvent(() => {
-      this.listBoard.hideLogoutBtn();
 
       var chatBoard = this.chatSection.createChatBoard(NEW_CHAT_BOARD_ID);
       this.responsiveChatSection(null, true);
@@ -238,22 +236,9 @@ class SBWidget {
     });
 
     this.listBoard.addMinimizeClickEvent(() => {
-      this.listBoard.hideLogoutBtn();
       this.closePopup();
       this.toggleBoard(false);
       this.chatSection.responsiveSize(true, this.responsiveChatSection.bind(this));
-    });
-
-    this.listBoard.addLogoutClickEvent(() => {
-      this.sb.disconnect(() => {
-        deleteCookie();
-        this.sb.reset();
-        this.toggleBoard(false);
-        this.widgetBtn.toggleIcon(false);
-        this.listBoard.setOptionEventLock(false);
-        this.chatSection.reset();
-        this.reset();
-      });
     });
 
     this.listBoard.addLoginClickEvent(() => {
@@ -337,7 +322,7 @@ class SBWidget {
             }
           }
         },
-        (channel, user) => {
+        (channel) => {
           this.listBoard.setChannelTitle(channel.url, this.sb.getNicknamesString(channel));
           let targetChatBoard = this.chatSection.getChatBoard(channel.url);
           if (targetChatBoard) {
