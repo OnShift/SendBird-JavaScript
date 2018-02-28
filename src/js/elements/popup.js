@@ -17,11 +17,6 @@ class Popup extends Element {
     this._createInvitePopup();
   }
 
-  reset() {
-    this.closeMemberPopup();
-    this.closeInvitePopup();
-  }
-
   closeMemberPopup() {
     hide(this.memberPopup);
     this._setContent(this.memberPopup.list, EMPTY_STRING);
@@ -88,7 +83,8 @@ class Popup extends Element {
 
   updateCount(target, count) {
     count = parseInt(count);
-    this._setContent(target, (count > 9) ? MAX_COUNT : count.toString());
+    let text = count > 9 ? MAX_COUNT : count.toString();
+    this._setContent(target, text);
   }
 
   createMemberItem(member, isInvite, isCurrentUser) {
@@ -136,7 +132,7 @@ class Popup extends Element {
     var ul = this.createUl();
     popupContent.appendChild(ul);
     popupBody.appendChild(popupContent);
-  
+
     var popupBottom = this.createDiv();
     this._setClass(popupBottom, [className.POPUP_BOTTOM]);
 
@@ -144,17 +140,17 @@ class Popup extends Element {
     this._setClass(bottomTitle, [className.TITLE]);
     this._setContent(bottomTitle, TITLE_POPUP_INVITE_LIST);
     popupBottom.appendChild(bottomTitle);
-  
+
     var bottomCount = this.createDiv();
     this._setClass(bottomCount, [className.COUNT]);
     this._setContent(bottomCount, '0');
     popupBottom.appendChild(bottomCount);
-  
+
     var bottomInvite = this.createDiv();
     this._setClass(bottomInvite, [className.INVITE_BTN, className.DISABLED]);
     this._setContent(bottomInvite, TITLE_POPUP_INVITE_BTN);
     popupBottom.appendChild(bottomInvite);
-  
+
     popupBody.appendChild(popupBottom);
     this.invitePopup.content = popupContent;
     this.invitePopup.list = ul;
