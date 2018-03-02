@@ -65,7 +65,7 @@ export function removeClass(...args) {
 }
 
 export function isEmptyString(target) {
-  return !!(target == null || target == undefined || target.length == 0);
+  return target === null || target === undefined || target.length === 0;
 }
 
 export function removeWhiteSpace(target) {
@@ -73,8 +73,8 @@ export function removeWhiteSpace(target) {
 }
 
 export function getFullHeight(target) {
-  var height = target.offsetHeight;
-  var style = getComputedStyle(target);
+  let height = target.offsetHeight;
+  let style = getComputedStyle(target);
   height += parseInt(style.marginTop) + parseInt(style.marginBottom);
   return height;
 }

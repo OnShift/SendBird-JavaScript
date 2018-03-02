@@ -7,7 +7,8 @@
     "prod-build": "webpack -p",
     "start-dev": "webpack-dev-server",
     "start": "webpack -p && node test_server/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src/"
   },
   "author": "OnShift",
   "license": "ISC",

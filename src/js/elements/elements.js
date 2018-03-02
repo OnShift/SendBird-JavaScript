@@ -159,7 +159,7 @@ class Element {
   }
 
   _isBottom(target, list) {
-    return (target.scrollTop + target.offsetHeight) >= list.offsetHeight;
+    return target.scrollTop + target.offsetHeight >= list.offsetHeight;
   }
 
   enabledToggle(target, isEnabled) {

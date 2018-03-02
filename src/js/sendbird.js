@@ -39,14 +39,6 @@ class Sendbird {
     });
   }
 
-  disconnect(action) {
-    if(this.isConnected()) {
-      this.sb.disconnect(() => {
-        action();
-      });
-    }
-  }
-
   isCurrentUser(user) {
     return this.sb.currentUser.userId === user.userId;
   }
@@ -54,6 +46,7 @@ class Sendbird {
   /*
   Channel
    */
+
   getChannelList(action) {
     if (!this.channelListQuery) {
       this.channelListQuery = this.sb.GroupChannel.createMyGroupChannelListQuery();
@@ -222,7 +215,7 @@ class Sendbird {
     let nicknameList = [];
     let currentUserId = this.sb.currentUser.userId;
     channel.members.forEach(function(member) {
-      if (member.userId != currentUserId) {
+      if (member.userId !== currentUserId) {
         nicknameList.push(xssEscape(member.nickname));
       }
     });
@@ -230,7 +223,7 @@ class Sendbird {
   }
 
   getMemberCount(channel) {
-    return (channel.memberCount > 9) ? MAX_COUNT : channel.memberCount.toString();
+    return channel.memberCount > 9 ? MAX_COUNT : channel.memberCount.toString();
   }
 
   getLastMessage(channel) {
@@ -250,11 +243,11 @@ class Sendbird {
 
     let _getDay = (val) => {
       let day = parseInt(val);
-      if (day == 1) {
+      if (day === 1) {
         return day + 'st';
-      } else if (day == 2) {
+      } else if (day === 2) {
         return day + 'en';
-      } else if (day == 3) {
+      } else if (day === 3) {
         return day + 'rd';
       } else {
         return day + 'th';
@@ -262,18 +255,18 @@ class Sendbird {
     };
 
     let _checkTime = (val) => {
-      return (+val < 10) ? '0' + val : val;
+      return +val < 10 ? '0' + val : val;
     };
 
     if (message) {
       const LAST_MESSAGE_YESTERDAY = 'YESTERDAY';
       let _nowDate = new Date();
       let _date = new Date(message.createdAt);
-      if (_nowDate.getDate() - _date.getDate() == 1) {
+      if (_nowDate.getDate() - _date.getDate() === 1) {
         return LAST_MESSAGE_YESTERDAY;
-      } else if (_nowDate.getFullYear() == _date.getFullYear()
-        && _nowDate.getMonth() == _date.getMonth()
-        && _nowDate.getDate() == _date.getDate()) {
+      } else if (_nowDate.getFullYear() === _date.getFullYear()
+        && _nowDate.getMonth() === _date.getMonth()
+        && _nowDate.getDate() === _date.getDate()) {
         return _checkTime(_date.getHours()) + ':' + _checkTime(_date.getMinutes());
       } else {
         return months[_date.getMonth()] + ' ' + _getDay(_date.getDate());
