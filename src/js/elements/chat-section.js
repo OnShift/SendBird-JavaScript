@@ -58,7 +58,7 @@ class ChatSection extends Element {
   moveToFirstIndex(target) {
     let items = this._getListBoardArray();
     items.filter((item) => {
-      if (item.id == target.id) {
+      if (item.id === target.id) {
         this.self.removeChild(item);
       }
     });
@@ -143,16 +143,16 @@ class ChatSection extends Element {
 
   addLeavePopup(target) {
     if (!target.leavePopup) {
-      var leavePopup = this.createDiv();
+      let leavePopup = this.createDiv();
       this._setClass(leavePopup, [className.LEAVE_POPUP]);
 
-      var leaveTitle = this.createDiv();
+      let leaveTitle = this.createDiv();
       this._setClass(leaveTitle, [className.POPUP_TOP]);
       this._setContent(leaveTitle, TITLE_CHAT_LEAVE_POPUP);
       leavePopup.appendChild(leaveTitle);
 
-      var div = this.createDiv();
-      var leaveBtn = this.createDiv();
+      let div = this.createDiv();
+      let leaveBtn = this.createDiv();
       this._setClass(leaveBtn, [className.LEAVE_BTN]);
       this._setContent(leaveBtn, TITLE_CHAT_LEAVE_BTN);
       div.appendChild(leaveBtn);
@@ -210,7 +210,7 @@ class ChatSection extends Element {
     let targetBoard;
     for (var i = 0 ; i < items.length ; i++) {
       let item = items[i];
-      if (item.id == channelUrl) {
+      if (item.id === channelUrl) {
         targetBoard = item;
         break;
       }
@@ -223,7 +223,7 @@ class ChatSection extends Element {
     let chatBoard = this.getChatBoard(channelUrl);
     let index = -1;
     for (var i = 0 ; i < items.length ; i++) {
-      if (items[i] == chatBoard) {
+      if (items[i] === chatBoard) {
         index = i;
         break;
       }
@@ -321,10 +321,10 @@ class ChatSection extends Element {
   responsiveHeight(channelUrl) {
     let targetBoard = this.getChatBoard(channelUrl);
     let messageContent = targetBoard.messageContent;
-    let changeHeight = (getFullHeight(targetBoard.typing) + getFullHeight(targetBoard.input));
+    let changeHeight = getFullHeight(targetBoard.typing) + getFullHeight(targetBoard.input);
     this._setHeight(
       messageContent,
-      (MESSAGE_CONTENT_HEIGHT_DEFAULT - (changeHeight - MESSAGE_INPUT_HEIGHT_DEFAULT))
+      MESSAGE_CONTENT_HEIGHT_DEFAULT - (changeHeight - MESSAGE_INPUT_HEIGHT_DEFAULT)
     );
   }
 
@@ -337,7 +337,8 @@ class ChatSection extends Element {
     } else {
       let typingUser = channel.getTypingMembers();
       spinner.insert(typing);
-      this._addContent(typing, (typingUser.length > 1) ? MESSAGE_TYPING_SEVERAL : xssEscape(typingUser[0].nickname) + MESSAGE_TYPING_MEMBER);
+      let text = typingUser.length > 1 ? MESSAGE_TYPING_SEVERAL : xssEscape(typingUser[0].nickname) + MESSAGE_TYPING_MEMBER;
+      this._addContent(typing, text);
       show(typing);
     }
   }
@@ -346,13 +347,13 @@ class ChatSection extends Element {
     let scaleWidth = IMAGE_MAX_SIZE / width;
     let scaleHeight = IMAGE_MAX_SIZE / height;
 
-    let scale = (scaleWidth <= scaleHeight) ? scaleWidth : scaleHeight;
+    let scale = scaleWidth <= scaleHeight ? scaleWidth : scaleHeight;
     if (scale > 1) {
       scale = 1;
     }
 
-    let resizeWidth = (width * scale);
-    let resizeHeight = (height * scale);
+    let resizeWidth = width * scale;
+    let resizeHeight = height * scale;
 
     this._setBackgroundSize(imageTarget, resizeWidth + 'px ' + resizeHeight + 'px');
     this._setWidth(imageTarget, resizeWidth);
@@ -361,11 +362,12 @@ class ChatSection extends Element {
   }
 
   setImageSize(target, message) {
-    this._setBackgroundImage(target, (message.thumbnails.length > 0) ? message.thumbnails[0].url : message.url);
+    let url = message.thumbnails.length > 0 ? message.thumbnails[0].url : message.url;
+    this._setBackgroundImage(target, url);
     if (message.thumbnails.length > 0) {
       this._imageResize(target, message.thumbnails[0].real_width, message.thumbnails[0].real_height);
     } else {
-      var img = new Image();
+      let img = new Image();
       img.addEventListener('load', (res) => {
         res.path ? this._imageResize(target, res.path[0].width, res.path[0].height) : this._imageResize(target, res.target.width, res.target.height);
       });
@@ -374,7 +376,7 @@ class ChatSection extends Element {
   }
 
   createMessageItem(message, isCurrentUser, isContinue, unreadCount) {
-    var messageSet = this.createDiv();
+    let messageSet = this.createDiv();
     messageSet.id = message.messageId;
     this._setClass(messageSet, isCurrentUser ? [className.MESSAGE_SET, className.USER] : [className.MESSAGE_SET]);
     if (isContinue) {
@@ -518,7 +520,7 @@ class ChatSection extends Element {
   }
 
   createAdminMessageItem(message) {
-    var admin = this.createDiv();
+    let admin = this.createDiv();
     this._setClass(admin, [className.MESSAGE_SET, className.ADMIN_MESSAGE]);
     this._setContent(admin, xssEscape(message.message));
     return admin;
@@ -526,17 +528,19 @@ class ChatSection extends Element {
 
   setUnreadCount(target, count) {
     count = parseInt(count);
-    this._setContent(target, (count > 9) ? MAX_COUNT : (count == 0) ? '' : count.toString());
-    (count > 0) ? show(target, DISPLAY_TYPE_INLINE_BLOCK) : hide(target);
+    let renderSingleDigitCount = (c) => {return c === 0 ? '' : c.toString();};
+    let text = count > 9 ? MAX_COUNT : renderSingleDigitCount(count);
+    this._setContent(target, text);
+    count > 0 ? show(target, DISPLAY_TYPE_INLINE_BLOCK) : hide(target);
   }
 
   updateReadReceipt(channelSet, target) {
-    var items = target.querySelectorAll('.' + className.MESSAGE_SET);
-    for (var j = 0 ; j < channelSet.message.length ; j++) {
+    let items = target.querySelectorAll('.' + className.MESSAGE_SET);
+    for (let j = 0 ; j < channelSet.message.length ; j++) {
       let message = channelSet.message[j];
-      for (var i = 0 ; i < items.length ; i++) {
+      for (let i = 0 ; i < items.length ; i++) {
         let item = items[i];
-        if (item.id == message.messageId) {
+        if (item.id === message.messageId) {
           this.setUnreadCount(item.unread, channelSet.channel.getReadReceipt(message));
           break;
         }
@@ -545,17 +549,17 @@ class ChatSection extends Element {
   }
 
   createMessageItemTime(date) {
-    var time = this.createDiv();
+    let time = this.createDiv();
     this._setClass(time, [className.MESSAGE_SET, className.TIME]);
     this._setContent(time, date);
     return time;
   }
 
   createNewChatBoard(target) {
-    var chatContent = this.createDiv();
+    let chatContent = this.createDiv();
     this._setClass(chatContent, [className.CONTENT]);
 
-    var userContent = this.createDiv();
+    let userContent = this.createDiv();
     this._setClass(userContent, [className.USER_CONTENT]);
     chatContent.appendChild(userContent);
 
@@ -577,8 +581,8 @@ class ChatSection extends Element {
   }
 
   createUserList(target) {
-    if (target.querySelectorAll(this.tagName.UL).length == 0) {
-      var userList = this.createUl();
+    if (target.querySelectorAll(this.tagName.UL).length === 0) {
+      let userList = this.createUl();
       target.list = userList;
       target.appendChild(userList);
     }

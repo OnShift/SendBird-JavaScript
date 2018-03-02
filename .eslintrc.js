@@ -15,6 +15,9 @@ module.exports = {
     // TODO change to 2 when we do something more sane with the console errors
     'no-console': 0,
     'camelcase': 1,
-    'no-unused-vars': 1
+    'no-unused-vars': 1,
+    'no-extra-parens': 1,
+    'block-scoped-var': 2,
+    'eqeqeq': 1
   }
 };
