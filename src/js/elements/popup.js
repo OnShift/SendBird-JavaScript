@@ -7,7 +7,7 @@ const TITLE_POPUP_MEMBER_LIST = 'Member List';
 const TITLE_POPUP_INVITE_LIST = 'Invite Members';
 const TITLE_POPUP_INVITE_BTN = 'Invite';
 const MEMBER_POPUP_DEFAULT = -30;
-const INVITE_POPUP_DEFAULT = -3;
+const INVITE_POPUP_DEFAULT = -303;
 const POPUP_DISTANCE = 300;
 
 class Popup extends Element {
