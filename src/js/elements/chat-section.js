@@ -32,7 +32,7 @@ class ChatSection extends Element {
     super();
     this._create();
     widget.appendChild(this.self);
-    this.textKr = '';
+    this.textKr = EMPTY_STRING;
   }
 
   reset() {
@@ -289,7 +289,7 @@ class ChatSection extends Element {
   }
 
   clearInputText(target, channelUrl) {
-    let items = target.querySelectorAll(this.tagName.DIV);
+    let items = target.querySelectorAll(this.tagType.DIV);
     for (var i = 0 ; i < items.length ; i++) {
       let item = items[i];
       item.remove();
@@ -581,7 +581,7 @@ class ChatSection extends Element {
   }
 
   createUserList(target) {
-    if (target.querySelectorAll(this.tagName.UL).length === 0) {
+    if (target.querySelectorAll(this.tagType.UL).length === 0) {
       let userList = this.createUl();
       target.list = userList;
       target.appendChild(userList);
@@ -589,23 +589,23 @@ class ChatSection extends Element {
   }
 
   createUserListItem(user) {
-    var li = this.createLi();
+    let li = this.createLi();
 
-    var userItem = this.createDiv();
+    let userItem = this.createDiv();
     this._setClass(userItem, [className.USER_ITEM]);
 
-    var userSelect = this.createDiv();
+    let userSelect = this.createDiv();
     this._setClass(userSelect, [className.USER_SELECT]);
     this._setDataset(userSelect, 'user-id', user.userId);
     li.select = userSelect;
     userItem.appendChild(userSelect);
 
-    var userProfile = this.createDiv();
+    let userProfile = this.createDiv();
     this._setClass(userProfile, [className.IMAGE]);
     this._setBackgroundImage(userProfile, user.profileUrl);
     userItem.appendChild(userProfile);
 
-    var userNickname = this.createDiv();
+    let userNickname = this.createDiv();
     this._setClass(userNickname, [className.NICKNAME]);
     this._setContent(userNickname, xssEscape(user.nickname));
     userItem.appendChild(userNickname);

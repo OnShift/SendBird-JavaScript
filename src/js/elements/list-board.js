@@ -119,7 +119,6 @@ class ListBoard extends Element {
       this.self.removeChild(this.listContent);
     }
     this._setContent(this.topTitle, TITLE_TOP_LOGIN);
-    hide(this.btnOption);
     hide(this.btnNewChat);
     this.self.appendChild(this.loginForm);
     this._toggleLoginBtn();
@@ -179,7 +178,6 @@ class ListBoard extends Element {
       this._cleanLoginForm();
     }
     this._setContent(this.topTitle, TITLE_TOP_CHANNEL);
-    show(this.btnOption);
     show(this.btnNewChat);
     this.self.appendChild(this.listContent);
   }
