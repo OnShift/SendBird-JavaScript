@@ -1,5 +1,4 @@
 'use strict';
-/* eslint-disable */
 import WidgetBtn from './elements/widget-btn.js';
 import ListBoard from './elements/list-board.js';
 import ChatSection from './elements/chat-section.js';
@@ -28,15 +27,15 @@ import {
     MAX_COUNT
 } from './consts.js';
 
-const WIDGET_ID = 'sb_widget';
-const TIME_STRING_TODAY = 'TODAY';
-const TIME_MESSAGE_TYPE = 'time';
-const NEW_CHAT_BOARD_ID = 'NEW_CHAT';
-const KEY_DOWN_ENTER = 13;
-const KEY_DOWN_KR = 229;
 const CHAT_BOARD_WIDTH = 300;
 const ERROR_MESSAGE = 'Please create "sb_widget" element first.';
 const EVENT_TYPE_CLICK = 'click';
+const KEY_DOWN_ENTER = 13;
+const KEY_DOWN_KR = 229;
+const NEW_CHAT_BOARD_ID = 'NEW_CHAT';
+const TIME_MESSAGE_TYPE = 'time';
+const TIME_STRING_TODAY = 'TODAY';
+const WIDGET_ID = 'sb_widget';
 
 window.WebFontConfig = {
     google: {
@@ -446,7 +445,7 @@ class SBWidget {
                     hasClass(item.select, className.ACTIVE) ? removeClass(item.select, className.ACTIVE) : addClass(item.select, className.ACTIVE);
                     let selectedUserCount = this.chatSection.getSelectedUserIds(userContent.list).length;
                     this.chatSection.updateChatTop(target, selectedUserCount > 9 ? MAX_COUNT : selectedUserCount.toString(), null);
-                    (selectedUserCount > 0) ? removeClass(target.startBtn, className.DISABLED) : addClass(target.startBtn, className.DISABLED);
+                    selectedUserCount > 0 ? removeClass(target.startBtn, className.DISABLED) : addClass(target.startBtn, className.DISABLED);
                 });
                 userContent.list.appendChild(item);
             }
@@ -592,7 +591,7 @@ class SBWidget {
                                 hasClass(item.select, className.ACTIVE) ? removeClass(item.select, className.ACTIVE) : addClass(item.select, className.ACTIVE);
                                 let selectedUserCount = this.popup.getSelectedUserIds(this.popup.invitePopup.list).length;
                                 this.popup.updateCount(this.popup.invitePopup.count, selectedUserCount);
-                                (selectedUserCount > 0) ? removeClass(this.popup.invitePopup.inviteBtn, className.DISABLED) : addClass(this.popup.invitePopup.inviteBtn, className.DISABLED);
+                                selectedUserCount > 0 ? removeClass(this.popup.invitePopup.inviteBtn, className.DISABLED) : addClass(this.popup.invitePopup.inviteBtn, className.DISABLED);
                             });
                             this.popup.invitePopup.list.appendChild(item);
                         }
@@ -774,7 +773,7 @@ class SBWidget {
                 if (message.isAdminMessage()) {
                     newMessage = this.chatSection.createAdminMessageItem(message);
                 } else { // isUserMessage() || isFileMessage()
-                    isContinue = (prevMessage && prevMessage.sender) ? (message.sender.userId === prevMessage.sender.userId) : false;
+                    isContinue = prevMessage && prevMessage.sender ? message.sender.userId === prevMessage.sender.userId : false;
                     let isCurrentUser = this.sb.isCurrentUser(message.sender);
                     let unreadCount = channel.getReadReceipt(message);
                     if (message.isUserMessage()) {

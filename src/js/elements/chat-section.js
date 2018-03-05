@@ -8,30 +8,29 @@ import {
   xssEscape
 } from '../utils.js';
 
-const EMPTY_STRING = '';
-
 const CHAT_SECTION_RIGHT_MAX = '280px';
 const CHAT_SECTION_RIGHT_MIN = '60px';
-const TOOLTIP_MEMBER_LIST = 'Member List';
-const TOOLTIP_CHANNEL_LEAVE = 'Channel Leave';
-const TOOLTIP_INVITE_MEMBER = 'Invite Member';
-const TITLE_CHAT_TITLE_DEFAULT = 'Group Channel';
-const TITLE_CHAT_TITLE_NEW_CHAT = 'New Chat';
-const TITLE_CHAT_LEAVE_POPUP = 'Do you really want to leave?';
-const TITLE_CHAT_LEAVE_BTN = 'Leave';
-const TITLE_CHAT_CANCEL_BTN = 'Cancel';
-const MEMBER_COUNT_DEFAULT = '0';
-const MARGIN_TOP_MESSAGE = '3px';
-const MESSAGE_NONE_IMAGE_HEIGHT = '10px';
 const DISPLAY_NONE = 'none';
-const TITLE_START_CHAT_BTN = 'Start Chat';
+const DISPLAY_TYPE_INLINE_BLOCK = 'inline-block';
+const EMPTY_STRING = '';
+const IMAGE_MAX_SIZE = 160;
+const MARGIN_TOP_MESSAGE = '3px';
+const MEMBER_COUNT_DEFAULT = '0';
 const MESSAGE_CONTENT_HEIGHT_DEFAULT = 328;
 const MESSAGE_INPUT_HEIGHT_DEFAULT = 29;
-const MESSAGE_TYPING_SEVERAL = 'Several people are typing...';
+const MESSAGE_NONE_IMAGE_HEIGHT = '10px';
 const MESSAGE_TYPING_MEMBER = ' is typing...';
-const DISPLAY_TYPE_INLINE_BLOCK = 'inline-block';
-const IMAGE_MAX_SIZE = 160;
+const MESSAGE_TYPING_SEVERAL = 'Several people are typing...';
 const TEXT_FILE_DOWNLOAD = 'Download';
+const TITLE_CHAT_CANCEL_BTN = 'Cancel';
+const TITLE_CHAT_LEAVE_BTN = 'Leave';
+const TITLE_CHAT_LEAVE_POPUP = 'Do you really want to leave?';
+const TITLE_CHAT_TITLE_DEFAULT = 'Group Channel';
+const TITLE_CHAT_TITLE_NEW_CHAT = 'New Chat';
+const TITLE_START_CHAT_BTN = 'Start Chat';
+const TOOLTIP_CHANNEL_LEAVE = 'Channel Leave';
+const TOOLTIP_INVITE_MEMBER = 'Invite Member';
+const TOOLTIP_MEMBER_LIST = 'Member List';
 
 class ChatSection extends Element {
     constructor(widget) {

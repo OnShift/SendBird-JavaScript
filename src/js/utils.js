@@ -1,7 +1,7 @@
 const ANIMATION_EVENT = 'animationend';
 const ANIMATION_REGEX = 'sb-fade.*';
-const DISPLAY_NONE = 'none';
 const DISPLAY_BLOCK = 'block';
+const DISPLAY_NONE = 'none';
 
 let hasClassRegex = (target, classNameRegex) => {
     return new RegExp(`(^| )${classNameRegex}( |$)`, 'gi').test(target.className);

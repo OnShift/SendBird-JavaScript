@@ -12,19 +12,16 @@ import {
 import Element from './elements.js';
 
 const EMPTY_STRING = '';
-
-const NEW_CHAT_TOOLTIP_TEXT = 'New Message';
-
-const TITLE_TOP_LOGIN = 'SendBird Widget';
-const TITLE_TOP_CHANNEL = 'Channel List';
-const TITLE_LOGIN_USER_ID = 'USER ID';
-const TITLE_LOGIN_NICKNAME = 'NICKNAME';
-const TITLE_LOGIN_BTN = 'Start Chat';
-const TITLE_EMPTY_ITEM = 'Click below to start';
-const TITLE_EMPTY_BTN = 'Create';
-
-const INPUT_TYPE = 'text';
 const INPUT_MAX_LENGTH = 20;
+const INPUT_TYPE = 'text';
+const NEW_CHAT_TOOLTIP_TEXT = 'New Message';
+const TITLE_EMPTY_BTN = 'Create';
+const TITLE_EMPTY_ITEM = 'Click below to start';
+const TITLE_LOGIN_BTN = 'Start Chat';
+const TITLE_LOGIN_NICKNAME = 'NICKNAME';
+const TITLE_LOGIN_USER_ID = 'USER ID';
+const TITLE_TOP_CHANNEL = 'Channel List';
+const TITLE_TOP_LOGIN = 'SendBird Widget';
 
 class ListBoard extends Element {
     constructor(widget) {
