@@ -9,7 +9,6 @@
   "scripts": {
     "prod-build": "webpack -p",
     "start-dev": "webpack-dev-server",
-
     "start": "webpack -p && node test_server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "webpack --config ./webpack.config.js --progress --colors",
@@ -34,6 +33,7 @@
     "webpack-dev-server": "^2.9.4"
   },
   "dependencies": {
+    "eslint-plugin-react": "^7.7.0",
     "sendbird": "^3.0.53",
     "webpack": "^2.2.1"
   }
