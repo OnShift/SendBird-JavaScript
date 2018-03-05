@@ -42,10 +42,8 @@ export function hasClass(...args) {
 
 export function addClass(...args) {
     return args.reduce((target, className) => {
-        if (target.classList) {
-            if (!(className in target.classList)) {
-                target.classList.add(className);
-            }
+        if (target.classList&&!(className in target.classList)) {
+            target.classList.add(className);
         }
         else {
             if (target.className.indexOf(className) < 0) {
