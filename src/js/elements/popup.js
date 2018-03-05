@@ -6,7 +6,7 @@ const EMPTY_STRING = '';
 const TITLE_POPUP_MEMBER_LIST = 'Member List';
 const TITLE_POPUP_INVITE_LIST = 'Invite Members';
 const TITLE_POPUP_INVITE_BTN = 'Invite';
-const MEMBER_POPUP_DEFAULT = -30;
+const MEMBER_POPUP_DEFAULT = -333;
 const INVITE_POPUP_DEFAULT = -303;
 const POPUP_DISTANCE = 300;
 
