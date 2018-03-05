@@ -142,17 +142,6 @@ class SBWidget {
             if (targetBoard) {
                 this.chatSection.closeChatBoard(targetBoard);
             }
-<<<<<<< HEAD
-=======
-          }
-        },
-        (channel) => {
-          this.listBoard.setChannelTitle(channel.url, this.sb.getNicknamesString(channel));
-          let targetChatBoard = this.chatSection.getChatBoard(channel.url);
-          if (targetChatBoard) {
-            this.updateChannelInfo(targetChatBoard, channel);
-          }
->>>>>>> ca24a27... removing some build warnings
         }
         this.activeChannelSetList = [];
         this.closePopup();
