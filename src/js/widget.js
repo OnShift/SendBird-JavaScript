@@ -1,4 +1,8 @@
 'use strict';
+<<<<<<< HEAD
+=======
+/* eslint-disable */
+>>>>>>> 0e350d0... Pretty up widget.js, limited refactor
 import WidgetBtn from './elements/widget-btn.js';
 import ListBoard from './elements/list-board.js';
 import ChatSection from './elements/chat-section.js';
