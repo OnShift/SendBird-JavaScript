@@ -14,7 +14,6 @@ module.exports = {
     "eol-last": 1,
     'indent': ['error', 4, {'SwitchCase': 1}],
     'semi': 1,
-    // "complexity": ["warn", { "max": 3 }],
     // TODO change to 2 when we do something more sane with the console errors
     'no-console': 0,
     'no-trailing-spaces': 1,
