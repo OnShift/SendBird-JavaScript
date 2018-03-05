@@ -273,7 +273,6 @@ class SBWidget {
   _connect(userId, nickname, callback) {
     this.sb.connect(userId, nickname, () => {
       this.widgetBtn.toggleIcon(true);
-
       this.listBoard.showChannelList();
       this.spinner.insert(this.listBoard.list);
       this.getChannelList();
