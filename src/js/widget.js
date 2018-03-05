@@ -73,10 +73,11 @@ class SBWidget {
   }
 
   _initClickEvent(event) {
+    let _isReservedClass = (t) => {
+      return hasClass(t, className.IC_MEMBERS) || hasClass(t, className.IC_INVITE) || hasClass(t, className.IC_NEW_CHAT);
+    };
     let _checkPopup = function(_target, obj) {
-      if (obj === _target || hasClass(_target, className.IC_MEMBERS)
-                          || hasClass(_target, className.IC_INVITE)
-                          || hasClass(_target, className.IC_NEW_CHAT)) {
+      if (obj === _target || _isReservedClass(_target)) {
         return true;
       } else {
         let returnedCheck = false;
