@@ -37,7 +37,7 @@ class ChatSection extends Element {
         super();
         this._create();
         widget.appendChild(this.self);
-        this.textKr = '';
+        this.textKr = EMPTY_STRING;
     }
 
     reset() {
@@ -293,7 +293,7 @@ class ChatSection extends Element {
     }
 
     clearInputText(target, channelUrl) {
-        let items = target.querySelectorAll(this.tagName.DIV);
+        let items = target.querySelectorAll(this.tagType.DIV);
         for (let i = 0; i < items.length; i++) {
             let item = items[i];
             item.remove();
@@ -593,7 +593,7 @@ class ChatSection extends Element {
     }
 
     createUserList(target) {
-        if (target.querySelectorAll(this.tagName.UL).length === 0) {
+        if (target.querySelectorAll(this.tagType.UL).length === 0) {
             let userList = this.createUl();
             target.list = userList;
             target.appendChild(userList);

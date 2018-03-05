@@ -78,12 +78,15 @@ class SBWidget {
     }
 
     _initClickEvent(event) {
-        let _checkPopup = function (_target, obj) {
-            if (obj === _target || hasClass(_target, className.IC_MEMBERS) || hasClass(_target, className.IC_INVITE)) {
+        let _isReservedClass = (t) => {
+            return hasClass(t, className.IC_MEMBERS) || hasClass(t, className.IC_INVITE) || hasClass(t, className.IC_NEW_CHAT);
+        };
+        let _checkPopup = function(_target, obj) {
+            if (obj === _target || _isReservedClass(_target)) {
                 return true;
             } else {
                 let returnedCheck = false;
-                for (let i = 0; i < obj.childNodes.length; i++) {
+                for (let i = 0 ; i < obj.childNodes.length ; i++) {
                     returnedCheck = _checkPopup(_target, obj.childNodes[i]);
                     if (returnedCheck) break;
                 }
@@ -450,6 +453,7 @@ class SBWidget {
                 userContent.list.appendChild(item);
             }
         }
+
         this.chatSection.addUserListScrollEvent(target, () => {
             this.sb.getUserList((userList) => {
                 this.setUserList(target, userList);
