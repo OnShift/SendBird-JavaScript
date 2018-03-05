@@ -45,9 +45,7 @@ class Sendbird {
         return this.sb.currentUser.userId === user.userId;
     }
 
-    /*
-    Channel
-     */
+    /*Channel*/
 
     getChannelList(action) {
         if (!this.channelListQuery) {
@@ -106,9 +104,8 @@ class Sendbird {
         });
     }
 
-    /*
-    Message
-     */
+    /*Message*/
+
     getTotalUnreadCount(action) {
         this.sb.GroupChannel.getTotalUnreadMessageCount((unreadCount) => {
             action(unreadCount);
@@ -154,9 +151,8 @@ class Sendbird {
         });
     }
 
-    /*
-    User
-     */
+    /*User*/
+
     getUserList(action) {
         if (!this.userListQuery) {
             this.userListQuery = this.sb.createUserListQuery();
@@ -172,9 +168,8 @@ class Sendbird {
         }
     }
 
-    /*
-    Handler
-     */
+    /*Handler*/
+
     createHandlerGlobal(...args) {
         let messageReceivedFunc = args[0];
         let messageUpdatedFunc = args[1];
@@ -213,9 +208,8 @@ class Sendbird {
         this.sb.addChannelHandler(GLOBAL_HANDLER, channelHandler);
     }
 
-    /*
-    Info
-     */
+    /*Info*/
+
     getNicknamesString(channel) {
         let nicknameList = [];
         let currentUserId = this.sb.currentUser.userId;

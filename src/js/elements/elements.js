@@ -26,9 +26,8 @@ class Element {
         };
     }
 
-    /*
-    Create Elements
-     */
+    /*Create Elements*/
+
     createDiv() {
         return document.createElement(this.tagName.DIV);
     }

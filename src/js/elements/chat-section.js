@@ -327,9 +327,9 @@ class ChatSection extends Element {
         let messageContent = targetBoard.messageContent;
         let changeHeight = getFullHeight(targetBoard.typing) + getFullHeight(targetBoard.input);
         this._setHeight(
-      messageContent,
-      MESSAGE_CONTENT_HEIGHT_DEFAULT - (changeHeight - MESSAGE_INPUT_HEIGHT_DEFAULT)
-    );
+            messageContent,
+            MESSAGE_CONTENT_HEIGHT_DEFAULT - (changeHeight - MESSAGE_INPUT_HEIGHT_DEFAULT)
+        );
     }
 
     showTyping(channel, spinner) {
@@ -602,7 +602,6 @@ class ChatSection extends Element {
 
     createUserListItem(user) {
         let li = this.createLi();
-
         let userItem = this.createDiv();
         this._setClass(userItem, [className.USER_ITEM]);
 
