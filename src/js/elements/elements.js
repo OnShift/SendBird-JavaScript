@@ -4,7 +4,7 @@ import { className, styleValue } from '../consts.js';
 
 class Element {
   constructor() {
-    this.tagName = {
+    this.tagType = {
       DIV: 'div',
       SPAN: 'span',
       INPUT: 'input',
@@ -30,43 +30,43 @@ class Element {
   Create Elements
    */
   createDiv() {
-    return document.createElement(this.tagName.DIV);
+    return document.createElement(this.tagType.DIV);
   }
 
   createTime() {
-    return document.createElement(this.tagName.TIME);
+    return document.createElement(this.tagType.TIME);
   }
 
   createA() {
-    return document.createElement(this.tagName.A);
+    return document.createElement(this.tagType.A);
   }
 
   createImg() {
-    return document.createElement(this.tagName.IMG);
+    return document.createElement(this.tagType.IMG);
   }
 
   createSpan() {
-    return document.createElement(this.tagName.SPAN);
+    return document.createElement(this.tagType.SPAN);
   }
 
   createLabel() {
-    return document.createElement(this.tagName.LABEL);
+    return document.createElement(this.tagType.LABEL);
   }
 
   createInput() {
-    return document.createElement(this.tagName.INPUT);
+    return document.createElement(this.tagType.INPUT);
   }
 
   createUl() {
-    return document.createElement(this.tagName.UL);
+    return document.createElement(this.tagType.UL);
   }
 
   createLi() {
-    return document.createElement(this.tagName.LI);
+    return document.createElement(this.tagType.LI);
   }
 
   createVideo() {
-    return document.createElement(this.tagName.VIDEO);
+    return document.createElement(this.tagType.VIDEO);
   }
 
   _setClass(...args) {
