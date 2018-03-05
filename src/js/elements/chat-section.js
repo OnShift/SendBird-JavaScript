@@ -32,7 +32,7 @@ class ChatSection extends Element {
     super();
     this._create();
     widget.appendChild(this.self);
-    this.textKr = '';
+    this.textKr = EMPTY_STRING;
   }
 
   reset() {
