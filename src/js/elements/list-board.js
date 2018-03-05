@@ -9,8 +9,8 @@ import {
     isEmptyString,
     removeWhiteSpace
 } from '../utils.js';
-import Element from './elements.js';
 
+import Element from './elements.js';
 const EMPTY_STRING = '';
 const INPUT_MAX_LENGTH = 20;
 const INPUT_TYPE = 'text';
