@@ -446,11 +446,6 @@ class SBWidget {
         userContent.list.appendChild(item);
       }
     }
-    this.chatSection.addUserListScrollEvent(target, () => {
-      this.sb.getUserList((userList) => {
-        this.setUserList(target, userList);
-      });
-    });
   }
 
   getChannelList() {
