@@ -3,8 +3,11 @@ import Element from './elements.js';
 import { addClass, show, hide, xssEscape } from '../utils.js';
 
 const EMPTY_STRING = '';
-const INVITE_POPUP_DEFAULT = -3;
+const TITLE_POPUP_MEMBER_LIST = 'Member List';
+const TITLE_POPUP_INVITE_LIST = 'Invite Members';
+const TITLE_POPUP_INVITE_BTN = 'Invite';
 const MEMBER_POPUP_DEFAULT = -30;
+const INVITE_POPUP_DEFAULT = -1;
 const POPUP_DISTANCE = 300;
 const TITLE_POPUP_INVITE_BTN = 'Invite';
 const TITLE_POPUP_INVITE_LIST = 'Invite Members';
