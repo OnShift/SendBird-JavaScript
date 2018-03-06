@@ -1,13 +1,13 @@
 const express = require('express');
 const app = express();
 
-const PORT = process.env.PORT || 9001
+const PORT = process.env.PORT || 9001;
 
 app.use(express.static('build'));
 app.use(express.static('./'));
 
 app.get('/', function(req, res) {
-  res.sendfile('index.html');
+    res.sendfile('index.html');
 });
 
 app.listen(PORT);
