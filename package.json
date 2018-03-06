@@ -2,15 +2,12 @@
   "name": "onshift-chat-widget",
   "version": "0.1.3",
   "description": "A chat widget based on and utilizing SendBird.",
-  "engines": {
-    "node": "9.5.0"
-  },
   "main": "index.js",
   "scripts": {
     "prod-build": "webpack -p",
     "start-dev": "webpack-dev-server",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack -p && node test_server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint src/"
   },
   "author": "OnShift",
