@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-const PORT = process.env.PORT || 9001;
+const PORT = 9001;
 
 app.use(express.static('build'));
 app.use(express.static('./'));
