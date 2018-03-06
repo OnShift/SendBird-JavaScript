@@ -44,21 +44,127 @@ window.WebFontConfig = {
 };
 
 class SBWidget {
-    constructor() {
+  constructor() {
 
+  }
+
+  start(appId) {
+    this._getGoogleFont();
+    this.widget = document.getElementById(WIDGET_ID);
+    if (this.widget) {
+      document.addEventListener(EVENT_TYPE_CLICK, (event) => {
+        this._initClickEvent(event);
+      });
+      this._init();
+      this._start(appId);
+    } else {
+      console.error(ERROR_MESSAGE);
     }
+  }
 
-    start(appId) {
-        this._getGoogleFont();
-        this.widget = document.getElementById(WIDGET_ID);
-        if (this.widget) {
-            document.addEventListener(EVENT_TYPE_CLICK, (event) => {
-                this._initClickEvent(event);
-            });
-            this._init();
-            this._start(appId);
-        } else {
-            console.error(ERROR_MESSAGE);
+  startWithConnect(appId, userId, nickname, callback) {
+    this._getGoogleFont();
+    this.widget = document.getElementById(WIDGET_ID);
+    if (this.widget) {
+      document.addEventListener(EVENT_TYPE_CLICK, (event) => {
+        this._initClickEvent(event);
+      });
+      this._init();
+      this._start(appId);
+      this._connect(userId, nickname, callback);
+    } else {
+      console.error(ERROR_MESSAGE);
+    }
+  }
+
+  _initClickEvent(event) {
+    let _isReservedClass = (t) => {
+      return hasClass(t, className.IC_MEMBERS) || hasClass(t, className.IC_INVITE) || hasClass(t, className.IC_NEW_CHAT);
+    };
+    let _checkPopup = function(_target, obj) {
+      if (obj === _target || _isReservedClass(_target)) {
+        return true;
+      } else {
+        let returnedCheck = false;
+        for (let i = 0 ; i < obj.childNodes.length ; i++) {
+          returnedCheck = _checkPopup(_target, obj.childNodes[i]);
+          if (returnedCheck) break;
+        }
+        return returnedCheck;
+      }
+    };
+
+    if (!_checkPopup(event.target, this.popup.memberPopup)) {
+      this.closeMemberPopup();
+    }
+    if (!_checkPopup(event.target, this.popup.invitePopup)) {
+      this.closeInvitePopup();
+    }
+  }
+
+  _init() {
+    this.spinner = new Spinner();
+    this.widgetBtn = new WidgetBtn(this.widget);
+    this.listBoard = new ListBoard(this.widget);
+    this.chatSection = new ChatSection(this.widget);
+    this.popup = new Popup();
+
+    this.activeChannelSetList = [];
+    this.extraChannelSetList = [];
+
+    this.timeMessage = class TimeMessage {
+      constructor(date) {
+        this.time = date;
+        this.type = TIME_MESSAGE_TYPE;
+      }
+      isTimeMessage() {
+        return this.type === TIME_MESSAGE_TYPE;
+      }
+    };
+
+    requestNotification();
+    this.notificationSound = createNotificationSound();
+  }
+
+  _getGoogleFont() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' === document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  }
+
+  reset() {
+    this.extraChannelSetList = [];
+    for (var i = 0 ; i < this.activeChannelSetList.length ; i++) {
+      let channelSet = this.activeChannelSetList[i];
+      let targetBoard = this.chatSection.getChatBoard(channelSet.channel.url);
+      if (targetBoard) {
+        this.chatSection.closeChatBoard(targetBoard);
+      }
+    }
+    this.activeChannelSetList = [];
+    this.closePopup();
+
+    this.sb.reset();
+    this.listBoard.reset();
+    this.widgetBtn.reset();
+  }
+
+  responsiveChatSection(channelUrl, isShow) {
+    let maxSize = 1;
+    let currentSize = this.activeChannelSetList.length;
+    if (currentSize >= maxSize) {
+      let extraChannelSet = getLastItem(this.activeChannelSetList);
+      if (extraChannelSet) {
+        if (this.extraChannelSetList.indexOf(extraChannelSet.channel.url) < 0) {
+          this.extraChannelSetList.push(extraChannelSet.channel.url);
+        }
+        let chatBoard = this.chatSection.getChatBoard(extraChannelSet.channel.url);
+        if (chatBoard) {
+          this.chatSection.closeChatBoard(chatBoard);
         }
     }
 
@@ -104,28 +210,85 @@ class SBWidget {
 
     _init() {
         this.spinner = new Spinner();
+        this.chatSection.addClickEvent(chatBoard.closeBtn, () => {
+        this.chatSection.closeChatBoard(chatBoard);
+        this.closePopup();
+        this.responsiveChatSection();
+        });
+        hide(chatBoard.leaveBtn);
+        hide(chatBoard.memberBtn);
+        hide(chatBoard.inviteBtn);
+      });
 
-        this.widgetBtn = new WidgetBtn(this.widget);
-        this.listBoard = new ListBoard(this.widget);
-        this.chatSection = new ChatSection(this.widget);
-        this.popup = new Popup();
+      this.listBoard.addMinimizeClickEvent(() => {
+        this.closePopup();
+        this.toggleBoard(false);
+        this.chatSection.responsiveSize(true, this.responsiveChatSection.bind(this));
+      });
 
-        this.activeChannelSetList = [];
-        this.extraChannelSetList = [];
+      this.listBoard.addLoginClickEvent(() => {
+        if (!hasClass(this.listBoard.btnLogin, className.DISABLED)) {
+          this.spinner.insert(this.listBoard.btnLogin);
+          this.listBoard.enabledToggle(this.listBoard.btnLogin, false);
+          this.listBoard.userId.disabled = true;
+          this.listBoard.nickname.disabled = true;
 
-        this.timeMessage = class TimeMessage {
-            constructor(date) {
-                this.time = date;
-                this.type = TIME_MESSAGE_TYPE;
-            }
-            isTimeMessage() {
-                return this.type === TIME_MESSAGE_TYPE;
-            }
-        };
+          this._connect(this.listBoard.getUserId(), this.listBoard.getNickname());
+          setCookie(this.listBoard.getUserId(), this.listBoard.getNickname());
+        }
+      });
+      this.listBoard.addKeyDownEvent(this.listBoard.nickname, (event) => {
+        if (event.keyCode === KEY_DOWN_ENTER) {
+          this.listBoard.btnLogin.click();
+        }
+      });
 
-        requestNotification();
-        this.notificationSound = createNotificationSound();
+      const cookie = getCookie();
+      if (cookie.userId) {
+        this._connect(cookie.userId, cookie.nickname);
+        this.listBoard.showChannelList();
+        this.toggleBoard(true);
+        this.chatSection.responsiveSize(false, this.responsiveChatSection.bind(this));
+      }
     }
+
+    _connect(userId, nickname, callback) {
+      this.sb.connect(userId, nickname, () => {
+        this.widgetBtn.toggleIcon(true);
+        this.listBoard.showChannelList();
+        this.spinner.insert(this.listBoard.list);
+        this.getChannelList();
+
+        this.sb.createHandlerGlobal(
+          (channel, message) => {
+            this.messageReceivedAction(channel, message);
+          },
+          (channel, message) => {
+            this.messageUpdatedAction(channel, message);
+          },
+          (channel, messageId) => {
+            this.messageDeletedAction(channel, messageId);
+          },
+          (channel) => {
+            this.updateUnreadMessageCount(channel);
+          },
+          (channel) => {
+            let targetBoard = this.chatSection.getChatBoard(channel.url);
+            if (targetBoard) {
+              let isBottom = this.chatSection.isBottom(targetBoard.messageContent, targetBoard.list);
+              this.chatSection.showTyping(channel, this.spinner);
+              this.chatSection.responsiveHeight(channel.url);
+              if (isBottom) {
+                this.chatSection.scrollToBottom(targetBoard.messageContent);
+              }
+              isTimeMessage() {
+                  return this.type === TIME_MESSAGE_TYPE;
+              }
+          };
+
+          requestNotification();
+          this.notificationSound = createNotificationSound();
+      }
 
     _getGoogleFont() {
         let wf = document.createElement('script');
