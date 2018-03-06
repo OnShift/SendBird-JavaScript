@@ -1110,6 +1110,7 @@
     background-color: $color-transparent;
     position: absolute;
     bottom: 26px;
+    z-index: 999999;
 
     .popup-body {
       @include reset();

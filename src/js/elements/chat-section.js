@@ -4,7 +4,7 @@ import { show, hide, getFullHeight, removeClass, xssEscape } from '../utils.js';
 
 const EMPTY_STRING = '';
 
-const CHAT_SECTION_RIGHT_MAX = '280px';
+const CHAT_SECTION_RIGHT_MAX = '-20px';
 const CHAT_SECTION_RIGHT_MIN = '60px';
 const TOOLTIP_MEMBER_LIST = 'Member List';
 const TOOLTIP_CHANNEL_LEAVE = 'Channel Leave';
