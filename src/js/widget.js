@@ -7,20 +7,20 @@ import Popup from './elements/popup.js';
 import Spinner from './elements/spinner.js';
 import Sendbird from './sendbird.js';
 import {
-  hide,
-  show,
-  addClass,
-  removeClass,
-  hasClass,
-  getFullHeight,
-  insertMessageInList,
-  getLastItem,
-  isEmptyString,
-  xssEscape,
-  createNotificationSound,
-  requestNotification,
-  setCookie,
-  getCookie
+    addClass,
+    createNotificationSound,
+    getCookie,
+    getFullHeight,
+    getLastItem,
+    hasClass,
+    hide,
+    insertMessageInList,
+    isEmptyString,
+    removeClass,
+    requestNotification,
+    setCookie,
+    show,
+    xssEscape
 } from './utils.js';
 import { className, TYPE_STRING, MAX_COUNT } from './consts.js';
 
