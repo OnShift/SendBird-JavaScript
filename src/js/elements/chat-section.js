@@ -8,7 +8,7 @@ import {
   xssEscape
 } from '../utils.js';
 
-const CHAT_SECTION_RIGHT_MAX = '280px';
+const CHAT_SECTION_RIGHT_MAX = '-20px';
 const CHAT_SECTION_RIGHT_MIN = '60px';
 const DISPLAY_NONE = 'none';
 const DISPLAY_TYPE_INLINE_BLOCK = 'inline-block';

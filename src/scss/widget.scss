@@ -226,7 +226,7 @@
     bottom: 0;
     right: 0;
     width: 280px;
-    height: 462px;
+    height: 426px;
     @include box-shadow(0 3px 6px rgba(0, 0, 0, 0.3));
 
     .board-top {
@@ -1111,6 +1111,7 @@
     background-color: $color-transparent;
     position: absolute;
     bottom: 26px;
+    z-index: 999999;
 
     .popup-body {
       @include reset();
