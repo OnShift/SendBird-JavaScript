@@ -318,8 +318,7 @@ class SBWidget {
     }
 
     responsiveChatSection(channelUrl, isShow) {
-        let _bodyWidth = document.getElementsByTagName('BODY')[0].offsetWidth - 360;
-        let maxSize = parseInt(_bodyWidth / CHAT_BOARD_WIDTH);
+        let maxSize = 1;
         let currentSize = this.activeChannelSetList.length;
         if (currentSize >= maxSize) {
             let extraChannelSet = getLastItem(this.activeChannelSetList);
@@ -441,7 +440,6 @@ class SBWidget {
     _connect(userId, nickname, callback) {
         this.sb.connect(userId, nickname, () => {
             this.widgetBtn.toggleIcon(true);
-
             this.listBoard.showChannelList();
             this.spinner.insert(this.listBoard.list);
             this.getChannelList();
