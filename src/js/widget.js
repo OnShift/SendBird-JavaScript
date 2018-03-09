@@ -553,8 +553,7 @@ class SBWidget {
                 this.closeMemberPopup();
                 this.closeInvitePopup();
                 addClass(chatBoard.memberBtn, className.ACTIVE);
-                let index = this.chatSection.indexOfChatBord(channelUrl);
-                this.popup.showMemberPopup(this.chatSection.self, index);
+                this.popup.showMemberPopup(this.chatSection.self);
                 let channelSet = this.getChannelSet(channelUrl);
                 this.popup.updateCount(this.popup.memberPopup.count, channelSet.channel.memberCount);
                 for (var i = 0 ; i < channelSet.channel.members.length ; i++) {

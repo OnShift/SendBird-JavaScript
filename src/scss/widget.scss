@@ -1111,23 +1111,13 @@
     position: absolute;
     bottom: 26px;
     z-index: 999999;
+    top: 76px;
 
     .popup-body {
       @include reset();
-      width: 260px;
-      height: 360px;
+      width: 280px;
+      height: 389px;
       background-color: $color-white;
-      @include box-shadow(0 0 0 1px rgba(0, 0, 0, 0.1), 0 5px 60px rgba(0,0,0,0.35));
-      @include before {
-        content: ' ';
-        position: absolute;
-        bottom: 100%;
-        left: 50%;
-        margin-left: -5px;
-        border-width: 7px;
-        border-style: solid;
-        border-color: transparent transparent $color-white transparent;
-      }
 
       & > .content {
         @include reset();
