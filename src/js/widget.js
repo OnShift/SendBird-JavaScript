@@ -150,8 +150,7 @@ class SBWidget {
     }
 
     responsiveChatSection(channelUrl, isShow) {
-        let _bodyWidth = document.getElementsByTagName('BODY')[0].offsetWidth - 360;
-        let maxSize = parseInt(_bodyWidth / CHAT_BOARD_WIDTH);
+        let maxSize = 1;
         let currentSize = this.activeChannelSetList.length;
         if (currentSize >= maxSize) {
             let extraChannelSet = getLastItem(this.activeChannelSetList);
