@@ -222,7 +222,7 @@ class ChatSection extends Element {
         return targetBoard;
     }
 
-    indexOfChatBord(channelUrl) {
+    indexOfChatBoard(channelUrl) {
         let items = this.self.querySelectorAll(`.${  className.CHAT_BOARD}`);
         let chatBoard = this.getChatBoard(channelUrl);
         let index = -1;
