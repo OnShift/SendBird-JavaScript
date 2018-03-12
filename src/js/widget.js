@@ -552,7 +552,7 @@ class SBWidget {
                 this.closeMemberPopup();
                 this.closeInvitePopup();
                 addClass(chatBoard.memberBtn, className.ACTIVE);
-                this.chatSection.indexOfChatBoard(channelUrl);
+                this.chatSection.getChatBoard(channelUrl);
                 this.popup.showMemberPopup(this.chatSection.self);
                 let channelSet = this.getChannelSet(channelUrl);
                 this.popup.updateCount(this.popup.memberPopup.count, channelSet.channel.memberCount);
@@ -591,8 +591,8 @@ class SBWidget {
                 this.closeInvitePopup();
                 this.closeMemberPopup();
                 addClass(chatBoard.inviteBtn, className.ACTIVE);
-                let index = this.chatSection.indexOfChatBoard(channelUrl);
-                this.popup.showInvitePopup(this.chatSection.self, index);
+                this.chatSection.getChatBoard(channelUrl);
+                this.popup.showInvitePopup(this.chatSection.self);
                 this.spinner.insert(this.popup.invitePopup.list);
                 let channelSet = this.getChannelSet(channelUrl);
                 let memberIds = channelSet.channel.members.map((member) => {

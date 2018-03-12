@@ -222,19 +222,6 @@ class ChatSection extends Element {
         return targetBoard;
     }
 
-    indexOfChatBoard(channelUrl) {
-        let items = this.self.querySelectorAll(`.${  className.CHAT_BOARD}`);
-        let chatBoard = this.getChatBoard(channelUrl);
-        let index = -1;
-        for (let i = 0; i < items.length; i++) {
-            if (items[i] === chatBoard) {
-                index = i;
-                break;
-            }
-        }
-        return index;
-    }
-
     closeChatBoard(target) {
         target.parentNode.removeChild(target);
         this.textKr = '';
