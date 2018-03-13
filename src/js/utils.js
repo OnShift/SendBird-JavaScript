@@ -108,14 +108,6 @@ export function xssEscape(target) {
     }
 }
 
-export function createNotificationSound() {
-    let sound = document.createElement('audio');
-    sound.style.display = 'none';
-    sound.id = 'notifierSound';
-    sound.src = 'https://dxstmhyqfqr1o.cloudfront.net/sound/SendBird-default.mp3';
-    return sound;
-}
-
 export function requestNotification() {
     if (window.Notification && Notification.permission !== 'granted') {
         Notification.requestPermission(function (permission) {

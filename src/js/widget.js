@@ -8,7 +8,6 @@ import Spinner from './elements/spinner.js';
 import Sendbird from './sendbird.js';
 import {
     addClass,
-    createNotificationSound,
     getCookie,
     getFullHeight,
     getLastItem,
@@ -22,6 +21,7 @@ import {
     show,
     xssEscape
 } from './utils.js';
+
 import { className, TYPE_STRING, MAX_COUNT } from './consts.js';
 
 const WIDGET_ID = 'sb_widget';
@@ -117,9 +117,7 @@ class SBWidget {
                 return this.type === TIME_MESSAGE_TYPE;
             }
     };
-
         requestNotification();
-        this.notificationSound = createNotificationSound();
     }
 
     _getGoogleFont() {
@@ -370,7 +368,6 @@ class SBWidget {
                 notification.onclick = function() {
                     window.focus();
                 };
-                this.notificationSound.play();
             }
         }
     }
