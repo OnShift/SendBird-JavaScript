@@ -7,20 +7,20 @@ import Popup from './elements/popup.js';
 import Spinner from './elements/spinner.js';
 import Sendbird from './sendbird.js';
 import {
-  hide,
-  show,
-  addClass,
-  removeClass,
-  hasClass,
-  getFullHeight,
-  insertMessageInList,
-  getLastItem,
-  isEmptyString,
-  xssEscape,
-  createNotificationSound,
-  requestNotification,
-  setCookie,
-  getCookie
+    addClass,
+    createNotificationSound,
+    getCookie,
+    getFullHeight,
+    getLastItem,
+    hasClass,
+    hide,
+    insertMessageInList,
+    isEmptyString,
+    removeClass,
+    requestNotification,
+    setCookie,
+    show,
+    xssEscape
 } from './utils.js';
 import { className, TYPE_STRING, MAX_COUNT } from './consts.js';
 
@@ -150,8 +150,7 @@ class SBWidget {
     }
 
     responsiveChatSection(channelUrl, isShow) {
-        let _bodyWidth = document.getElementsByTagName('BODY')[0].offsetWidth - 360;
-        let maxSize = parseInt(_bodyWidth / CHAT_BOARD_WIDTH);
+        let maxSize = 1;
         let currentSize = this.activeChannelSetList.length;
         if (currentSize >= maxSize) {
             let extraChannelSet = getLastItem(this.activeChannelSetList);
@@ -553,8 +552,8 @@ class SBWidget {
                 this.closeMemberPopup();
                 this.closeInvitePopup();
                 addClass(chatBoard.memberBtn, className.ACTIVE);
-                let index = this.chatSection.indexOfChatBord(channelUrl);
-                this.popup.showMemberPopup(this.chatSection.self, index);
+                this.chatSection.getChatBoard(channelUrl);
+                this.popup.showMemberPopup(this.chatSection.self);
                 let channelSet = this.getChannelSet(channelUrl);
                 this.popup.updateCount(this.popup.memberPopup.count, channelSet.channel.memberCount);
                 for (var i = 0 ; i < channelSet.channel.members.length ; i++) {
@@ -592,8 +591,8 @@ class SBWidget {
                 this.closeInvitePopup();
                 this.closeMemberPopup();
                 addClass(chatBoard.inviteBtn, className.ACTIVE);
-                let index = this.chatSection.indexOfChatBord(channelUrl);
-                this.popup.showInvitePopup(this.chatSection.self, index);
+                this.chatSection.getChatBoard(channelUrl);
+                this.popup.showInvitePopup(this.chatSection.self);
                 this.spinner.insert(this.popup.invitePopup.list);
                 let channelSet = this.getChannelSet(channelUrl);
                 let memberIds = channelSet.channel.members.map((member) => {

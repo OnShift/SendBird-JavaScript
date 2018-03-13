@@ -3,9 +3,6 @@ import Element from './elements.js';
 import { addClass, show, hide, xssEscape } from '../utils.js';
 
 const EMPTY_STRING = '';
-const MEMBER_POPUP_DEFAULT = -30;
-const INVITE_POPUP_DEFAULT = -1;
-const POPUP_DISTANCE = 300;
 const TITLE_POPUP_INVITE_BTN = 'Invite';
 const TITLE_POPUP_INVITE_LIST = 'Invite Members';
 const TITLE_POPUP_MEMBER_LIST = 'Member List';
@@ -30,15 +27,13 @@ class Popup extends Element {
         addClass(this.invitePopup.inviteBtn, className.DISABLED);
     }
 
-    showMemberPopup(chatSection, index) {
+    showMemberPopup(chatSection) {
         chatSection.appendChild(this.memberPopup);
-        this._setRight(this.memberPopup, MEMBER_POPUP_DEFAULT + index * POPUP_DISTANCE);
         show(this.memberPopup);
     }
 
-    showInvitePopup(chatSection, index) {
+    showInvitePopup(chatSection) {
         chatSection.appendChild(this.invitePopup);
-        this._setRight(this.invitePopup, INVITE_POPUP_DEFAULT + index * POPUP_DISTANCE);
         show(this.invitePopup);
     }
 
