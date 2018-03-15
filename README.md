@@ -1,85 +1,45 @@
-# SendBird JavaScript Widget Sample
-This is a chat widget built using using the [SendBird SDK](https://github.com/smilefam/SendBird-SDK-JavaScript).  
+# OnShift Chat Widget
 
-## Setup
-1. The `body` must have a `div` element whose id is `sb_widget`.
-  
-```html
-<body>
-  <div id="sb_widget"></div>
-</body>
+A chat widget designed to be used in both mobile and non-mobile environments. 
+Utilizing [Sendbird](https://sendbird.com/) and the SDK they provide, this widget will
+allow for conversational communication between the various members of a given Engage 
+community.
+
+## Running in Development Mode
+
+- Clone the repo
+- run `npm install`
+- run `npm run start-dev`
+  - this will start the chat widget on localhost:9001
+
+## Usage
+####Note:
+this is still very much in development, but we're trying to keep the documentation up to date
+
+###Build
+The widget is still in it's infancy and there are some warts we inherited from the Sendbird team. In order to bundle the widget
+with another project, the following must occur
+- the widget has been implemented into other projects systems using the [webpack module bundler](https://webpack.js.org/)
+  - therefore, it's assumed that if you're trying to include the widget you're using that bundler
+- because the widget uses SASS for it's stying, you must configure the [sass-loader](https://github.com/webpack-contrib/sass-loader)
+to load the widget's styling
+- the widget must be transpiled via [babel](https://github.com/babel/babel)
+
+###Incorporation
+To incorporate the widget, the following code must be written in a React project
+
+```
+    import SendBirdWidget from 'onshift-chat-widget/src/js/widget';`
+    let sbWidget = new SendBirdWidget()
 ```
 
-2. Import the [`SendBird SDK`](https://github.com/smilefam/SendBird-SDK-JavaScript).  
-3. Import the `widget.SendBird.js` file.
-```javascript
-<script src="SendBird.min.js"></script>
-<script src="build/widget.SendBird.js"></script>
-```
+- in order to initialize the widget, a `div` with an id of `sb_widget` must exist somewhere in the DOM
+- in order to start the widget, invoke `sbWidget.startWithConnect(appId, userId, userName)` where
+  - appId: the id of the Sendbird application we are connecting to
+  - userId: the id of the user who is connecting to the Sendbird application
+  - userName: the name to be displayed when displaying their name (in SB parlance, this is the nickname)
 
+## Running the tests
 
-## Customizing the widget
-If you refresh your browser window, you need to reconnect to SendBird. To retain connection on browser refresh, you must implement an appropriate `event handler`. 
-
-If you wish to issue an `access_token` for your user, modify the `connect function` in `src/sendbird.js`.  
-
-> Require that you have Node installed.
-1. Install npm
-
-        npm install
-
-2. Modify files.
-
-        npm run start-dev
-        
-3. Start sample.
-
-        npm start
-
-
-## Advanced  
-### Connect other APP or Channel  
-If you want to connect other application, you need to change variable `appId` in `index.html`.
-
-```html
-...
-
-  <script src="SendBird.min.js"></script>
-  <script src="build/widget.SendBird.js"></script>
-  <script>
-    var appId = '<APP_ID>';
-    sbWidget.start(appId);
-  </script>
-
-</html>
-```
-
-### Start with User connect  
-If you want to start this sample with user connect, you can using `startWithConnect()`.  
-
-```html
-...
-
-  <script src="SendBird.min.js"></script>
-  <script src="build/widget.SendBird.js"></script>
-  <script>
-    var appId = '<APP_ID>';
-    var userId = '<USER_ID>';
-    var nickname = '<NICKNAME>';
-    sbWidget.startWithConnect(appId, userId, nickname, function() {
-      // do something...
-    });
-  </script>
-
-</html>
-```
-
-### Show Channel  
-If you want to open chat, you can using `showChannel()`.  
-
-```javascript
-...
-var channelUrl = '<CHANNEL_URL>';
-sbWidget.showChannel(channelUrl);
-...
-```
+There are no tests (yet). _GOOD FOR US._
+There isn't even CI. We're a...work in progress.
