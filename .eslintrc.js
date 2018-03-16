@@ -19,6 +19,7 @@ module.exports = {
     'no-console': 0,
     'no-trailing-spaces': 1,
     'no-unused-vars': 1,
+    'no-var': 1,
     'no-extra-parens': 1,
     'block-scoped-var': 2,
     'eqeqeq': 1
