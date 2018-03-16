@@ -539,7 +539,6 @@ class SBWidget {
                 }
             }
         });
-        let cs = this.chatSection;
         this.chatSection.addClickEvent(chatBoard.inviteBtn, () => {
             let _getUserList = (memberIds, loadmore) => {
                 this.sb.getUserList((userList) => {
@@ -566,7 +565,7 @@ class SBWidget {
                     addClass(this.popup.invitePopup.inviteBtn, className.DISABLED);
                     this.spinner.insert(this.popup.invitePopup.inviteBtn);
                     let selectedUserIds = this.popup.getSelectedUserIds(this.popup.invitePopup.list);
-                    let channelSet = this.getChannelSet(cs.channelUrl);
+                    let channelSet = this.getChannelSet(this.chatSection.channelUrl);
                     this.sb.inviteMember(channelSet.channel, selectedUserIds, () => {
                         this.spinner.remove(this.popup.invitePopup.inviteBtn);
                         this.closeInvitePopup();
