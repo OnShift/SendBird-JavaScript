@@ -130,23 +130,6 @@ class SBWidget {
         s.parentNode.insertBefore(wf, s);
     }
 
-    reset() {
-        this.extraChannelSetList = [];
-        for (let i = 0 ; i < this.activeChannelSetList.length ; i++) {
-            let channelSet = this.activeChannelSetList[i];
-            let targetBoard = this.chatSection.getChatBoard(channelSet.channel.url);
-            if (targetBoard) {
-                this.chatSection.closeChatBoard(targetBoard);
-            }
-        }
-        this.activeChannelSetList = [];
-        this.closePopup();
-
-        this.sb.reset();
-        this.listBoard.reset();
-        this.widgetBtn.reset();
-    }
-
     responsiveChatSection(channelUrl, isShow) {
         let maxSize = 1;
         let currentSize = this.activeChannelSetList.length;
@@ -492,7 +475,7 @@ class SBWidget {
         return item;
     }
 
-    closePopup () {
+    closePopup() {
         this.closeMemberPopup();
         this.closeInvitePopup();
     }
@@ -508,12 +491,9 @@ class SBWidget {
         this.sb.userListQuery = null;
     }
 
-    showChannel(channelUrl) {
-        this._connectChannel(channelUrl, false);
-    }
-
     _connectChannel(channelUrl, doNotCall) {
         let chatBoard = this.chatSection.createChatBoard(channelUrl, doNotCall);
+        this.chatSection.channelUrl = channelUrl;
         if (!doNotCall) {
             this.responsiveChatSection(channelUrl, true);
         }
@@ -580,6 +560,20 @@ class SBWidget {
                     }
                 });
             };
+            this.popup.addClickEvent(this.popup.invitePopup.inviteBtn, () => {
+                if (!hasClass(this.popup.invitePopup.inviteBtn, className.DISABLED)) {
+                    addClass(this.popup.invitePopup.inviteBtn, className.DISABLED);
+                    this.spinner.insert(this.popup.invitePopup.inviteBtn);
+                    let selectedUserIds = this.popup.getSelectedUserIds(this.popup.invitePopup.list);
+                    let channelSet = this.getChannelSet(this.chatSection.channelUrl);
+                    this.sb.inviteMember(channelSet.channel, selectedUserIds, () => {
+                        this.spinner.remove(this.popup.invitePopup.inviteBtn);
+                        this.closeInvitePopup();
+                        this.listBoard.setChannelTitle(channelSet.channel.url, this.sb.getNicknamesString(channelSet.channel));
+                        this.updateChannelInfo(chatBoard, channelSet.channel);
+                    });
+                }
+            });
 
             if (hasClass(chatBoard.inviteBtn, className.ACTIVE)) {
                 this.closeInvitePopup();
@@ -595,22 +589,6 @@ class SBWidget {
                     return member.userId;
                 });
                 _getUserList(memberIds);
-
-                this.popup.addClickEvent(this.popup.invitePopup.inviteBtn, () => {
-                    if (!hasClass(this.popup.invitePopup.inviteBtn, className.DISABLED)) {
-                        addClass(this.popup.invitePopup.inviteBtn, className.DISABLED);
-                        this.spinner.insert(this.popup.invitePopup.inviteBtn);
-                        let selectedUserIds = this.popup.getSelectedUserIds(this.popup.invitePopup.list);
-                        let channelSet = this.getChannelSet(channelUrl);
-                        this.sb.inviteMember(channelSet.channel, selectedUserIds, () => {
-                            this.spinner.remove(this.popup.invitePopup.inviteBtn);
-                            this.closeInvitePopup();
-                            this.listBoard.setChannelTitle(channelSet.channel.url, this.sb.getNicknamesString(channelSet.channel));
-                            this.updateChannelInfo(chatBoard, channelSet.channel);
-                        });
-                    }
-                });
-
                 this.popup.addScrollEvent(() => {
                     _getUserList(memberIds, true);
                 });
