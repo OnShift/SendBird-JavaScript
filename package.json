@@ -7,6 +7,7 @@
     "prod-build": "webpack -p",
     "start-dev": "webpack-dev-server",
     "test": "jest",
+    "coverage": "jest --coverage",
     "start": "webpack -p && node test_server/server.js",
     "lint": "eslint src/"
   },
