@@ -10,7 +10,7 @@ community.
 - Clone the repo
 - run `npm install`
 - run `npm run start-dev`
-  - this will start the chat widget on localhost:9001
+  - this will start the chat widget on localhost:9000
 
 ## Usage
 ####Note:
@@ -41,5 +41,5 @@ To incorporate the widget, the following code must be written in a React project
 
 ## Running the tests
 
-There are no tests (yet). _GOOD FOR US._
-There isn't even CI. We're a...work in progress.
+We are going to use the [jest](https://facebook.github.io/jest/) test running framework, as that seems to be
+the framework that newer OnShift components are migrating to. To run the tests, simply run `npm run test`.

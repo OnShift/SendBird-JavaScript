@@ -6,7 +6,8 @@
   "scripts": {
     "prod-build": "webpack -p",
     "start-dev": "webpack-dev-server",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
+    "coverage": "jest --coverage",
     "start": "webpack -p && node test_server/server.js",
     "lint": "eslint src/"
   },
@@ -23,6 +24,7 @@
     "eslint": "^3.18.0",
     "eslint-loader": "^1.6.3",
     "express": "^4.16.2",
+    "jest": "^22.4.2",
     "node-sass": "4.5.0",
     "sass-loader": "^6.0.3",
     "style-loader": "^0.14.1",
