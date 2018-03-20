@@ -1,14 +1,5 @@
 import * as utils from '../src/js/utils';
 
-test('getLastItem:returns last item in array', () => {
-    expect(utils.getLastItem([1,2,3])).toEqual(3);
-});
-
-test('getLastItem: returns null if array has length of 0', () => {
-    expect(utils.getLastItem([])).toBeNull();
-});
-
-
 function buildDummyTarget(specs) {
     let target = document.createElement('div');
     specs && specs.class ? target.setAttribute('class', specs.class) : target;
@@ -16,8 +7,17 @@ function buildDummyTarget(specs) {
     return target;
 }
 
-describe('show', () => {
+describe('getLastItem', () => {
+    test('returns last item in array', () => {
+        expect(utils.getLastItem([1,2,3])).toEqual(3);
+    });
 
+    test('returns null if array has length of 0', () => {
+        expect(utils.getLastItem([])).toBeNull();
+    });
+});
+
+describe('show', () => {
     test('returns undefined if target is not defined', () => {
         expect(utils.show()).toBeUndefined();
     });
@@ -37,7 +37,6 @@ describe('show', () => {
 });
 
 describe('hide', () => {
-
     test('returns undefined if target is not defined', () => {
         expect(utils.hide()).toBeUndefined();
     });
@@ -57,4 +56,63 @@ describe('hide', () => {
         expect(target.style.display).toBe(utils.DISPLAY_NONE);
     });
 
+});
+
+describe('isEmptyString', () => {
+    test('undefined is considered to be an empty string', () => {
+        expect(utils.isEmptyString(undefined)).toBeTruthy();
+    });
+
+    test('null is considered to be an empty string', () => {
+        expect(utils.isEmptyString(null)).toBeTruthy();
+    });
+
+    test('"" is considered to be an empty string', () => {
+        expect(utils.isEmptyString("")).toBeTruthy();
+    });
+
+    test('non-empty string', () => {
+        expect(utils.isEmptyString("text")).toBeFalsy();
+    });
+});
+
+
+describe('addClass', () => {
+    let newClass = 'new-class';
+    test('add class to naked DOM element', () => {
+        let target = buildDummyTarget();
+        utils.addClass(target, newClass);
+        expect(target.classList).toContain(newClass);
+    });
+
+    test('add to DOM element which already has it doesnt add it again', () => {
+        let target = buildDummyTarget({class: newClass});
+        utils.addClass(target, newClass);
+        expect(target.classList).toContain(newClass);
+        expect(target.classList.length).toEqual(1);
+    });
+});
+
+describe('removeClass', () => {
+    let dummyClass = 'dummy';
+    test('remove a class that was already there', () => {
+        let target = buildDummyTarget({class: dummyClass});
+        utils.removeClass(target, dummyClass);
+        expect(target.className).toBe('');
+    });
+
+    test('remove a class that was added', () => {
+        let target = buildDummyTarget();
+        utils.addClass(target, dummyClass);
+        utils.removeClass(target, dummyClass);
+        expect(target.className).toBe('');
+    });
+
+    test('only remove the targeted class', () => {
+        let baseClass = 'base-class';
+        let target = buildDummyTarget({class: baseClass});
+        utils.addClass(target, dummyClass);
+        utils.removeClass(target, dummyClass);
+        expect(target.className).toBe(baseClass);
+    });
 });
