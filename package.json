@@ -4,12 +4,13 @@
   "description": "A chat widget based on and utilizing SendBird.",
   "main": "index.js",
   "scripts": {
-    "prod-build": "webpack -p",
-    "start-dev": "webpack-dev-server",
+    "prod-build": "npm run build-stylesheet && webpack -p",
+    "start-dev": "npm run build-stylesheet && webpack-dev-server",
     "test": "jest",
     "coverage": "jest --coverage",
-    "start": "webpack -p && node test_server/server.js",
-    "lint": "eslint src/"
+    "start": "npm run build-stylesheet && webpack -p && node test_server/server.js",
+    "lint": "eslint src/",
+    "build-stylesheet": "node-sass src/scss/widget.scss stylesheet.css"
   },
   "jest": {
     "testEnvironment": "node"
