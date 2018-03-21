@@ -13,19 +13,16 @@ community.
   - this will start the chat widget on localhost:9000
 
 ## Usage
-####Note:
+#### Note:
 this is still very much in development, but we're trying to keep the documentation up to date
 
-###Build
+### Build
 The widget is still in it's infancy and there are some warts we inherited from the Sendbird team. In order to bundle the widget
 with another project, the following must occur
 - the widget has been implemented into other projects systems using the [webpack module bundler](https://webpack.js.org/)
-  - therefore, it's assumed that if you're trying to include the widget you're using that bundler
-- because the widget uses SASS for it's stying, you must configure the [sass-loader](https://github.com/webpack-contrib/sass-loader)
-to load the widget's styling
 - the widget must be transpiled via [babel](https://github.com/babel/babel)
 
-###Incorporation
+### Incorporation
 To incorporate the widget, the following code must be written in a React project
 
 ```
