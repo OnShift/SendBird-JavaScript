@@ -1,6 +1,5 @@
 .babelrc
 docs
 node_modules/
-build/
 .idea/
 coverage/
