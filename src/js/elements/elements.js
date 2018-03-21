@@ -1,4 +1,3 @@
-import '../../scss/widget.scss';
 import { removeClass, addClass } from '../utils.js';
 import { className, styleValue } from '../consts.js';
 
