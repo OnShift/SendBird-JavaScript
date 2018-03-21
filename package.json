@@ -11,6 +11,9 @@
     "start": "webpack -p && node test_server/server.js",
     "lint": "eslint src/"
   },
+  "jest": {
+    "testEnvironment": "node"
+  },
   "author": "OnShift",
   "license": "ISC",
   "devDependencies": {
