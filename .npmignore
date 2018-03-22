@@ -4,3 +4,4 @@ node_modules/
 .idea/
 coverage/
 src/scss
+.travis.yml
