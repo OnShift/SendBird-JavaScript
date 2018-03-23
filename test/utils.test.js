@@ -2,8 +2,19 @@ import * as utils from '../src/js/utils';
 
 function buildDummyTarget(specs) {
     let target = document.createElement('div');
-    specs && specs.class ? target.setAttribute('class', specs.class) : target;
-    specs && specs.display ? target.style.display = specs.display : target;
+    if(specs){
+        setStyles(specs.style, target);
+        specs && specs.class ? target.setAttribute('class', specs.class) : target;
+    }
+    return target;
+}
+
+function setStyles(style, target) {
+    if(style) {
+        style.marginBottom ? target.style.marginBottom = style.marginBottom : target;
+        style.marginTop ? target.style.marginTop = style.marginTop : target;
+        style.display ? target.style.display = style.display : target;
+    }
     return target;
 }
 
@@ -48,7 +59,7 @@ describe('hide', () => {
     });
 
     test('adds an event handler if some animation needs to occur', () => {
-        let target = buildDummyTarget({class: 'sb-fade-in', display: utils.DISPLAY_BLOCK});
+        let target = buildDummyTarget({class: 'sb-fade-in', style: {display: utils.DISPLAY_BLOCK}});
         let hideEvent = new Event(utils.ANIMATION_EVENT);
         utils.hide(target);
         expect(target.style.display).toBe(utils.DISPLAY_BLOCK);
@@ -114,5 +125,17 @@ describe('removeClass', () => {
         utils.addClass(target, dummyClass);
         utils.removeClass(target, dummyClass);
         expect(target.className).toBe(baseClass);
+    });
+});
+
+describe('getFullHeight', () => {
+    test('NaN when margins aren\'t set', () => {
+        let target = buildDummyTarget();
+        expect(utils.getFullHeight(target)).toBe(NaN);
+    });
+
+    test('get the height when marginTop and marginBottom are set', () => {
+        let target = buildDummyTarget({style: {marginTop: '2px', marginBottom: '2px'}});
+        expect(utils.getFullHeight(target)).toEqual(4);
     });
 });
