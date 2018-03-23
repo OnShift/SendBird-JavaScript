@@ -379,12 +379,8 @@ class ChatSection extends Element {
 
         let senderImg = this.createDiv();
         this._setClass(senderImg, [className.IMAGE]);
-        let senderProfile = message.sender.profileUrl;
-        if (isContinue) {
-            senderProfile = '';
-            senderImg.style.height = MESSAGE_NONE_IMAGE_HEIGHT;
-        }
-        senderImg.style.backgroundImage = `url(${  senderProfile  })`;
+        // investigate what this does
+        isContinue ? senderImg.style.height = MESSAGE_NONE_IMAGE_HEIGHT: '';
         messageSet.appendChild(senderImg);
 
         let messageContent = this.createDiv();
@@ -599,7 +595,6 @@ class ChatSection extends Element {
 
         let userProfile = this.createDiv();
         this._setClass(userProfile, [className.IMAGE]);
-        this._setBackgroundImage(userProfile, user.profileUrl);
         userItem.appendChild(userProfile);
 
         let userNickname = this.createDiv();
