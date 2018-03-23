@@ -97,3 +97,8 @@ export const styleValue = {
 export const MAX_COUNT = '+9';
 export const MAX_FONT_SIZE = '11';
 export const TYPE_STRING = 'string';
+
+export const ANIMATION_EVENT = 'animationend';
+export const ANIMATION_REGEX = 'sb-fade.*';
+export const DISPLAY_BLOCK = 'block';
+export const DISPLAY_NONE = 'none';

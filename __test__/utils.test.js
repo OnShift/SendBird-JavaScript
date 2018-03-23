@@ -1,4 +1,5 @@
 import * as utils from '../src/js/utils';
+import {ANIMATION_EVENT, ANIMATION_REGEX, DISPLAY_NONE, DISPLAY_BLOCK} from '../src/js/consts';
 
 function buildDummyTarget(specs) {
     let target = document.createElement('div');
@@ -36,7 +37,7 @@ describe('show', () => {
     test('sets display to "block" if no displayType is specified', () => {
         let target = buildDummyTarget();
         utils.show(target);
-        expect(target.style.display).toBe(utils.DISPLAY_BLOCK);
+        expect(target.style.display).toBe(DISPLAY_BLOCK);
     });
 
     test('sets display to whatever we pass it to', () => {
@@ -55,16 +56,16 @@ describe('hide', () => {
     test('sets display to "none" if the target has no animation associated with it', () => {
         let target = buildDummyTarget({class: 'no-animation'});
         utils.hide(target);
-        expect(target.style.display).toBe(utils.DISPLAY_NONE);
+        expect(target.style.display).toBe(DISPLAY_NONE);
     });
 
     test('adds an event handler if some animation needs to occur', () => {
-        let target = buildDummyTarget({class: 'sb-fade-in', style: {display: utils.DISPLAY_BLOCK}});
-        let hideEvent = new Event(utils.ANIMATION_EVENT);
+        let target = buildDummyTarget({class: 'sb-fade-in', style: {display: DISPLAY_BLOCK}});
+        let hideEvent = new Event(ANIMATION_EVENT);
         utils.hide(target);
-        expect(target.style.display).toBe(utils.DISPLAY_BLOCK);
+        expect(target.style.display).toBe(DISPLAY_BLOCK);
         target.dispatchEvent(hideEvent);
-        expect(target.style.display).toBe(utils.DISPLAY_NONE);
+        expect(target.style.display).toBe(DISPLAY_NONE);
     });
 
 });
