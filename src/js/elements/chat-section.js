@@ -422,7 +422,6 @@ class ChatSection extends Element {
                     let _description = this.createDiv();
                     this._setClass(_description, [className.PREVIEW_DESCRIPTION]);
                     this._setContent(_description, previewData.description);
-
                     let _image = this.createDiv();
                     this._setClass(_image, [className.PREVIEW_IMAGE]);
                     this._setBackgroundImage(_image, previewData.image);

@@ -51,7 +51,7 @@ export const className = {
     MESSAGE: 'message',
     NEW_CHAT_BTN: 'new-chat-btn',
     PREVIEW_DESCRIPTION: 'preview-description',
-    PREVIEW_IMAGE: 'preview-iamge',
+    PREVIEW_IMAGE: 'preview-image',
     PREVIEW_NAME: 'preview-name',
     PREVIEW_TITLE: 'preview-title',
     TEXT: 'text',
