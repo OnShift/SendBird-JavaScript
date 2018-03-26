@@ -255,63 +255,60 @@ class SBWidget {
             this.listBoard.showChannelList();
             this.spinner.insert(this.listBoard.list);
             this.getChannelList();
-            this.sb.createHandlerGlobal(
-        (channel, message) => {
-            this.messageReceivedAction(channel, message);
-        },
-        (channel, message) => {
-            this.messageUpdatedAction(channel, message);
-        },
-        (channel, messageId) => {
-            this.messageDeletedAction(channel, messageId);
-        },
-        (channel) => {
-            this.updateUnreadMessageCount(channel);
-        },
-        (channel) => {
-            let targetBoard = this.chatSection.getChatBoard(channel.url);
-            if (targetBoard) {
-                let isBottom = this.chatSection.isBottom(targetBoard.messageContent, targetBoard.list);
-                this.chatSection.showTyping(channel, this.spinner);
-                this.chatSection.responsiveHeight(channel.url);
-                if (isBottom) {
-                    this.chatSection.scrollToBottom(targetBoard.messageContent);
+            let handlers = {
+                messageReceivedHandler: (channel, message) => this.messageReceivedAction(channel, message),
+                messageUpdatedHandler: (channel, message) => this.messageUpdatedAction(channel, message),
+                messageDeletedHandler: (channel, messageId) => this.messageDeletedAction(channel, messageId),
+                channelChangedHandler: (channel) => this.updateUnreadMessageCount(channel),
+                typingStatusHandler: (channel) => {
+                    let channelUrl = channel.url;
+                    let targetBoard = this.chatSection.getChatBoard(channelUrl);
+                    if (targetBoard) {
+                        this.chatSection.showTyping(channel, this.spinner);
+                        this.chatSection.responsiveHeight(channelUrl);
+                        let isBottom = this.chatSection.isBottom(targetBoard.messageContent, targetBoard.list);
+                        if (isBottom) {
+                            this.chatSection.scrollToBottom(targetBoard.messageContent);
+                        }
+                    }
+                },
+                readReceiptHandler: (channel) => {
+                    let channelUrl = channel.url;
+                    let targetBoard = this.chatSection.getChatBoard(channelUrl);
+                    if (targetBoard) {
+                        let channelSet = this.getChannelSet(channelUrl);
+                        if (channelSet) {
+                            this.chatSection.updateReadReceipt(channelSet, targetBoard);
+                        }
+                    }
+                },
+                userLeftHandler: (channel, user) => {
+                    let channelUrl = channel.url;
+                    let listBoard = this.listBoard;
+                    if (this.sb.isCurrentUser(user)) {
+                        let item = listBoard.getChannelItem(channelUrl);
+                        listBoard.list.removeChild(item);
+                        listBoard.checkEmptyList();
+                    } else {
+                        listBoard.setChannelTitle(channelUrl, this.sb.getNicknamesString(channel));
+                        this.updateUnreadMessageCount(channel);
+                        let targetChatBoard = this.chatSection.getChatBoard(channelUrl);
+                        if (targetChatBoard) {
+                            this.updateChannelInfo(targetChatBoard, channel);
+                        }
+                    }
+                },
+                userJoinedHandler: (channel) => {
+                    let channelUrl = channel.url;
+                    this.listBoard.setChannelTitle(channelUrl, this.sb.getNicknamesString(channel));
+                    let targetChatBoard = this.chatSection.getChatBoard(channelUrl);
+                    if (targetChatBoard) {
+                        this.updateChannelInfo(targetChatBoard, channel);
+                    }
                 }
-            }
-        },
-        (channel) => {
-            let targetBoard = this.chatSection.getChatBoard(channel.url);
-            if (targetBoard) {
-                let channelSet = this.getChannelSet(channel.url);
-                if (channelSet) {
-                    this.chatSection.updateReadReceipt(channelSet, targetBoard);
-                }
-            }
-        },
-        (channel, user) => {
-            if (this.sb.isCurrentUser(user)) {
-                let item = this.listBoard.getChannelItem(channel.url);
-                this.listBoard.list.removeChild(item);
-                this.listBoard.checkEmptyList();
-            } else {
-                this.listBoard.setChannelTitle(channel.url, this.sb.getNicknamesString(channel));
-                this.updateUnreadMessageCount(channel);
-                let targetChatBoard = this.chatSection.getChatBoard(channel.url);
-                if (targetChatBoard) {
-                    this.updateChannelInfo(targetChatBoard, channel);
-                }
-            }
-        },
-        (channel) => {
-            this.listBoard.setChannelTitle(channel.url, this.sb.getNicknamesString(channel));
-            let targetChatBoard = this.chatSection.getChatBoard(channel.url);
-            if (targetChatBoard) {
-                this.updateChannelInfo(targetChatBoard, channel);
-            }
-        }
-      );
-
-            if (callback) callback();
+            };
+            this.sb.createHandlerGlobal(handlers);
+            if(callback) { callback(); }
         });
     }
 

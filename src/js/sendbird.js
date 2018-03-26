@@ -170,40 +170,32 @@ class Sendbird {
 
     /*Handler*/
 
-    createHandlerGlobal(...args) {
-        let messageReceivedFunc = args[0];
-        let messageUpdatedFunc = args[1];
-        let messageDeletedFunc = args[2];
-        let ChannelChangedFunc = args[3];
-        let typingStatusFunc = args[4];
-        let readReceiptFunc = args[5];
-        let userLeftFunc = args[6];
-        let userJoinFunc = args[7];
+    createHandlerGlobal(handlerSpecs) {
 
         let channelHandler = new this.sb.ChannelHandler();
         channelHandler.onMessageReceived = function (channel, message) {
-            messageReceivedFunc(channel, message);
+            handlerSpecs.messageReceivedHandler(channel, message);
         };
         channelHandler.onMessageUpdated = function (channel, message) {
-            messageUpdatedFunc(channel, message);
+            handlerSpecs.messageUpdatedHandler(channel, message);
         };
         channelHandler.onMessageDeleted = function (channel, messageId) {
-            messageDeletedFunc(channel, messageId);
+            handlerSpecs.messageDeletedHandler(channel, messageId);
         };
         channelHandler.onChannelChanged = function (channel) {
-            ChannelChangedFunc(channel);
+            handlerSpecs.channelChangedHandler(channel);
         };
         channelHandler.onTypingStatusUpdated = function (channel) {
-            typingStatusFunc(channel);
+            handlerSpecs.typingStatusHandler(channel);
         };
         channelHandler.onReadReceiptUpdated = function (channel) {
-            readReceiptFunc(channel);
+            handlerSpecs.readReceiptHandler(channel);
         };
         channelHandler.onUserLeft = function (channel, user) {
-            userLeftFunc(channel, user);
+            handlerSpecs.userLeftHandler(channel, user);
         };
         channelHandler.onUserJoined = function (channel, user) {
-            userJoinFunc(channel, user);
+            handlerSpecs.userJoinedHandler(channel, user);
         };
         this.sb.addChannelHandler(GLOBAL_HANDLER, channelHandler);
     }
