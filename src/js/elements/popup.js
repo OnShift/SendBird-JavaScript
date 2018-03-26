@@ -102,7 +102,6 @@ class Popup extends Element {
 
         let userProfile = this.createDiv();
         this._setClass(userProfile, [className.IMAGE]);
-        this._setBackgroundImage(userProfile, member.profileUrl);
         div.appendChild(userProfile);
 
         let userNickname = this.createDiv();

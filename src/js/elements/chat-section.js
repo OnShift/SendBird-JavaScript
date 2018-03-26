@@ -18,7 +18,6 @@ const MARGIN_TOP_MESSAGE = '3px';
 const MEMBER_COUNT_DEFAULT = '0';
 const MESSAGE_CONTENT_HEIGHT_DEFAULT = 328;
 const MESSAGE_INPUT_HEIGHT_DEFAULT = 29;
-const MESSAGE_NONE_IMAGE_HEIGHT = '10px';
 const MESSAGE_TYPING_MEMBER = ' is typing...';
 const MESSAGE_TYPING_SEVERAL = 'Several people are typing...';
 const TEXT_FILE_DOWNLOAD = 'Download';
@@ -38,10 +37,6 @@ class ChatSection extends Element {
         this._create();
         widget.appendChild(this.self);
         this.textKr = EMPTY_STRING;
-    }
-
-    reset() {
-        this._setContent(this.self, EMPTY_STRING);
     }
 
     _create() {
@@ -379,12 +374,6 @@ class ChatSection extends Element {
 
         let senderImg = this.createDiv();
         this._setClass(senderImg, [className.IMAGE]);
-        let senderProfile = message.sender.profileUrl;
-        if (isContinue) {
-            senderProfile = '';
-            senderImg.style.height = MESSAGE_NONE_IMAGE_HEIGHT;
-        }
-        senderImg.style.backgroundImage = `url(${  senderProfile  })`;
         messageSet.appendChild(senderImg);
 
         let messageContent = this.createDiv();
@@ -422,7 +411,6 @@ class ChatSection extends Element {
                     let _description = this.createDiv();
                     this._setClass(_description, [className.PREVIEW_DESCRIPTION]);
                     this._setContent(_description, previewData.description);
-
                     let _image = this.createDiv();
                     this._setClass(_image, [className.PREVIEW_IMAGE]);
                     this._setBackgroundImage(_image, previewData.image);
@@ -600,7 +588,6 @@ class ChatSection extends Element {
 
         let userProfile = this.createDiv();
         this._setClass(userProfile, [className.IMAGE]);
-        this._setBackgroundImage(userProfile, user.profileUrl);
         userItem.appendChild(userProfile);
 
         let userNickname = this.createDiv();
