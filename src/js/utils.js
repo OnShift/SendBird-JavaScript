@@ -1,7 +1,4 @@
-const ANIMATION_EVENT = 'animationend';
-const ANIMATION_REGEX = 'sb-fade.*';
-const DISPLAY_BLOCK = 'block';
-const DISPLAY_NONE = 'none';
+import {ANIMATION_EVENT, ANIMATION_REGEX, DISPLAY_NONE, DISPLAY_BLOCK} from './consts';
 
 let hasClassRegex = (target, classNameRegex) => {
     return new RegExp(`(^| )${classNameRegex}( |$)`, 'gi').test(target.className);
