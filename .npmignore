@@ -1,6 +1,7 @@
 .babelrc
 docs
 node_modules/
-build/
 .idea/
 coverage/
+src/scss
+.travis.yml
