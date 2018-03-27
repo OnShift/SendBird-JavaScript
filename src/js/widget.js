@@ -3,7 +3,7 @@ import '../../build/stylesheet.css';
 import ChatSection from './elements/chat-section.js';
 import ListBoard from './elements/list-board.js';
 import Popup from './elements/popup.js';
-import Sendbird from './sendbird.js';
+import Sendbird from './sendbird-wrapper.js';
 import Spinner from './elements/spinner.js';
 import WidgetBtn from './elements/widget-btn.js';
 import {

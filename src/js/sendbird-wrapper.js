@@ -1,7 +1,7 @@
 import { MAX_COUNT } from './consts.js';
 import { xssEscape } from './utils.js';
 
-import SendBird from '../../node_modules/sendbird';
+import SendBird from 'sendbird';
 
 const GLOBAL_HANDLER = 'GLOBAL_HANDLER';
 const GET_MESSAGE_LIMIT = 20;

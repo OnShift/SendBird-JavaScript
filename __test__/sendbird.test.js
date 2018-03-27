@@ -1,5 +1,5 @@
 import SendBird from '../node_modules/sendbird';
-import SendBirdWrapper from '../src/js/sendbird';
+import SendBirdWrapper from '../src/js/sendbird-wrapper';
 
 const mockChannelHandler = jest.fn();
 const mockAddChannelHandler = jest.fn();
