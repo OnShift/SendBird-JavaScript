@@ -166,31 +166,35 @@ class SendBirdWrapper {
 
     createHandlerGlobal(handlerSpecs) {
         let channelHandler = new this.sb.ChannelHandler();
-        channelHandler.onMessageReceived = function (channel, message) {
+        this.attachHandlers(channelHandler, handlerSpecs);
+        this.sb.addChannelHandler(GLOBAL_HANDLER, channelHandler);
+    }
+
+    attachHandlers(handler, handlerSpecs) {
+        handler.onMessageReceived = function (channel, message) {
             handlerSpecs.messageReceivedHandler(channel, message);
         };
-        channelHandler.onMessageUpdated = function (channel, message) {
+        handler.onMessageUpdated = function (channel, message) {
             handlerSpecs.messageUpdatedHandler(channel, message);
         };
-        channelHandler.onMessageDeleted = function (channel, messageId) {
+        handler.onMessageDeleted = function (channel, messageId) {
             handlerSpecs.messageDeletedHandler(channel, messageId);
         };
-        channelHandler.onChannelChanged = function (channel) {
+        handler.onChannelChanged = function (channel) {
             handlerSpecs.channelChangedHandler(channel);
         };
-        channelHandler.onTypingStatusUpdated = function (channel) {
+        handler.onTypingStatusUpdated = function (channel) {
             handlerSpecs.typingStatusHandler(channel);
         };
-        channelHandler.onReadReceiptUpdated = function (channel) {
+        handler.onReadReceiptUpdated = function (channel) {
             handlerSpecs.readReceiptHandler(channel);
         };
-        channelHandler.onUserLeft = function (channel, user) {
+        handler.onUserLeft = function (channel, user) {
             handlerSpecs.userLeftHandler(channel, user);
         };
-        channelHandler.onUserJoined = function (channel, user) {
+        handler.onUserJoined = function (channel, user) {
             handlerSpecs.userJoinedHandler(channel, user);
         };
-        this.sb.addChannelHandler(GLOBAL_HANDLER, channelHandler);
     }
 
     /*Info*/
