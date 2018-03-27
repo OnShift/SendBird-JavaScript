@@ -15,12 +15,6 @@ class SendBirdWrapper {
         this.userListQuery = null;
     }
 
-    reset() {
-        this.channelListQuery = null;
-        this.userListQuery = null;
-        this.sb.removeChannelHandler(GLOBAL_HANDLER);
-    }
-
     isConnected() {
         return !!this.sb.currentUser;
     }
