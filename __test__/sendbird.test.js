@@ -13,11 +13,7 @@ jest.mock('../node_modules/sendbird', () => {
     });
 });
 
-let appId = 'appId';
-
-function verifyCall(mockedMethod, numOfCalls) {
-    expect(mockedMethod.mock.calls.length).toEqual(numOfCalls);
-}
+const appId = 'appId';
 
 beforeEach(() => {
     SendBird.mockClear();
@@ -72,7 +68,7 @@ describe('createHandlerGlobal', () => {
     test('calls the appropriate sb sdk calls', () => {
         let sbWrapper = new SendBirdWrapper(appId);
         sbWrapper.createHandlerGlobal();
-        verifyCall(mockChannelHandler, 1);
-        verifyCall(mockAddChannelHandler, 1);
+        expect(mockChannelHandler).toHaveBeenCalledTimes(1);
+        expect(mockAddChannelHandler).toHaveBeenCalledTimes(1);
     });
 });
