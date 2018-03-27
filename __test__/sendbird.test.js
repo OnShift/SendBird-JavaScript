@@ -1,12 +1,22 @@
 import SendBird from '../node_modules/sendbird';
 import SendBirdWrapper from '../src/js/sendbird';
 
-jest.mock('../node_modules/sendbird');
+const mockChannelHandler = jest.fn();
+const mockAddChannelHandler = jest.fn();
+
+jest.mock('../node_modules/sendbird', () => {
+    return jest.fn().mockImplementation(() => {
+        return {
+            ChannelHandler: mockChannelHandler,
+            addChannelHandler: mockAddChannelHandler
+        };
+    });
+});
 
 let appId = 'appId';
 
-function verifyCall(method, numOfCalls) {
-    expect(SendBird.mock.instances[0][method].mock.calls.length).toBe(numOfCalls);
+function verifyCall(mockedMethod, numOfCalls) {
+    expect(mockedMethod.mock.calls.length).toEqual(numOfCalls);
 }
 
 beforeEach(() => {
@@ -17,7 +27,7 @@ beforeEach(() => {
 test('when a wrapper is instantiated a new sendbird instance is as well', () => {
     new SendBirdWrapper(appId);
     expect(SendBird).toHaveBeenCalledTimes(1);
-    verifyCall('constructor', 1);
+    expect(SendBird.mock.instances[0].constructor.mock.calls.length).toBe(1);
 });
 
 describe('attachHandlers', () => {
@@ -58,10 +68,11 @@ describe('attachHandlers', () => {
     });
 });
 
-// describe('createHandlerGlobal', () => {
-//     test('calls the appropriate sb sdk calls', () => {
-//         let sbWrapper = new SendBirdWrapper(appId);
-//         let a = sbWrapper.createHandlerGlobal({});
-//         console.log(a);
-//     });
-// });
+describe('createHandlerGlobal', () => {
+    test('calls the appropriate sb sdk calls', () => {
+        let sbWrapper = new SendBirdWrapper(appId);
+        sbWrapper.createHandlerGlobal();
+        verifyCall(mockChannelHandler, 1);
+        verifyCall(mockAddChannelHandler, 1);
+    });
+});
