@@ -718,34 +718,27 @@ class SBWidget {
         if (lastMessage && messageList[0] && !messageList[0].isTimeMessage) {
             prevMessage = lastMessage;
         }
-
+        const insertMessageIntoBoard = (message) => {
+            if(loadmore) {
+                target.list.insertBefore(message, firstChild);
+                addScrollHeight += getFullHeight(message);
+            } else {
+                target.list.appendChild(message);
+            }
+        };
         for (let i = 0 ; i < messageList.length ; i++) {
             let message = messageList[i];
             if (message.isTimeMessage && message.isTimeMessage()) {
                 newMessage = this.chatSection.createMessageItemTime(message.time);
+                insertMessageIntoBoard(newMessage);
                 prevMessage = null;
-            } else {
-                let isContinue = false;
-                if (message.isAdminMessage()) {
-                    newMessage = this.chatSection.createAdminMessageItem(message);
-                } else { // isUserMessage() || isFileMessage()
-                    isContinue = prevMessage && prevMessage.sender ? message.sender.userId === prevMessage.sender.userId : false;
-                    let isCurrentUser = this.sb.isCurrentUser(message.sender);
-                    let unreadCount = channel.getReadReceipt(message);
-                    if (message.isUserMessage()) {
-                        newMessage = this.chatSection.createMessageItem(message, isCurrentUser, isContinue, unreadCount);
-                    } else if (message.isFileMessage()) {
-                        newMessage = this.chatSection.createMessageItem(message, isCurrentUser, isContinue, unreadCount);
-                    }
-                }
+            } else if (!message.isAdminMessage()) {
+                let isContinue = prevMessage && prevMessage.sender ? message.sender.userId === prevMessage.sender.userId : false;
+                let isCurrentUser = this.sb.isCurrentUser(message.sender);
+                let unreadCount = channel.getReadReceipt(message);
+                newMessage = this.chatSection.createMessageItem(message, isCurrentUser, isContinue, unreadCount);
+                insertMessageIntoBoard(newMessage);
                 prevMessage = message;
-            }
-
-            if (loadmore) {
-                target.list.insertBefore(newMessage, firstChild);
-                addScrollHeight += getFullHeight(newMessage);
-            } else {
-                target.list.appendChild(newMessage);
             }
         }
 

@@ -504,13 +504,6 @@ class ChatSection extends Element {
         return messageSet;
     }
 
-    createAdminMessageItem(message) {
-        let admin = this.createDiv();
-        this._setClass(admin, [className.MESSAGE_SET, className.ADMIN_MESSAGE]);
-        this._setContent(admin, xssEscape(message.message));
-        return admin;
-    }
-
     setUnreadCount(target, count) {
         count = parseInt(count);
         let renderSingleDigitCount = (c) => {
