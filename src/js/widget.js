@@ -336,12 +336,12 @@ class SBWidget {
         if (!targetBoard) {
             if ('Notification' in window) {
                 let notification = new Notification(
-          "New Message",
+                    "New Message",
                     {
                         "body": message.isFileMessage() ? message.name : message.message,
                         "icon": "http://qnimate.com/wp-content/uploads/2014/07/web-notification-api-300x150.jpg"
                     }
-        );
+                );
                 notification.onclick = function() {
                     window.focus();
                 };

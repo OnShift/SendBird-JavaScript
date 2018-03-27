@@ -1,12 +1,12 @@
 import { MAX_COUNT } from './consts.js';
 import { xssEscape } from './utils.js';
 
-import SendBird from 'sendbird';
+import SendBird from '../../node_modules/sendbird';
 
 const GLOBAL_HANDLER = 'GLOBAL_HANDLER';
 const GET_MESSAGE_LIMIT = 20;
 
-class Sendbird {
+class SendBirdWrapper {
     constructor(appId) {
         this.sb = new SendBird({
             appId: appId
@@ -171,7 +171,6 @@ class Sendbird {
     /*Handler*/
 
     createHandlerGlobal(handlerSpecs) {
-
         let channelHandler = new this.sb.ChannelHandler();
         channelHandler.onMessageReceived = function (channel, message) {
             handlerSpecs.messageReceivedHandler(channel, message);
@@ -272,4 +271,4 @@ class Sendbird {
 
 }
 
-export { Sendbird as default };
+export { SendBirdWrapper as default };
