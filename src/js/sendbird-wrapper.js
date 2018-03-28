@@ -6,19 +6,13 @@ import SendBird from 'sendbird';
 const GLOBAL_HANDLER = 'GLOBAL_HANDLER';
 const GET_MESSAGE_LIMIT = 20;
 
-class Sendbird {
+class SendBirdWrapper {
     constructor(appId) {
         this.sb = new SendBird({
             appId: appId
         });
         this.channelListQuery = null;
         this.userListQuery = null;
-    }
-
-    reset() {
-        this.channelListQuery = null;
-        this.userListQuery = null;
-        this.sb.removeChannelHandler(GLOBAL_HANDLER);
     }
 
     isConnected() {
@@ -170,42 +164,37 @@ class Sendbird {
 
     /*Handler*/
 
-    createHandlerGlobal(...args) {
-        let messageReceivedFunc = args[0];
-        let messageUpdatedFunc = args[1];
-        let messageDeletedFunc = args[2];
-        let ChannelChangedFunc = args[3];
-        let typingStatusFunc = args[4];
-        let readReceiptFunc = args[5];
-        let userLeftFunc = args[6];
-        let userJoinFunc = args[7];
-
+    createHandlerGlobal(handlerSpecs) {
         let channelHandler = new this.sb.ChannelHandler();
-        channelHandler.onMessageReceived = function (channel, message) {
-            messageReceivedFunc(channel, message);
-        };
-        channelHandler.onMessageUpdated = function (channel, message) {
-            messageUpdatedFunc(channel, message);
-        };
-        channelHandler.onMessageDeleted = function (channel, messageId) {
-            messageDeletedFunc(channel, messageId);
-        };
-        channelHandler.onChannelChanged = function (channel) {
-            ChannelChangedFunc(channel);
-        };
-        channelHandler.onTypingStatusUpdated = function (channel) {
-            typingStatusFunc(channel);
-        };
-        channelHandler.onReadReceiptUpdated = function (channel) {
-            readReceiptFunc(channel);
-        };
-        channelHandler.onUserLeft = function (channel, user) {
-            userLeftFunc(channel, user);
-        };
-        channelHandler.onUserJoined = function (channel, user) {
-            userJoinFunc(channel, user);
-        };
+        this.attachHandlers(channelHandler, handlerSpecs);
         this.sb.addChannelHandler(GLOBAL_HANDLER, channelHandler);
+    }
+
+    attachHandlers(handler, handlerSpecs) {
+        handler.onMessageReceived = function (channel, message) {
+            handlerSpecs.messageReceivedHandler(channel, message);
+        };
+        handler.onMessageUpdated = function (channel, message) {
+            handlerSpecs.messageUpdatedHandler(channel, message);
+        };
+        handler.onMessageDeleted = function (channel, messageId) {
+            handlerSpecs.messageDeletedHandler(channel, messageId);
+        };
+        handler.onChannelChanged = function (channel) {
+            handlerSpecs.channelChangedHandler(channel);
+        };
+        handler.onTypingStatusUpdated = function (channel) {
+            handlerSpecs.typingStatusHandler(channel);
+        };
+        handler.onReadReceiptUpdated = function (channel) {
+            handlerSpecs.readReceiptHandler(channel);
+        };
+        handler.onUserLeft = function (channel, user) {
+            handlerSpecs.userLeftHandler(channel, user);
+        };
+        handler.onUserJoined = function (channel, user) {
+            handlerSpecs.userJoinedHandler(channel, user);
+        };
     }
 
     /*Info*/
@@ -280,4 +269,4 @@ class Sendbird {
 
 }
 
-export { Sendbird as default };
+export { SendBirdWrapper as default };
