@@ -57,7 +57,7 @@ class SBWidget {
         }
     }
 
-    startWithConnect(appId, userId, nickname, callback) {
+    startWithConnect(appId, userId, nickname, accessToken, callback) {
         this._getGoogleFont();
         this.widget = document.getElementById(WIDGET_ID);
         if (this.widget) {
@@ -66,7 +66,7 @@ class SBWidget {
             });
             this._init();
             this._start(appId);
-            this._connect(userId, nickname, callback);
+            this._connect(userId, nickname, accessToken, callback);
         } else {
             console.error(ERROR_MESSAGE);
         }
@@ -249,8 +249,8 @@ class SBWidget {
         }
     }
 
-    _connect(userId, nickname, callback) {
-        this.sb.connect(userId, nickname, () => {
+    _connect(userId, nickname, accessToken, callback) {
+        this.sb.connect(userId, nickname, accessToken, () => {
             this.widgetBtn.toggleIcon(true);
             this.listBoard.showChannelList();
             this.spinner.insert(this.listBoard.list);
