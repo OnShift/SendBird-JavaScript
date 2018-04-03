@@ -537,7 +537,9 @@ class SBWidget {
             }
         });
         this.chatSection.addClickEvent(chatBoard.inviteBtn, () => {
+            let iterations = 1;
             let _getUserList = (memberIds, loadmore) => {
+                iterations += 1;
                 this.sb.getUserList((userList) => {
                     if (!loadmore) {
                         this.spinner.remove(this.popup.invitePopup.list);
@@ -555,7 +557,8 @@ class SBWidget {
                             this.popup.invitePopup.list.appendChild(item);
                         }
                     }
-                });
+                    _getUserList(memberIds, true);
+                }, iterations);
             };
             this.popup.addClickEvent(this.popup.invitePopup.inviteBtn, () => {
                 if (!hasClass(this.popup.invitePopup.inviteBtn, className.DISABLED)) {
