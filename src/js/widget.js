@@ -125,7 +125,7 @@ class SBWidget {
         let protocol = 'https:' === document.location.protocol ? 'https' : 'http';
         wf.src = `${protocol}://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js`;
         wf.type = 'text/javascript';
-        wf.async = 'true';
+        wf.async = true;
         let s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(wf, s);
     }
