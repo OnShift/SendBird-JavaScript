@@ -147,7 +147,7 @@ class SendBirdWrapper {
 
     /*User*/
 
-    getUserList(action, iterations = 1) {
+    getUserList(action, iterations) {
         if (!this.userListQuery) {
             this.userListQuery = this.sb.createUserListQuery();
             this.userListQuery.limit = 100;
