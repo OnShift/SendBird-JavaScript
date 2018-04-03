@@ -578,9 +578,6 @@ class SBWidget {
                     return member.userId;
                 });
                 this.loadUsersForInviteList(memberIds);
-                this.popup.addScrollEvent(() => {
-                    this.loadUsersForInviteList(memberIds, false);
-                });
             }
         });
         this.spinner.insert(chatBoard.content);
