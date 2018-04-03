@@ -606,14 +606,6 @@ class ChatSection extends Element {
         return this._isBottom(targetContent, targetList);
     }
 
-    addUserListScrollEvent(target, action) {
-        this._setScrollEvent(target.userContent, () => {
-            if (this.isBottom(target.userContent, target.userContent.list)) {
-                action();
-            }
-        });
-    }
-
     scrollToBottom(target) {
         target.scrollTop = target.scrollHeight - target.clientHeight;
     }
