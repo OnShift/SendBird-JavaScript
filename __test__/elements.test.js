@@ -58,3 +58,18 @@ describe('HTML element creation tests', () => {
         expect(testElement.createLi()).toBeInstanceOf(HTMLLIElement);
     });
 });
+
+describe('_setClass', () => {
+
+    test('can handle one class', () => {
+        let div = testElement.createDiv();
+        testElement._setClass(div, ['someclass']);
+        expect(div.className).toBe('someclass');
+    });
+
+    test('can multiple one classes', () => {
+        let div = testElement.createDiv();
+        testElement._setClass(div, ['someclass','anotherclass']);
+        expect(div.className).toBe('someclass anotherclass');
+    });
+});
