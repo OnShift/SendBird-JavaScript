@@ -73,3 +73,9 @@ describe('_setClass', () => {
         expect(div.className).toBe('someclass anotherclass');
     });
 });
+
+test('setContent', () => {
+    let div = testElement.createDiv();
+    testElement._setContent(div, 'some content');
+    expect(div.innerHTML).toBe('some content');
+});
