@@ -152,7 +152,7 @@ class SendBirdWrapper {
             this.userListQuery = this.sb.createUserListQuery();
             this.userListQuery.limit = 100;
         }
-        if (this.userListQuery.hasNext && !this.userListQuery.isLoading && iterations <= 10) {
+        if (this.userListQuery.hasNext && !this.userListQuery.isLoading && iterations <= 5) {
             this.userListQuery.next((userList, error) => {
                 if (error) {
                     console.error(error);

@@ -593,7 +593,7 @@ class SBWidget {
     }
 
     loadUsersForInviteList(memberIds, removeSpinner = true) {
-        let iterations = 1;
+        let iterations = 0;
         let loadUsers = (spinner) => {
             iterations += 1;
             this.sb.getUserList((userList) => {
