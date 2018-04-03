@@ -1,4 +1,4 @@
-import { className, MAX_COUNT } from '../consts.js';
+import { className } from '../consts.js';
 import Element from './elements.js';
 import {
   show,
@@ -11,7 +11,6 @@ import {
 const CHAT_SECTION_RIGHT_MAX = '-20px';
 const CHAT_SECTION_RIGHT_MIN = '60px';
 const DISPLAY_NONE = 'none';
-const DISPLAY_TYPE_INLINE_BLOCK = 'inline-block';
 const EMPTY_STRING = '';
 const IMAGE_MAX_SIZE = 160;
 const MARGIN_TOP_MESSAGE = '3px';
@@ -364,7 +363,7 @@ class ChatSection extends Element {
         }
     }
 
-    createMessageItem(message, isCurrentUser, isContinue, unreadCount) {
+    createMessageItem(message, isCurrentUser, isContinue) {
         let messageSet = this.createDiv();
         messageSet.id = message.messageId;
         this._setClass(messageSet, isCurrentUser ? [className.MESSAGE_SET, className.USER] : [className.MESSAGE_SET]);
@@ -488,7 +487,6 @@ class ChatSection extends Element {
 
         let itemUnread = this.createDiv();
         this._setClass(itemUnread, [className.UNREAD]);
-        this.setUnreadCount(itemUnread, unreadCount);
         messageSet.unread = itemUnread;
 
         if (isCurrentUser) {
@@ -502,30 +500,6 @@ class ChatSection extends Element {
         messageContent.appendChild(messageItem);
         messageSet.appendChild(messageContent);
         return messageSet;
-    }
-
-    setUnreadCount(target, count) {
-        count = parseInt(count);
-        let renderSingleDigitCount = (c) => {
-            return c === 0 ? '' : c.toString();
-        };
-        let text = count > 9 ? MAX_COUNT : renderSingleDigitCount(count);
-        this._setContent(target, text);
-        count > 0 ? show(target, DISPLAY_TYPE_INLINE_BLOCK) : hide(target);
-    }
-
-    updateReadReceipt(channelSet, target) {
-        let items = target.querySelectorAll(`.${  className.MESSAGE_SET}`);
-        for (let j = 0; j < channelSet.message.length; j++) {
-            let message = channelSet.message[j];
-            for (let i = 0; i < items.length; i++) {
-                let item = items[i];
-                if (item.id === message.messageId) {
-                    this.setUnreadCount(item.unread, channelSet.channel.getReadReceipt(message));
-                    break;
-                }
-            }
-        }
     }
 
     createMessageItemTime(date) {
