@@ -169,14 +169,6 @@ class Popup extends Element {
         });
     }
 
-    addScrollEvent(action) {
-        this._setScrollEvent(this.invitePopup.content, () => {
-            if (this._isBottom(this.invitePopup.content, this.invitePopup.list)) {
-                action();
-            }
-        });
-    }
-
     addClickEvent(target, action) {
         this._setClickEvent(target, action);
     }
