@@ -592,12 +592,12 @@ class SBWidget {
         });
     }
 
-    loadUsersForInviteList(memberIds, removeSpinner = true) {
+    loadUsersForInviteList(memberIds) {
         let iterations = 0;
-        let loadUsers = (spinner) => {
+        let loadUsers = (removeSpinner) => {
             iterations += 1;
             this.sb.getUserList((userList) => {
-                if (spinner) {
+                if (removeSpinner) {
                     this.spinner.remove(this.popup.invitePopup.list);
                 }
                 for (let i = 0 ; i < userList.length ; i++) {
@@ -616,7 +616,7 @@ class SBWidget {
                 loadUsers(false);
             }, iterations);
         };
-        loadUsers(removeSpinner);
+        loadUsers(true);
     }
 
     updateChannelInfo(target, channel) {
