@@ -16,7 +16,7 @@
     "testEnvironment": "jsdom",
     "verbose": true,
     "moduleNameMapper": {
-      "\\.(css|less)$": "<rootDir>/__test__/__mocks__/styleMock.js"
+      ".css": "<rootDir>/__test__/__mocks__/styleMock.js"
     }
   },
   "author": "OnShift",
