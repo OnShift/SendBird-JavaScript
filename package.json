@@ -14,7 +14,10 @@
   },
   "jest": {
     "testEnvironment": "jsdom",
-    "verbose": true
+    "verbose": true,
+    "moduleNameMapper": {
+      "\\.(css|less)$": "<rootDir>/__test__/__mocks__/styleMock.js"
+    }
   },
   "author": "OnShift",
   "license": "ISC",
