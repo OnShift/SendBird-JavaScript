@@ -203,10 +203,18 @@ class SBWidget {
             });
             this.spinner.insert(chatBoard.userContent);
 
-            this.sb.getUserList((userList) => {
-                this.spinner.remove(chatBoard.userContent);
-                this.setUserList(chatBoard, userList);
-            });
+            let iterations = 0;
+            let _getUserList = (removeSpinner) => {
+                iterations += 1;
+                this.sb.getUserList((userList) => {
+                    if(removeSpinner) {
+                        this.spinner.remove(chatBoard.userContent);
+                    }
+                    this.setUserList(chatBoard, userList);
+                    _getUserList(false);
+                }, iterations);
+            };
+            _getUserList(true);
 
             this.chatSection.addClickEvent(chatBoard.closeBtn, () => {
                 this.chatSection.closeChatBoard(chatBoard);
