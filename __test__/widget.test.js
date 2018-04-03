@@ -2,7 +2,7 @@ import SBWidget from '../src/js/widget';
 
 test('the widget can be instantiated', () => {
     let widget = new SBWidget();
-    expect(widget).toBeTruthy
+    expect(widget).toBeInstanceOf(SBWidget);
 });
 
 describe('_init', () => {
