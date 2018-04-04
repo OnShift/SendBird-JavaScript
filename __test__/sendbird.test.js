@@ -39,7 +39,6 @@ describe('attachHandlers', () => {
             messageDeletedHandler: (a, b) => { state = a * b; },
             channelChangedHandler: (a) => { state = a; },
             typingStatusHandler: (a) => { state = -a; },
-            readReceiptHandler: (a) => { state = a * a; },
             userLeftHandler: (a, b) => { state = b - a; },
             userJoinedHandler: (a, b) => { state = b / a; },
         };
@@ -55,8 +54,6 @@ describe('attachHandlers', () => {
         expect(state).toEqual(firstNum);
         handlerContainer.onTypingStatusUpdated(firstNum);
         expect(state).toEqual(-firstNum);
-        handlerContainer.onReadReceiptUpdated(firstNum);
-        expect(state).toEqual(firstNum * firstNum);
         handlerContainer.onUserLeft(firstNum, secondNum);
         expect(state).toEqual(secondNum - firstNum);
         handlerContainer.onUserJoined(firstNum, secondNum);
