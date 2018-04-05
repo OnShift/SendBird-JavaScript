@@ -156,10 +156,13 @@ class SendBirdWrapper {
             this.userListQuery.next((userList, error) => {
                 if (error) {
                     console.error(error);
+                    this.userListQuery = null;
                     return;
                 }
                 action(userList);
             });
+        } else {
+            this.userListQuery = null;
         }
     }
 

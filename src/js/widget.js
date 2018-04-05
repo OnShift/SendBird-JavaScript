@@ -481,7 +481,6 @@ class SBWidget {
     closeInvitePopup() {
         this.chatSection.removeInvitePopup();
         this.popup.closeInvitePopup();
-        this.sb.userListQuery = null;
     }
 
     _connectChannel(channelUrl, doNotCall) {
