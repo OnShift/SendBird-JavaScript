@@ -1,5 +1,5 @@
 import * as utils from '../src/js/utils';
-import {ANIMATION_EVENT, ANIMATION_REGEX, DISPLAY_NONE, DISPLAY_BLOCK} from '../src/js/consts';
+import {ANIMATION_EVENT, DISPLAY_NONE, DISPLAY_BLOCK} from '../src/js/consts';
 
 function buildDummyTarget(specs) {
     let target = document.createElement('div');

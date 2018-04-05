@@ -100,10 +100,6 @@ class Element {
         target.style.width = `${width}px`;
     }
 
-    _setRight(target, right) {
-        target.style.right = `${right}px`;
-    }
-
     _setDataset(target, name, data) {
         target.setAttribute(`data-${name}`, data);
     }

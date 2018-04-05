@@ -9,11 +9,6 @@ class WidgetBtn extends Element {
         widget.appendChild(this.self);
     }
 
-    reset() {
-        this.toggleIcon(false);
-        this.setUnreadCount(0);
-    }
-
     _create() {
         this.self = this.createDiv();
         this._setClass(this.self, [className.WIDGET_BTN, className.IC_LOGIN]);
