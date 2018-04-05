@@ -186,9 +186,6 @@ class SendBirdWrapper {
         handler.onTypingStatusUpdated = function (channel) {
             handlerSpecs.typingStatusHandler(channel);
         };
-        handler.onReadReceiptUpdated = function (channel) {
-            handlerSpecs.readReceiptHandler(channel);
-        };
         handler.onUserLeft = function (channel, user) {
             handlerSpecs.userLeftHandler(channel, user);
         };

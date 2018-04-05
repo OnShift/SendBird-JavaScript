@@ -272,16 +272,6 @@ class SBWidget {
                         }
                     }
                 },
-                readReceiptHandler: (channel) => {
-                    let channelUrl = channel.url;
-                    let targetBoard = this.chatSection.getChatBoard(channelUrl);
-                    if (targetBoard) {
-                        let channelSet = this.getChannelSet(channelUrl);
-                        if (channelSet) {
-                            this.chatSection.updateReadReceipt(channelSet, targetBoard);
-                        }
-                    }
-                },
                 userLeftHandler: (channel, user) => {
                     let channelUrl = channel.url;
                     let listBoard = this.listBoard;
@@ -735,8 +725,7 @@ class SBWidget {
             } else if (!message.isAdminMessage()) {
                 let isContinue = prevMessage && prevMessage.sender ? message.sender.userId === prevMessage.sender.userId : false;
                 let isCurrentUser = this.sb.isCurrentUser(message.sender);
-                let unreadCount = channel.getReadReceipt(message);
-                newMessage = this.chatSection.createMessageItem(message, isCurrentUser, isContinue, unreadCount);
+                newMessage = this.chatSection.createMessageItem(message, isCurrentUser, isContinue);
                 insertMessageIntoBoard(newMessage);
                 prevMessage = message;
             }
