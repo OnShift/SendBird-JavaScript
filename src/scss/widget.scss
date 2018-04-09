@@ -666,28 +666,6 @@
           }
         }
       }
-      .btn.ic-leave {
-        margin-right: 3px;
-        .tooltip {
-          @extend .tooltip;
-          width: 78px;
-          position: absolute;
-          top: -37px;
-          left: -39px;
-        }
-      }
-      .btn.ic-members {
-        margin: 0 3px;
-      }
-      .btn.ic-members {
-        .tooltip {
-          @extend .tooltip;
-          width: 74px;
-          position: absolute;
-          top: -37px;
-          left: -37px;
-        }
-      }
       .btn.ic-invite {
         .tooltip {
           @extend .tooltip;
