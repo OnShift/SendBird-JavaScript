@@ -220,7 +220,7 @@
     bottom: 0;
     right: 0;
     width: 280px;
-    @media #{$tablet} {
+    @media #{$mobile} {
         height: 100%;
         width: 100%;
     }
