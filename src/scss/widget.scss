@@ -4,15 +4,7 @@
 @import "icons";
 
 #sb_widget {
-  @include reset();
   z-index: 99990;
-  width: 60px;
-  height: 60px;
-  @media #{$desktop} {
-    position: fixed;
-  }
-  bottom: 0;
-  right: 20px;
   font-family: $font-family-default;
   font-weight: $font-weight-default;
   -webkit-font-smoothing: antialiased;
@@ -163,7 +155,7 @@
     @include reset();
     z-index: 99991;
     position: absolute;
-    right: 0;
+    right: 20px;
     bottom: 20px;
     width: 60px;
     height: 60px;
