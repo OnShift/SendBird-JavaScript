@@ -1092,8 +1092,14 @@
 
     .popup-body {
       @include reset();
-      width: 280px;
-      height: 389px;
+      @media #{$desktop} {
+        width: 280px;
+        height: 389px;
+      }
+      @media #{$mobile} {
+        width: 100vw;
+        height: 94vh;
+      }
       background-color: $color-white;
 
       & > .content {
