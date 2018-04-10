@@ -210,8 +210,6 @@ class SBWidget {
                 this.closePopup();
                 this.responsiveChatSection();
             });
-            hide(chatBoard.leaveBtn);
-            hide(chatBoard.memberBtn);
             hide(chatBoard.inviteBtn);
         });
 
