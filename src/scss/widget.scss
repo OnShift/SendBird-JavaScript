@@ -666,28 +666,6 @@
           }
         }
       }
-      .btn.ic-leave {
-        margin-right: 3px;
-        .tooltip {
-          @extend .tooltip;
-          width: 78px;
-          position: absolute;
-          top: -37px;
-          left: -39px;
-        }
-      }
-      .btn.ic-members {
-        margin: 0 3px;
-      }
-      .btn.ic-members {
-        .tooltip {
-          @extend .tooltip;
-          width: 74px;
-          position: absolute;
-          top: -37px;
-          left: -37px;
-        }
-      }
       .btn.ic-invite {
         .tooltip {
           @extend .tooltip;
@@ -1049,17 +1027,6 @@
             }
           }
         }
-        .unread {
-          @include reset();
-          display: none !important;
-          background-color: transparent;
-          color: $color-read-receipt;
-          font-size: 11px;
-          font-weight: 700;
-          text-align: center;
-          margin: 0 4px;
-          vertical-align: bottom;
-        }
       }
     }
     .message-set.user {
@@ -1083,9 +1050,6 @@
           margin: 0;
           @include imageMessage();
           @include border-radius(5px);
-        }
-        .unread {
-          display: inline-block !important;
         }
       }
     }

@@ -33,11 +33,6 @@ class ListBoard extends Element {
         this.createChannelListBoard();
     }
 
-    reset() {
-        this._setContent(this.list, EMPTY_STRING);
-        this._cleanLoginForm();
-    }
-
     _createBoard() {
         this.self = this.createDiv();
         this._setClass(this.self, [className.CHANNEL_BOARD]);

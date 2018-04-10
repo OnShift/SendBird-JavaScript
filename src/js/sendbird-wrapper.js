@@ -147,18 +147,22 @@ class SendBirdWrapper {
 
     /*User*/
 
-    getUserList(action) {
+    getUserList(action, iterations) {
         if (!this.userListQuery) {
             this.userListQuery = this.sb.createUserListQuery();
+            this.userListQuery.limit = 100;
         }
-        if (this.userListQuery.hasNext && !this.userListQuery.isLoading) {
+        if (this.userListQuery.hasNext && !this.userListQuery.isLoading && iterations <= 5) {
             this.userListQuery.next((userList, error) => {
                 if (error) {
                     console.error(error);
+                    this.userListQuery = null;
                     return;
                 }
                 action(userList);
             });
+        } else {
+            this.userListQuery = null;
         }
     }
 
@@ -185,9 +189,6 @@ class SendBirdWrapper {
         };
         handler.onTypingStatusUpdated = function (channel) {
             handlerSpecs.typingStatusHandler(channel);
-        };
-        handler.onReadReceiptUpdated = function (channel) {
-            handlerSpecs.readReceiptHandler(channel);
         };
         handler.onUserLeft = function (channel, user) {
             handlerSpecs.userLeftHandler(channel, user);
