@@ -220,6 +220,7 @@
     bottom: 0;
     right: 0;
     width: 280px;
+    // can i change this to vh and vw?
     @media #{$mobile} {
         height: 100%;
         width: 100%;
@@ -812,9 +813,15 @@
       .message-content {
         @include reset();
         width: calc(100% - 16px);
-        height: 328px;
+        @media #{$mobile} {
+          max-height: 85vh;
+          height: 85vh;
+        }
+        @media #{$desktop} {
+          max-height: 328px;
+          height: 328px;
+        }
         min-height: 240px;
-        max-height: 85vh;
         overflow-x: hidden;
         overflow-y: scroll;
         padding: 0 8px 8px 8px;
