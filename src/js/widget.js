@@ -158,10 +158,9 @@ class SBWidget {
                 this._connectChannel(popChannelUrl, true);
                 this.chatSection.setWidth((currentSize + 1) * CHAT_BOARD_WIDTH);
             } else {
-                if (isShow) {
-                    currentSize += 1;
-                }
-                this.chatSection.setWidth(currentSize * CHAT_BOARD_WIDTH);
+                let screenWidth = window.screen.width;
+                isShow ? currentSize += 1 : currentSize;
+                screenWidth < 787 && isShow ? this.chatSection.setWidth(screenWidth) : this.chatSection.setWidth(currentSize * CHAT_BOARD_WIDTH);
             }
         }
     }
@@ -183,7 +182,6 @@ class SBWidget {
         });
 
         this.listBoard.addNewChatClickEvent(() => {
-
             let chatBoard = this.chatSection.createChatBoard(NEW_CHAT_BOARD_ID);
             this.responsiveChatSection(null, true);
 

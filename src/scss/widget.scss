@@ -543,9 +543,9 @@
     @media #{$mobile} {
       height: 100vh;
       width: 100vw;
+      right: 0px;
     }
     bottom: 0;
-    //width: auto;
     @media #{$desktop} {
       right: 60px;
       max-height: 520px;
