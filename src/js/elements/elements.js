@@ -92,8 +92,12 @@ class Element {
         target.style.fontSize = size ? `${size}px` : null;
     }
 
-    _setHeight(target, height) {
+    _setImageHeight(target, height) {
         target.style.height = `${height}px`;
+    }
+
+    _setHeight(target, height) {
+        target.style.height = `${height}vh`;
     }
 
     _setWidth(target, width) {

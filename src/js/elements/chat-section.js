@@ -271,7 +271,7 @@ class ChatSection extends Element {
 
         this._setBackgroundSize(imageTarget, `${resizeWidth  }px ${  resizeHeight  }px`);
         this._setWidth(imageTarget, resizeWidth);
-        this._setHeight(imageTarget, resizeHeight);
+        this._setImageHeight(imageTarget, resizeHeight);
         return {
             'resizeWidth': resizeWidth,
             'resizeHeight': resizeHeight
