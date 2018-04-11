@@ -3,7 +3,6 @@ import Element from './elements.js';
 import {
   show,
   hide,
-  getFullHeight,
   removeClass,
   xssEscape
 } from '../utils.js';
@@ -15,8 +14,6 @@ const EMPTY_STRING = '';
 const IMAGE_MAX_SIZE = 160;
 const MARGIN_TOP_MESSAGE = '3px';
 const MEMBER_COUNT_DEFAULT = '0';
-const MESSAGE_CONTENT_HEIGHT_DEFAULT = 328;
-const MESSAGE_INPUT_HEIGHT_DEFAULT = 29;
 const MESSAGE_TYPING_MEMBER = ' is typing...';
 const MESSAGE_TYPING_SEVERAL = 'Several people are typing...';
 const TEXT_FILE_DOWNLOAD = 'Download';
