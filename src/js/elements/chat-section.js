@@ -36,7 +36,6 @@ class ChatSection extends Element {
     }
 
     responsiveSize(isMax, action) {
-        // kinda hate this
         if (isMax !== undefined && window.screen.width > 767) {
             this.self.style.right = isMax ? CHAT_SECTION_RIGHT_MIN : CHAT_SECTION_RIGHT_MAX;
         }
