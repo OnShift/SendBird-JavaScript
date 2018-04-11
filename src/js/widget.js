@@ -273,7 +273,6 @@ class SBWidget {
                     let targetBoard = this.chatSection.getChatBoard(channelUrl);
                     if (targetBoard) {
                         this.chatSection.showTyping(channel, this.spinner);
-                        this.chatSection.responsiveHeight(channelUrl);
                         let isBottom = this.chatSection.isBottom(targetBoard.messageContent, targetBoard.list);
                         if (isBottom) {
                             this.chatSection.scrollToBottom(targetBoard.messageContent);

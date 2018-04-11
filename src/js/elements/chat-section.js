@@ -235,11 +235,7 @@ class ChatSection extends Element {
     responsiveHeight(channelUrl) {
         let targetBoard = this.getChatBoard(channelUrl);
         let messageContent = targetBoard.messageContent;
-        let changeHeight = getFullHeight(targetBoard.typing) + getFullHeight(targetBoard.input);
-        this._setHeight(
-            messageContent,
-            MESSAGE_CONTENT_HEIGHT_DEFAULT - (changeHeight - MESSAGE_INPUT_HEIGHT_DEFAULT)
-        );
+        this._setHeight(messageContent, 85);
     }
 
     showTyping(channel, spinner) {
