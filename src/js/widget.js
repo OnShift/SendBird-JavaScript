@@ -309,6 +309,7 @@ class SBWidget {
                     }
                 }
             };
+            this.sb.createHandlerGlobal(handlers);
         });
     }
 
