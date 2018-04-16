@@ -47,10 +47,6 @@ class ChatSection extends Element {
         this.self.insertBefore(target, this.self.firstChild);
     }
 
-    setWidth(width) {
-        this._setWidth(this.self, width);
-    }
-
     /*Chat*/
 
     createChatBoard(channelUrl, isLast) {

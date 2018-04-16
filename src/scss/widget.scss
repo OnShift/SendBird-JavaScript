@@ -224,8 +224,8 @@
     right: 0;
     width: 280px;
     @media #{$mobile} {
-        height: 100vh;
-        width: 100vw;
+        height: 100%;
+        width: 100%;
     }
     height: 426px;
     @include box-shadow(0 3px 6px rgba(0, 0, 0, 0.3));
@@ -545,8 +545,8 @@
     position: absolute;
     display: none;
     @media #{$mobile} {
-      height: 106vh;
-      width: 100vw;
+      height: 100%;
+      width: 100%;
       right: 0;
     }
     bottom: 0;
@@ -559,15 +559,14 @@
 
     .chat-board {
       @include reset();
-      margin-top: 40px;
       width: 280px;
       height: 426px;
       @media #{$desktop} {
         margin-right: 20px;
       }
       @media #{$mobile} {
-        height: 100vh;
-        width: 100vw;
+        height: 100%;
+        width: 100%;
       }
       @include box-shadow(0 3px 6px rgba(0, 0, 0, 0.3));
 
@@ -818,8 +817,8 @@
         @include reset();
         width: calc(100% - 16px);
         @media #{$mobile} {
-          max-height: 85vh;
-          height: 85vh;
+          max-height: 85%;
+          height: 85%;
         }
         @media #{$desktop} {
           max-height: 328px;
@@ -1101,8 +1100,8 @@
         height: 389px;
       }
       @media #{$mobile} {
-        width: 100vw;
-        height: 94vh;
+        width: 100%;
+        height: 100%;
       }
       background-color: $color-white;
 
