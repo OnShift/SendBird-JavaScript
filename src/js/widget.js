@@ -440,14 +440,15 @@ class SBWidget {
     }
 
     createChannelItem(channel) {
-        let item = this.listBoard.createChannelItem(
-        channel.url,
-        channel.coverUrl,
-        this.sb.getNicknamesString(channel),
-        this.sb.getMessageTime(channel.lastMessage),
-        this.sb.getLastMessage(channel),
-        this.sb.getChannelUnreadCount(channel)
-    );
+        let channelData = {
+            channelUrl: channel.url,
+            coverUrl: channel.coverUrl,
+            nicknames: this.sb.getNicknamesString(channel),
+            messageTime: this.sb.getMessageTime(channel),
+            lastMessage: this.sb.getLastMessage(channel),
+            unreadCount: this.sb.getChannelUnreadCount(channel)
+        };
+        let item = this.listBoard.createChannelItem(channelData);
         this.listBoard.addChannelClickEvent(item, () => {
             this.closePopup();
             let channelUrl = item.getAttribute('data-channel-url');
