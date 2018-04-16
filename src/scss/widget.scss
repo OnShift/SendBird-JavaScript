@@ -543,6 +543,7 @@
     @include reset();
     z-index: 99992;
     position: absolute;
+    display: none;
     @media #{$mobile} {
       height: 106vh;
       width: 100vw;

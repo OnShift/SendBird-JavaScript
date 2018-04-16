@@ -431,6 +431,7 @@ class ChatSection extends Element {
     }
 
     createNewChatBoard(target) {
+        this.self.style.display = 'initial';
         let chatContent = this.createDiv();
         this._setClass(chatContent, [className.CONTENT]);
 
