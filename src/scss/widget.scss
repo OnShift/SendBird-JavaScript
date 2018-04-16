@@ -695,7 +695,7 @@
     .content {
       @include reset();
       width: 100%;
-      height: calc(100% - 36px - 1px);
+      height: 95%;
       background-color: $color-white;
 
       .sb-spinner {
@@ -1091,7 +1091,7 @@
     position: absolute;
     bottom: 26px;
     z-index: 999999;
-    top: 76px;
+    top: 36px;
 
     .popup-body {
       @include reset();
