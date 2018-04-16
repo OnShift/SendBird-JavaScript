@@ -24,7 +24,6 @@ import {
 
 import { className, TYPE_STRING, MAX_COUNT } from './consts.js';
 
-const CHAT_BOARD_WIDTH = 300;
 const ERROR_MESSAGE = 'Please create "sb_widget" element first.';
 const EVENT_TYPE_CLICK = 'click';
 const KEY_DOWN_ENTER = 13;
@@ -130,7 +129,7 @@ class SBWidget {
         s.parentNode.insertBefore(wf, s);
     }
 
-    responsiveChatSection(channelUrl, isShow) {
+    responsiveChatSection(channelUrl) {
         let maxSize = 1;
         let currentSize = this.activeChannelSetList.length;
         if (currentSize >= maxSize) {
@@ -151,16 +150,10 @@ class SBWidget {
                     this.extraChannelSetList.splice(idx, 1);
                 }
             }
-            this.chatSection.setWidth(maxSize * CHAT_BOARD_WIDTH);
         } else {
             let popChannelUrl = this.extraChannelSetList.pop();
             if (popChannelUrl) {
                 this._connectChannel(popChannelUrl, true);
-                this.chatSection.setWidth((currentSize + 1) * CHAT_BOARD_WIDTH);
-            } else {
-                let screenWidth = window.screen.width;
-                isShow ? currentSize += 1 : currentSize;
-                screenWidth < 787 && isShow ? this.chatSection.setWidth(screenWidth) : this.chatSection.setWidth(currentSize * CHAT_BOARD_WIDTH);
             }
         }
     }
@@ -183,7 +176,7 @@ class SBWidget {
 
         this.listBoard.addNewChatClickEvent(() => {
             let chatBoard = this.chatSection.createChatBoard(NEW_CHAT_BOARD_ID);
-            this.responsiveChatSection(null, true);
+            this.responsiveChatSection(null);
 
             this.chatSection.createNewChatBoard(chatBoard);
             this.chatSection.addClickEvent(chatBoard.startBtn, () => {
@@ -478,7 +471,7 @@ class SBWidget {
         let chatBoard = this.chatSection.createChatBoard(channelUrl, doNotCall);
         this.chatSection.channelUrl = channelUrl;
         if (!doNotCall) {
-            this.responsiveChatSection(channelUrl, true);
+            this.responsiveChatSection(channelUrl);
         }
         this.chatSection.showChatBoard();
         this.chatSection.addClickEvent(chatBoard.closeBtn, () => {
