@@ -615,19 +615,17 @@ class SBWidget {
                                 this.messageReceivedAction(channelSet.channel, message);
                             });
                         }
-                        this.chatSection.clearInputText(target.input, channelSet.channel.url);
+                        this.chatSection.clearInputText(target.input);
                         this.chatSection.textKr = '';
                         channelSet.channel.endTyping();
                     } else {
                         channelSet.channel.startTyping();
                     }
-                    this.chatSection.responsiveHeight(channelSet.channel.url);
                 });
                 this.chatSection.addKeyUpEvent(target.input, (event) => {
                     let isBottom = this.chatSection.isBottom(target.messageContent, target.list);
-                    this.chatSection.responsiveHeight(channelSet.channel.url);
                     if (event.keyCode === KEY_DOWN_ENTER && !event.shiftKey) {
-                        this.chatSection.clearInputText(target.input, channelSet.channel.url);
+                        this.chatSection.clearInputText(target.input);
                         if (isBottom) {
                             this.chatSection.scrollToBottom(target.messageContent);
                         }

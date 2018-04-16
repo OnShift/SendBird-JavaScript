@@ -186,14 +186,13 @@ class ChatSection extends Element {
         return chatText;
     }
 
-    clearInputText(target, channelUrl) {
+    clearInputText(target) {
         let items = target.querySelectorAll(this.tagType.DIV);
         for (let i = 0; i < items.length; i++) {
             let item = items[i];
             item.remove();
         }
         this._setContent(target, EMPTY_STRING);
-        this.responsiveHeight(channelUrl);
     }
 
     addPasteEvent(target, action) {
@@ -214,12 +213,6 @@ class ChatSection extends Element {
 
     addScrollEvent(target, action) {
         this._setScrollEvent(target, action);
-    }
-
-    responsiveHeight(channelUrl) {
-        let targetBoard = this.getChatBoard(channelUrl);
-        let messageContent = targetBoard.messageContent;
-        this._setHeight(messageContent, 85);
     }
 
     showTyping(channel, spinner) {
