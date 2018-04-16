@@ -178,7 +178,7 @@ class SBWidget {
             this.listBoard.addChannelListScrollEvent(() => {
                 this.getChannelList();
             });
-            this.chatSection.responsiveSize(false, this.responsiveChatSection.bind(this));
+            this.responsiveChatSection.bind(this);
         });
 
         this.listBoard.addNewChatClickEvent(() => {
@@ -214,7 +214,7 @@ class SBWidget {
         this.listBoard.addMinimizeClickEvent(() => {
             this.closePopup();
             this.toggleBoard(false);
-            this.chatSection.responsiveSize(true, this.responsiveChatSection.bind(this));
+            this.responsiveChatSection.bind(this);
         });
 
         this.listBoard.addLoginClickEvent(() => {
@@ -238,7 +238,7 @@ class SBWidget {
             this._connect(cookie.userId, cookie.nickname);
             this.listBoard.showChannelList();
             this.toggleBoard(true);
-            this.chatSection.responsiveSize(false, this.responsiveChatSection.bind(this));
+            this.responsiveChatSection.bind(this);
         }
     }
 

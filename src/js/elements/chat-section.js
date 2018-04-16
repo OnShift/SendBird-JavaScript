@@ -7,8 +7,6 @@ import {
   xssEscape
 } from '../utils.js';
 
-const CHAT_SECTION_RIGHT_MAX = '-20px';
-const CHAT_SECTION_RIGHT_MIN = '60px';
 const DISPLAY_NONE = 'none';
 const EMPTY_STRING = '';
 const IMAGE_MAX_SIZE = 160;
@@ -33,13 +31,6 @@ class ChatSection extends Element {
     _create() {
         this.self = this.createDiv();
         this._setClass(this.self, [className.CHAT_SECTION]);
-    }
-
-    responsiveSize(isMax, action) {
-        if (isMax !== undefined && window.screen.width > 767) {
-            this.self.style.right = isMax ? CHAT_SECTION_RIGHT_MIN : CHAT_SECTION_RIGHT_MAX;
-        }
-        action();
     }
 
     _getListBoardArray() {
