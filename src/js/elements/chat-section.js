@@ -144,6 +144,7 @@ class ChatSection extends Element {
     closeChatBoard(target) {
         target.parentNode.removeChild(target);
         this.textKr = '';
+        this.hideChatBoard();
     }
 
     createMessageContent(target) {
@@ -431,7 +432,7 @@ class ChatSection extends Element {
     }
 
     createNewChatBoard(target) {
-        this.self.style.display = 'initial';
+        this.showChatBoard();
         let chatContent = this.createDiv();
         this._setClass(chatContent, [className.CONTENT]);
 
@@ -504,6 +505,14 @@ class ChatSection extends Element {
 
     scrollToBottom(target) {
         target.scrollTop = target.scrollHeight - target.clientHeight;
+    }
+
+    showChatBoard() {
+        this.self.style.display = 'initial';
+    }
+
+    hideChatBoard() {
+        this.self.style.display = 'none';
     }
 
 }

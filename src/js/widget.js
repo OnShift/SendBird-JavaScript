@@ -479,6 +479,7 @@ class SBWidget {
         if (!doNotCall) {
             this.responsiveChatSection(channelUrl, true);
         }
+        this.chatSection.showChatBoard();
         this.chatSection.addClickEvent(chatBoard.closeBtn, () => {
             this.chatSection.closeChatBoard(chatBoard);
             this.closePopup();
