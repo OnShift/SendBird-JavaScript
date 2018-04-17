@@ -4,6 +4,7 @@
   "description": "A chat widget based on and utilizing SendBird.",
   "main": "index.js",
   "scripts": {
+    "prepublish": "npm run prod-build",
     "prod-build": "npm run build-stylesheet && webpack -p",
     "start-dev": "npm run build-stylesheet && webpack-dev-server",
     "test": "jest",
