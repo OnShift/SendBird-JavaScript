@@ -1,19 +1,19 @@
 let path = require('path');
 
 function determineOutput(env) {
-    let config = {
+    let output = {
         path: path.resolve(__dirname + '/build'),
         filename: '[name].SendBird.js',
         publicPath: 'build',
         library: 'onshiftChatWidget',
     };
     if (env && env.local) {
-        config.libraryTarget = 'var';
+        output.libraryTarget = 'var';
     } else {
-        config.libraryTarget = 'umd';
-        config.umdNamedDefine = true;
+        output.libraryTarget = 'umd';
+        output.umdNamedDefine = true;
     }
-    return config;
+    return output;
 }
 
 function determineConfig(env){
