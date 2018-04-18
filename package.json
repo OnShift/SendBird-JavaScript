@@ -1,14 +1,15 @@
 {
   "name": "onshift-chat-widget",
-  "version": "0.4.0",
+  "version": "0.5.1",
   "description": "A chat widget based on and utilizing SendBird.",
   "main": "index.js",
   "scripts": {
+    "prepublish": "npm run prod-build",
     "prod-build": "npm run build-stylesheet && webpack -p",
     "start-dev": "npm run build-stylesheet && webpack-dev-server",
     "test": "jest",
     "coverage": "jest --coverage",
-    "start": "npm run build-stylesheet && webpack -p && node test_server/server.js",
+    "start": "npm run build-stylesheet && webpack --env.local=true -p && node test_server/server.js",
     "lint": "eslint src/",
     "build-stylesheet": "node-sass src/scss/widget.scss build/stylesheet.css"
   },
@@ -36,10 +37,10 @@
     "node-sass": "4.5.0",
     "sass-loader": "^6.0.3",
     "style-loader": "^0.14.1",
+    "webpack": "^2.7.0",
     "webpack-dev-server": "^2.9.4"
   },
   "dependencies": {
-    "sendbird": "^3.0.53",
-    "webpack": "^2.2.1"
+    "sendbird": "^3.0.53"
   }
 }

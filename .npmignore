@@ -1,8 +1,12 @@
 .babelrc
-docs
+docs/
 node_modules/
 .idea/
 coverage/
-src/scss
+src/
 .travis.yml
-__test__
+__test__/
+test_server/
+index.html
+index.js
+webpack.config.js
