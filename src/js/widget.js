@@ -40,21 +40,6 @@ window.WebFontConfig = {
 
 class SBWidget {
     constructor() {
-
-    }
-
-    start(appId) {
-        this._getGoogleFont();
-        this.widget = document.getElementById(WIDGET_ID);
-        if (this.widget) {
-            document.addEventListener(EVENT_TYPE_CLICK, (event) => {
-                this._initClickEvent(event);
-            });
-            this._init();
-            this._start(appId);
-        } else {
-            console.error(ERROR_MESSAGE);
-        }
     }
 
     startWithConnect(appId, userId, nickname, accessToken) {
