@@ -11,7 +11,8 @@
     "coverage": "jest --coverage",
     "start": "npm run build-stylesheet && webpack --env.local=true -p && node test_server/server.js",
     "lint": "eslint src/",
-    "build-stylesheet": "node-sass src/scss/widget.scss build/stylesheet.css"
+    "build-stylesheet": "node-sass src/scss/widget.scss build/stylesheet.css",
+    "watch-stylesheet": "node-sass -w src/scss/widget.scss build/stylesheet.css"
   },
   "jest": {
     "testEnvironment": "jsdom",

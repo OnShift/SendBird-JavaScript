@@ -3,20 +3,15 @@ import Element from './elements.js';
 import {
   show,
   hide,
-  getFullHeight,
   removeClass,
   xssEscape
 } from '../utils.js';
 
-const CHAT_SECTION_RIGHT_MAX = '-20px';
-const CHAT_SECTION_RIGHT_MIN = '60px';
 const DISPLAY_NONE = 'none';
 const EMPTY_STRING = '';
 const IMAGE_MAX_SIZE = 160;
 const MARGIN_TOP_MESSAGE = '3px';
 const MEMBER_COUNT_DEFAULT = '0';
-const MESSAGE_CONTENT_HEIGHT_DEFAULT = 328;
-const MESSAGE_INPUT_HEIGHT_DEFAULT = 29;
 const MESSAGE_TYPING_MEMBER = ' is typing...';
 const MESSAGE_TYPING_SEVERAL = 'Several people are typing...';
 const TEXT_FILE_DOWNLOAD = 'Download';
@@ -38,13 +33,6 @@ class ChatSection extends Element {
         this._setClass(this.self, [className.CHAT_SECTION]);
     }
 
-    responsiveSize(isMax, action) {
-        if (isMax !== undefined) {
-            this.self.style.right = isMax ? CHAT_SECTION_RIGHT_MIN : CHAT_SECTION_RIGHT_MAX;
-        }
-        action();
-    }
-
     _getListBoardArray() {
         return Array.prototype.slice.call(this.self.childNodes, 0);
     }
@@ -57,10 +45,6 @@ class ChatSection extends Element {
             }
         });
         this.self.insertBefore(target, this.self.firstChild);
-    }
-
-    setWidth(width) {
-        this._setWidth(this.self, width);
     }
 
     /*Chat*/
@@ -147,6 +131,7 @@ class ChatSection extends Element {
     closeChatBoard(target) {
         target.parentNode.removeChild(target);
         this.textKr = '';
+        this.hideChatBoard();
     }
 
     createMessageContent(target) {
@@ -201,14 +186,13 @@ class ChatSection extends Element {
         return chatText;
     }
 
-    clearInputText(target, channelUrl) {
+    clearInputText(target) {
         let items = target.querySelectorAll(this.tagType.DIV);
         for (let i = 0; i < items.length; i++) {
             let item = items[i];
             item.remove();
         }
         this._setContent(target, EMPTY_STRING);
-        this.responsiveHeight(channelUrl);
     }
 
     addPasteEvent(target, action) {
@@ -229,16 +213,6 @@ class ChatSection extends Element {
 
     addScrollEvent(target, action) {
         this._setScrollEvent(target, action);
-    }
-
-    responsiveHeight(channelUrl) {
-        let targetBoard = this.getChatBoard(channelUrl);
-        let messageContent = targetBoard.messageContent;
-        let changeHeight = getFullHeight(targetBoard.typing) + getFullHeight(targetBoard.input);
-        this._setHeight(
-            messageContent,
-            MESSAGE_CONTENT_HEIGHT_DEFAULT - (changeHeight - MESSAGE_INPUT_HEIGHT_DEFAULT)
-        );
     }
 
     showTyping(channel, spinner) {
@@ -270,7 +244,7 @@ class ChatSection extends Element {
 
         this._setBackgroundSize(imageTarget, `${resizeWidth  }px ${  resizeHeight  }px`);
         this._setWidth(imageTarget, resizeWidth);
-        this._setHeight(imageTarget, resizeHeight);
+        this._setImageHeight(imageTarget, resizeHeight);
         return {
             'resizeWidth': resizeWidth,
             'resizeHeight': resizeHeight
@@ -438,6 +412,7 @@ class ChatSection extends Element {
     }
 
     createNewChatBoard(target) {
+        this.showChatBoard();
         let chatContent = this.createDiv();
         this._setClass(chatContent, [className.CONTENT]);
 
@@ -510,6 +485,14 @@ class ChatSection extends Element {
 
     scrollToBottom(target) {
         target.scrollTop = target.scrollHeight - target.clientHeight;
+    }
+
+    showChatBoard() {
+        this.self.style.display = 'initial';
+    }
+
+    hideChatBoard() {
+        this.self.style.display = 'none';
     }
 
 }

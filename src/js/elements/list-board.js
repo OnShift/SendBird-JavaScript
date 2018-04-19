@@ -192,19 +192,12 @@ class ListBoard extends Element {
         });
     }
 
-    createChannelItem(...args) {
-        let channelUrl = args[0];
-        let coverUrl = args[1];
-        let title = args[2];
-        let time = args[3];
-        let message = args[4];
-        let unread = args[5];
-
+    createChannelItem(channelData) {
         let item = this.createDiv();
         this._setClass(item, [className.ITEM]);
         let itemImg = this.createDiv();
         this._setClass(itemImg, [className.IMAGE]);
-        this._setBackgroundImage(itemImg, coverUrl);
+        this._setBackgroundImage(itemImg, channelData.coverUrl);
         item.appendChild(itemImg);
 
         let itemContent = this.createDiv();
@@ -214,11 +207,11 @@ class ListBoard extends Element {
         this._setClass(contentTop, [className.CONTENT_TOP]);
         let contentTitle = this.createDiv();
         this._setClass(contentTitle, [className.TITLE]);
-        this._setContent(contentTitle, title);
+        this._setContent(contentTitle, channelData.nicknames);
         contentTop.appendChild(contentTitle);
 
         let contentTime = this.createTime();
-        this._setContent(contentTime, time);
+        this._setContent(contentTime, channelData.messageTime);
         contentTop.appendChild(contentTime);
 
         itemContent.appendChild(contentTop);
@@ -227,11 +220,11 @@ class ListBoard extends Element {
         this._setClass(contentBottom, [className.CONTENT_BOTTOM]);
         let contentLastMessage = this.createDiv();
         this._setClass(contentLastMessage, [className.LAST_MESSAGE]);
-        this._setContent(contentLastMessage, message);
+        this._setContent(contentLastMessage, channelData.lastMessage);
         contentBottom.appendChild(contentLastMessage);
 
         let contentUnread = this.createSpan();
-        this.setUnreadCount(contentUnread, unread);
+        this.setUnreadCount(contentUnread, channelData.unreadCount);
         contentBottom.appendChild(contentUnread);
 
         itemContent.appendChild(contentBottom);
@@ -239,7 +232,7 @@ class ListBoard extends Element {
         item.appendChild(itemContent);
 
         let li = this.createLi();
-        this._setDataset(li, 'channel-url', channelUrl);
+        this._setDataset(li, 'channel-url', channelData.channelUrl);
         li.topTitle = contentTitle;
         li.time = contentTime;
         li.message = contentLastMessage;

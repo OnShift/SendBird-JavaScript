@@ -24,7 +24,6 @@ import {
 
 import { className, TYPE_STRING, MAX_COUNT } from './consts.js';
 
-const CHAT_BOARD_WIDTH = 300;
 const ERROR_MESSAGE = 'Please create "sb_widget" element first.';
 const EVENT_TYPE_CLICK = 'click';
 const KEY_DOWN_ENTER = 13;
@@ -130,7 +129,7 @@ class SBWidget {
         s.parentNode.insertBefore(wf, s);
     }
 
-    responsiveChatSection(channelUrl, isShow) {
+    responsiveChatSection(channelUrl) {
         let maxSize = 1;
         let currentSize = this.activeChannelSetList.length;
         if (currentSize >= maxSize) {
@@ -151,17 +150,10 @@ class SBWidget {
                     this.extraChannelSetList.splice(idx, 1);
                 }
             }
-            this.chatSection.setWidth(maxSize * CHAT_BOARD_WIDTH);
         } else {
             let popChannelUrl = this.extraChannelSetList.pop();
             if (popChannelUrl) {
                 this._connectChannel(popChannelUrl, true);
-                this.chatSection.setWidth((currentSize + 1) * CHAT_BOARD_WIDTH);
-            } else {
-                if (isShow) {
-                    currentSize += 1;
-                }
-                this.chatSection.setWidth(currentSize * CHAT_BOARD_WIDTH);
             }
         }
     }
@@ -179,13 +171,12 @@ class SBWidget {
             this.listBoard.addChannelListScrollEvent(() => {
                 this.getChannelList();
             });
-            this.chatSection.responsiveSize(false, this.responsiveChatSection.bind(this));
+            this.responsiveChatSection.bind(this);
         });
 
         this.listBoard.addNewChatClickEvent(() => {
-
             let chatBoard = this.chatSection.createChatBoard(NEW_CHAT_BOARD_ID);
-            this.responsiveChatSection(null, true);
+            this.responsiveChatSection(null);
 
             this.chatSection.createNewChatBoard(chatBoard);
             this.chatSection.addClickEvent(chatBoard.startBtn, () => {
@@ -210,15 +201,13 @@ class SBWidget {
                 this.closePopup();
                 this.responsiveChatSection();
             });
-            hide(chatBoard.leaveBtn);
-            hide(chatBoard.memberBtn);
             hide(chatBoard.inviteBtn);
         });
 
         this.listBoard.addMinimizeClickEvent(() => {
             this.closePopup();
             this.toggleBoard(false);
-            this.chatSection.responsiveSize(true, this.responsiveChatSection.bind(this));
+            this.responsiveChatSection.bind(this);
         });
 
         this.listBoard.addLoginClickEvent(() => {
@@ -242,7 +231,7 @@ class SBWidget {
             this._connect(cookie.userId, cookie.nickname);
             this.listBoard.showChannelList();
             this.toggleBoard(true);
-            this.chatSection.responsiveSize(false, this.responsiveChatSection.bind(this));
+            this.responsiveChatSection.bind(this);
         }
     }
 
@@ -277,7 +266,6 @@ class SBWidget {
                     let targetBoard = this.chatSection.getChatBoard(channelUrl);
                     if (targetBoard) {
                         this.chatSection.showTyping(channel, this.spinner);
-                        this.chatSection.responsiveHeight(channelUrl);
                         let isBottom = this.chatSection.isBottom(targetBoard.messageContent, targetBoard.list);
                         if (isBottom) {
                             this.chatSection.scrollToBottom(targetBoard.messageContent);
@@ -445,14 +433,15 @@ class SBWidget {
     }
 
     createChannelItem(channel) {
-        let item = this.listBoard.createChannelItem(
-        channel.url,
-        channel.coverUrl,
-        this.sb.getNicknamesString(channel),
-        this.sb.getMessageTime(channel.lastMessage),
-        this.sb.getLastMessage(channel),
-        this.sb.getChannelUnreadCount(channel)
-    );
+        let channelData = {
+            channelUrl: channel.url,
+            coverUrl: channel.coverUrl,
+            nicknames: this.sb.getNicknamesString(channel),
+            messageTime: this.sb.getMessageTime(channel),
+            lastMessage: this.sb.getLastMessage(channel),
+            unreadCount: this.sb.getChannelUnreadCount(channel)
+        };
+        let item = this.listBoard.createChannelItem(channelData);
         this.listBoard.addChannelClickEvent(item, () => {
             this.closePopup();
             let channelUrl = item.getAttribute('data-channel-url');
@@ -482,8 +471,9 @@ class SBWidget {
         let chatBoard = this.chatSection.createChatBoard(channelUrl, doNotCall);
         this.chatSection.channelUrl = channelUrl;
         if (!doNotCall) {
-            this.responsiveChatSection(channelUrl, true);
+            this.responsiveChatSection(channelUrl);
         }
+        this.chatSection.showChatBoard();
         this.chatSection.addClickEvent(chatBoard.closeBtn, () => {
             this.chatSection.closeChatBoard(chatBoard);
             this.closePopup();
@@ -625,19 +615,17 @@ class SBWidget {
                                 this.messageReceivedAction(channelSet.channel, message);
                             });
                         }
-                        this.chatSection.clearInputText(target.input, channelSet.channel.url);
+                        this.chatSection.clearInputText(target.input);
                         this.chatSection.textKr = '';
                         channelSet.channel.endTyping();
                     } else {
                         channelSet.channel.startTyping();
                     }
-                    this.chatSection.responsiveHeight(channelSet.channel.url);
                 });
                 this.chatSection.addKeyUpEvent(target.input, (event) => {
                     let isBottom = this.chatSection.isBottom(target.messageContent, target.list);
-                    this.chatSection.responsiveHeight(channelSet.channel.url);
                     if (event.keyCode === KEY_DOWN_ENTER && !event.shiftKey) {
-                        this.chatSection.clearInputText(target.input, channelSet.channel.url);
+                        this.chatSection.clearInputText(target.input);
                         if (isBottom) {
                             this.chatSection.scrollToBottom(target.messageContent);
                         }
