@@ -11,20 +11,25 @@
 
   </head>
   <body>
-    <div id="currentUser">Chat Sandbox</div>
+    <h2 id="currentUser"></h2>
     <div id="sb_widget"></div>
   </body>
 
   <script src="build/widget.SendBird.js"></script>
   <script>
-    var limit = 100;
-    var possibleNames = [];
-    for(var i = 0; i <= limit; i++) {
+    var name;
+    if(document.cookie) {
+      name = document.cookie.split(';')[0].split('=')[1]
+    } else {
+      var limit = 100;
+      var possibleNames = [];
+      for(var i = 0; i <= limit; i++) {
         possibleNames.push('widget_test_user_' + i);
-    }
-    var name = possibleNames[Math.floor(Math.random() * Math.floor(limit))];
-    document.getElementById("currentUser").innerText = 'LOGGED IN AS: ' + name;
+      }
+      name = possibleNames[Math.floor(Math.random() * Math.floor(limit))];
 
+    }
+    document.getElementById("currentUser").innerText = 'LOGGED IN AS: ' + name;
     var sb = new window.onshiftChatWidget.default();
     sb.startWithConnect('9DA1B1F4-0BE6-4DA8-82C5-2E81DAB56F23', name, name);
   </script>
