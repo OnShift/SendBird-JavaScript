@@ -16,23 +16,12 @@ function determineOutput(env) {
     return output;
 }
 
-function determineDevtool(env) {
-    let devtool;
-    if (env && env.local) {
-        console.log('hey cool we hit this');
-        devtool = 'source-map';
-    } else {
-        devtool = 'none';
-    }
-    return devtool;
-}
-
 function determineConfig(env){
     return {
         context: path.resolve(__dirname + '/src'),
         entry: { widget: ['./js/widget.js'] },
         output: determineOutput(env),
-        devtool: determineDevtool(env),
+        devtool: env && env.local ? 'eval-source-map' : 'none',
         devServer:
         {
             publicPath: '/build/',
