@@ -19,8 +19,8 @@ class SendBirdWrapper {
         return !!this.sb.currentUser;
     }
 
-    connect(userId, nickname, action) {
-        this.sb.connect(userId.trim(), (user, error) => {
+    connect(userId, nickname, accessToken, action) {
+        this.sb.connect(userId.trim(), accessToken, (user, error) => {
             if (error) {
                 console.error(error);
                 return;
