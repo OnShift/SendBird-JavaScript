@@ -39,10 +39,9 @@ window.WebFontConfig = {
 
 class SBWidget {
     constructor() {
-
     }
 
-    start(appId) {
+    startWithConnect(appId, userId, nickname, accessToken) {
         this._getGoogleFont();
         this.widget = document.getElementById(WIDGET_ID);
         if (this.widget) {
@@ -51,21 +50,7 @@ class SBWidget {
             });
             this._init();
             this._start(appId);
-        } else {
-            console.error(ERROR_MESSAGE);
-        }
-    }
-
-    startWithConnect(appId, userId, nickname, callback) {
-        this._getGoogleFont();
-        this.widget = document.getElementById(WIDGET_ID);
-        if (this.widget) {
-            document.addEventListener(EVENT_TYPE_CLICK, (event) => {
-                this._initClickEvent(event);
-            });
-            this._init();
-            this._start(appId);
-            this._connect(userId, nickname, callback);
+            this._connect(userId, nickname, accessToken);
         } else {
             console.error(ERROR_MESSAGE);
         }
@@ -250,8 +235,8 @@ class SBWidget {
         loadUsers(true);
     }
 
-    _connect(userId, nickname, callback) {
-        this.sb.connect(userId, nickname, () => {
+    _connect(userId, nickname, accessToken) {
+        this.sb.connect(userId, nickname, accessToken, () => {
             this.widgetBtn.toggleIcon(true);
             this.listBoard.showChannelList();
             this.spinner.insert(this.listBoard.list);
@@ -298,7 +283,6 @@ class SBWidget {
                 }
             };
             this.sb.createHandlerGlobal(handlers);
-            if(callback) { callback(); }
         });
     }
 
