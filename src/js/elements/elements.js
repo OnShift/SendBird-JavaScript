@@ -96,10 +96,6 @@ class Element {
         target.style.height = `${height}px`;
     }
 
-    _setHeight(target, height) {
-        target.style.height = `${height}vh`;
-    }
-
     _setWidth(target, width) {
         target.style.width = `${width}px`;
     }

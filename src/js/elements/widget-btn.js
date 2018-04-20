@@ -29,9 +29,11 @@ class WidgetBtn extends Element {
         if(count > 0) {
             show(this.unread);
             this.self.style.opacity = 1.0; // probably better to add a class
+            addClass(this.self, className.UNREAD);
         } else {
             hide(this.unread);
             this.self.style.opacity = 0.6; // probably better to add a class
+            removeClass(this.self, className.UNREAD);
         }
     }
 
