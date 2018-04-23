@@ -1,6 +1,8 @@
-let path = require('path');
+const path = require('path');
 const merge = require('webpack-merge');
+let webpack = require('webpack');
 const common = require('./webpack.common');
+const Uglify = require('uglifyjs-webpack-plugin');
 
 module.exports = merge(common, {
     output: {
@@ -11,5 +13,16 @@ module.exports = merge(common, {
         libraryTarget: 'umd',
         umdNamedDefine: true
     },
-    devtool: 'none'
+    devtool: 'none',
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify('production')
+            }
+        }),
+        new Uglify({
+            parallel: 3,
+            cache: true
+        })
+    ]
 });
