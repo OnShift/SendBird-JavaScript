@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "prepublish": "npm run prod-build",
-    "prod-build": "npm run build-stylesheet && webpack -p",
-    "start-dev": "npm run build-stylesheet && webpack-dev-server --env.local=true",
+    "prod-build": "npm run build-stylesheet && webpack -p  --config webpack.prod.js",
+    "start-dev": "npm run build-stylesheet && webpack-dev-server --config webpack.dev.js",
     "test": "jest",
     "coverage": "jest --coverage",
     "lint": "eslint src/",
