@@ -9,4 +9,4 @@ __test__/
 test_server/
 index.html
 index.js
-webpack.config.js
+webpack*
