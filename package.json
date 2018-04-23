@@ -38,7 +38,8 @@
     "sass-loader": "^6.0.3",
     "style-loader": "^0.14.1",
     "webpack": "^3.4.1",
-    "webpack-dev-server": "^2.9.4"
+    "webpack-dev-server": "^2.9.4",
+    "webpack-merge": "^4.1.2"
   },
   "dependencies": {
     "sendbird": "^3.0.53"
