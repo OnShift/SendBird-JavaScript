@@ -93,6 +93,8 @@ export const styleValue = {
     CURSOR_INIT: ''
 };
 
+export const DEFAULT_PROFILE_PIC = 'https://dxstmhyqfqr1o.cloudfront.net/widget/thumnail-member-01.svg';
+
 export const MAX_COUNT = '+9';
 export const MAX_FONT_SIZE = '11';
 export const TYPE_STRING = 'string';
