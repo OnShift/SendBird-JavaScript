@@ -267,8 +267,10 @@
         @include hover {
           & > .tooltip {
             @extend .tooltip;
-            font-size: 12px;
-            display: block;
+            @media #{$desktop} {
+              font-size: 12px;
+              display: block;
+            }
           }
         }
 
@@ -683,7 +685,9 @@
         @include hover {
           & > .tooltip {
             @extend .tooltip;
-            display: block;
+            @media #{$desktop} {
+              display: block;
+            }
           }
         }
       }
