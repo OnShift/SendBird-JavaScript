@@ -77,10 +77,6 @@ class Element {
         target.innerHTML = text;
     }
 
-    _addContent(target, text) {
-        target.innerHTML += text;
-    }
-
     _setBackgroundImage(target, url) {
         target.style.backgroundImage = `url(${url})`;
     }
