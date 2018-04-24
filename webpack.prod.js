@@ -3,6 +3,7 @@ const merge = require('webpack-merge');
 let webpack = require('webpack');
 const common = require('./webpack.common');
 const Uglify = require('uglifyjs-webpack-plugin');
+const OptimizeCss = require('optimize-css-assets-webpack-plugin');
 
 module.exports = merge(common, {
     output: {
@@ -24,6 +25,7 @@ module.exports = merge(common, {
             parallel: true,
             cache: true,
             extractComments: true
-        })
+        }),
+        new OptimizeCss()
     ]
 });
