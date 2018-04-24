@@ -1,4 +1,5 @@
 let path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     context: path.resolve(__dirname + '/src'),
@@ -12,20 +13,17 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.css$/,
-                use: [
-                    {
-                        loader: 'style-loader'
-                    },
-                    {
-                        loader: 'css-loader'
-                    }
-                ]
+                test: /\.scss$/,
+                use: ExtractTextPlugin.extract({
+                    allChunks: true,
+                    use: ['css-loader', 'sass-loader'],
+                    fallback: 'style-loader',
+                })
             },
             {
                 enforce: 'pre',
                 test: /\.js$/,
-                exclude: /(node_modules|SendBird.min.js)/,
+                exclude: /node_modules/,
                 use: [
                     {
                         loader: 'eslint-loader',
@@ -38,7 +36,7 @@ module.exports = {
             },
             {
                 test: /\.js$/,
-                exclude: /(node_modules)/,
+                exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
                     options:
@@ -48,5 +46,6 @@ module.exports = {
                 }
             }
         ]
-    }
+    },
+    plugins: [new ExtractTextPlugin('style.css')]
 };
