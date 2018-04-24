@@ -21,7 +21,7 @@ function determineConfig(env){
         context: path.resolve(__dirname + '/src'),
         entry: { widget: ['./js/widget.js'] },
         output: determineOutput(env),
-        devtool: "cheap-eval-source-map",
+        devtool: env && env.local ? 'eval-source-map' : 'none',
         devServer:
         {
             publicPath: '/build/',

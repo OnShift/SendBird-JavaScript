@@ -163,6 +163,12 @@
     @include border-radius(50%);
     @include box-shadow(0 1px 6px rgba(0,0,0,0.06), 0 2px 32px rgba(0,0,0,0.16));
     background-color: $color-purple;
+    opacity: 1.0;
+    border: 2px solid white;
+
+    &.unread {
+      opacity: 0.6;
+    }
 
     @include hover {
       background-color: $color-widget-background-hover;
@@ -174,7 +180,7 @@
       display: none;
       position: absolute;
       top: 0;
-      right: 0;
+      right: 42px;
       width: 18px;
       height: 18px;
       background-color: $color-unread-background;

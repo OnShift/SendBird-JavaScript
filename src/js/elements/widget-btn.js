@@ -26,7 +26,13 @@ class WidgetBtn extends Element {
     setUnreadCount(count) {
         count = parseInt(count);
         this._setContent(this.unread, count > 9 ? MAX_COUNT : count.toString());
-        count > 0 ? show(this.unread) : hide(this.unread);
+        if(count > 0) {
+            show(this.unread);
+            removeClass(this.self, className.UNREAD);
+        } else {
+            hide(this.unread);
+            addClass(this.self, className.UNREAD);
+        }
     }
 
     toggleIcon(isConnected) {

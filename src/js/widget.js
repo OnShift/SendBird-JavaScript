@@ -237,6 +237,7 @@ class SBWidget {
 
     _connect(userId, nickname, accessToken) {
         this.sb.connect(userId, nickname, accessToken, () => {
+            setCookie(userId, nickname);
             this.widgetBtn.toggleIcon(true);
             this.listBoard.showChannelList();
             this.spinner.insert(this.listBoard.list);
