@@ -21,8 +21,9 @@ module.exports = merge(common, {
             }
         }),
         new Uglify({
-            parallel: 3,
-            cache: true
+            parallel: true,
+            cache: true,
+            extractComments: true
         })
     ]
 });
