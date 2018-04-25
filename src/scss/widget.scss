@@ -914,7 +914,7 @@
           @include reset();
           float: left;
           width: 8%;
-          height: 22px;
+          height: 100%;
           cursor: pointer;
           @include icon($icon-file-add);
           background-size: 14px 14px;
