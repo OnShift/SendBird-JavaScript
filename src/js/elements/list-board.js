@@ -1,7 +1,8 @@
 import {
     className,
     MAX_COUNT,
-    MAX_FONT_SIZE
+    MAX_FONT_SIZE,
+    DEFAULT_PROFILE_PIC
 } from '../consts.js';
 import {
     show,
@@ -197,7 +198,7 @@ class ListBoard extends Element {
         this._setClass(item, [className.ITEM]);
         let itemImg = this.createDiv();
         this._setClass(itemImg, [className.IMAGE]);
-        this._setBackgroundImage(itemImg, channelData.coverUrl);
+        this._setBackgroundImage(itemImg, DEFAULT_PROFILE_PIC);
         item.appendChild(itemImg);
 
         let itemContent = this.createDiv();
