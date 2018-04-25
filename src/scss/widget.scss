@@ -873,17 +873,15 @@
 
       .input {
         @include reset();
-        width: calc(100% - 16px);
-        min-height: 51px;
-        max-height: 118px;
-        padding: 0 8px;
+        height: 7%;
         border-top: 1px solid $color-list-border;
+        border-bottom: 1px solid $color-list-border;
 
         .text {
           @include reset();
           width: 87%;
-          min-height: 24px;
-          max-height: 90px;
+          min-height: 20%;
+          max-height: 70%;
           padding: 5px 8px 0 0;
           outline: none !important;
           overflow-x: hidden;
@@ -900,7 +898,7 @@
           }
           & > div {
             @include reset();
-            height: 0px !important;
+            height: 0 !important;
           }
         }
         .text:empty::before {
@@ -915,17 +913,18 @@
         .file {
           @include reset();
           float: left;
-          width: 22px;
+          width: 8%;
           height: 22px;
           cursor: pointer;
           @include icon($icon-file-add);
-          background-position: inherit;
           background-size: 14px 14px;
-
-          @include hover {
-            @include icon($icon-file-add-hover);
-            background-position: inherit;
-            background-size: 14px 14px;
+          border-right: 1px solid $color-list-border;
+          border-bottom: 1px solid $color-list-border;
+          @media #{$desktop} {
+            @include hover {
+              @include icon($icon-file-add-hover);
+              background-size: 14px 14px;
+            }
           }
         }
 
