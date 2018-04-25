@@ -158,14 +158,14 @@ class ChatSection extends Element {
 
         let chatFile = this.createLabel();
         this._setClass(chatFile, [className.FILE]);
-        chatFile.setAttribute('for', `file_${  target.id}`);
+        chatFile.setAttribute('for', `file_${target.id}`);
 
         let chatFileInput = this.createInput();
         chatFileInput.type = 'file';
         chatFileInput.name = 'file';
-        chatFileInput.id = `file_${  target.id}`;
+        chatFileInput.id = `file_${target.id}`;
         hide(chatFileInput);
-        chatFile.appendChild(chatFileInput);
+        contentInput.appendChild(chatFileInput);
         contentInput.appendChild(chatFile);
         chatContent.appendChild(contentInput);
 

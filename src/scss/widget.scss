@@ -881,7 +881,7 @@
 
         .text {
           @include reset();
-          width: calc(100% - 8px);
+          width: 87%;
           min-height: 24px;
           max-height: 90px;
           padding: 5px 8px 0 0;
@@ -889,6 +889,7 @@
           overflow-x: hidden;
           overflow-y: auto;
           word-wrap: break-word;
+          float: right;
           resize: none;
           border: 0;
           font-size: 13px;
