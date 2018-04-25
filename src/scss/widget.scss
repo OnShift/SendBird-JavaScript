@@ -826,14 +826,8 @@
       .message-content {
         @include reset();
         width: calc(100% - 16px);
-        @media #{$mobile} {
-          max-height: 85%;
-          height: 85%;
-        }
-        @media #{$desktop} {
-          max-height: 328px;
-          height: 328px;
-        }
+        max-height: 92%;
+        height: 92%;
         min-height: 240px;
         overflow-x: hidden;
         overflow-y: scroll;
@@ -875,8 +869,6 @@
         @include reset();
         height: 7%;
         border-top: 1px solid $color-list-border;
-        border-bottom: 1px solid $color-list-border;
-
         .text {
           @include reset();
           width: 87%;
@@ -913,17 +905,16 @@
         .file {
           @include reset();
           float: left;
-          width: 8%;
+          width: 9%;
           height: 100%;
           cursor: pointer;
           @include icon($icon-file-add);
-          background-size: 14px 14px;
+          background-size: 18px 18px;
           border-right: 1px solid $color-list-border;
-          border-bottom: 1px solid $color-list-border;
           @media #{$desktop} {
             @include hover {
               @include icon($icon-file-add-hover);
-              background-size: 14px 14px;
+              background-size: 18px 18px;
             }
           }
         }
