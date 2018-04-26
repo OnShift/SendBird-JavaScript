@@ -1089,6 +1089,7 @@
     @include reset();
     display: none;
     background-color: $color-transparent;
+    width: 100%;
     position: absolute;
     bottom: 26px;
     z-index: 999999;
@@ -1110,7 +1111,7 @@
         @include reset();
         overflow-y: scroll;
         overflow-x: hidden;
-        height: calc(100% - 51px - 2px);
+        height: 95%;
         margin: 0;
 
         & > ul {
@@ -1253,6 +1254,7 @@
 
       .title {
         @include reset();
+        margin-top: -5px;
         float: left;
         font-size: 13px;
         line-height: 52px;
@@ -1272,7 +1274,7 @@
         text-align: center;
         line-height: 16px;
         position: relative;
-        top: 50%;
+        top: 43%;
         @include transform-translate(0, -50%);
       }
 
@@ -1280,7 +1282,7 @@
         @extend .sb-common-btn;
         float: right;
         position: relative;
-        top: 50%;
+        top: 45%;
         width: 41px;
         height: 24px;
         font-size: 14px;
