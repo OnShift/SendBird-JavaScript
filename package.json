@@ -5,12 +5,11 @@
   "main": "index.js",
   "scripts": {
     "prepublish": "npm run prod-build",
-    "prod-build": "npm run build-stylesheet && webpack -p",
-    "start-dev": "npm run build-stylesheet && webpack-dev-server --env.local=true",
+    "prod-build": "webpack -p --config webpack.prod.js",
+    "start-dev": "webpack-dev-server --config webpack.dev.js",
     "test": "jest",
     "coverage": "jest --coverage",
     "lint": "eslint src/",
-    "build-stylesheet": "node-sass src/scss/widget.scss build/stylesheet.css",
     "watch-stylesheet": "node-sass -w src/scss/widget.scss build/stylesheet.css"
   },
   "jest": {
@@ -35,10 +34,13 @@
     "express": "^4.16.2",
     "jest": "^22.4.2",
     "node-sass": "4.5.0",
+    "optimize-css-assets-webpack-plugin": "3.2.0",
+    "optimize-css-classnames-plugin": "0.0.5",
     "sass-loader": "^6.0.3",
     "style-loader": "^0.14.1",
     "webpack": "^3.4.1",
-    "webpack-dev-server": "^2.9.4"
+    "webpack-dev-server": "^2.9.4",
+    "webpack-merge": "^4.1.2"
   },
   "dependencies": {
     "sendbird": "^3.0.53"

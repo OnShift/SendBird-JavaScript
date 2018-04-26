@@ -1,5 +1,5 @@
 'use strict';
-import '../../build/stylesheet.css';
+import '../scss/widget.scss';
 import ChatSection from './elements/chat-section.js';
 import ListBoard from './elements/list-board.js';
 import Popup from './elements/popup.js';
