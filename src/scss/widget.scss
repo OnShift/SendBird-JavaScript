@@ -869,7 +869,7 @@
         @include reset();
         height: 7%;
         @media #{$mobile} {
-          height: 39px;
+          height: 10%;
           background-color: white;
         }
         border-top: 1px solid $color-list-border;
@@ -887,6 +887,10 @@
           resize: none;
           border: 0;
           font-size: 13px;
+          @media #{$mobile} {
+            font-size: 16px;
+            min-height: 70%;
+          }
           color: $color-gray-darkest;
           background-color: $color-white;
           @include focus {
@@ -920,6 +924,11 @@
               @include icon($icon-file-add-hover);
               background-size: 18px 18px;
             }
+          }
+          @media #{$mobile} {
+            background-size: 21px 21px;
+            background-position-x: 35%;
+            background-position-y: 28%;
           }
         }
 
