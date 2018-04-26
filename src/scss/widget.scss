@@ -868,6 +868,10 @@
       .input {
         @include reset();
         height: 7%;
+        @media #{$mobile} {
+          height: 39px;
+          background-color: white;
+        }
         border-top: 1px solid $color-list-border;
         .text {
           @include reset();
