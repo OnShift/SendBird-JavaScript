@@ -8,6 +8,7 @@ import Spinner from './elements/spinner.js';
 import WidgetBtn from './elements/widget-btn.js';
 import {
     addClass,
+    alphabetizeAlgo,
     getCookie,
     getFullHeight,
     getLastItem,
@@ -386,8 +387,7 @@ class SBWidget {
     }
 
     setUserList(target, userList) {
-        userList = userList.filter(user => user.nickname && user.userId && !this.sb.isCurrentUser(user))
-            .sort(this.alphabetizeAlgo);
+        userList = userList.filter(user => user.nickname && user.userId && !this.sb.isCurrentUser(user)).sort(alphabetizeAlgo);
         let userContent = target.userContent;
         this.chatSection.createUserList(userContent);
         for (let i = 0 ; i < userList.length ; i++) {
@@ -542,8 +542,7 @@ class SBWidget {
             loadUsers();
         };
         let setList = () => {
-            masterList = masterList.filter(user => user.nickname && user.userId && memberIds.indexOf(user.userId) < 0)
-            .sort(this.alphabetizeAlgo);
+            masterList = masterList.filter(user => user.nickname && user.userId && memberIds.indexOf(user.userId) < 0).sort(alphabetizeAlgo);
             this.spinner.remove(this.popup.invitePopup.list);
             for (let i = 0 ; i < masterList.length ; i++) {
                 let user = masterList[i];
@@ -743,18 +742,6 @@ class SBWidget {
             hide(addClass(removeClass(this.listBoard.self, className.FADE_IN), className.FADE_OUT));
             show(addClass(removeClass(this.widgetBtn.self, className.FADE_OUT), className.FADE_IN));
         }
-    }
-
-    alphabetizeAlgo(firstUser, nextUser) {
-        let firstNickname = firstUser.nickname.toUpperCase();
-        let nextNickname = nextUser.nickname.toUpperCase();
-        if (firstNickname < nextNickname) {
-            return -1;
-        }
-        if (firstNickname > nextNickname) {
-            return 1;
-        }
-        return 0;
     }
 }
 

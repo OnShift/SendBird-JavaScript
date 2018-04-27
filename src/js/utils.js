@@ -145,3 +145,15 @@ export function getCookie() {
     }
     return sendbirdUserInfo;
 }
+
+export function alphabetizeAlgo(firstUser, nextUser) {
+    let firstNickname = firstUser.nickname.toUpperCase();
+    let nextNickname = nextUser.nickname.toUpperCase();
+    if (firstNickname < nextNickname) {
+        return -1;
+    }
+    if (firstNickname > nextNickname) {
+        return 1;
+    }
+    return 0;
+}
