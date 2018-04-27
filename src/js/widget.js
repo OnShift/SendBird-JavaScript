@@ -522,7 +522,6 @@ class SBWidget {
         let masterList = [];
         let clickEvent = (item) => {
             return () => {
-                // consider refactoring this to a 'flip' class
                 if(hasClass(item.select, className.ACTIVE)) {
                     removeClass(item.select, className.ACTIVE);
                 } else {
