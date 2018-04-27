@@ -386,9 +386,9 @@ class SBWidget {
     }
 
     setUserList(target, userList) {
-        let sortAlgo = (a, b) => {
-            let firstNickname = a.nickname.toUpperCase();
-            let nextNickname = b.nickname.toUpperCase();
+        let sortAlgo = (firstUser, nextUser) => {
+            let firstNickname = firstUser.nickname.toUpperCase();
+            let nextNickname = nextUser.nickname.toUpperCase();
             if (firstNickname < nextNickname) {
                 return -1;
             }
@@ -397,21 +397,19 @@ class SBWidget {
             }
             return 0;
         };
-        userList = userList.filter(user => user.nickname && user.userId).sort(sortAlgo);
+        userList = userList.filter(user => user.nickname && user.userId && !this.sb.isCurrentUser(user)).sort(sortAlgo);
         let userContent = target.userContent;
         this.chatSection.createUserList(userContent);
         for (let i = 0 ; i < userList.length ; i++) {
             let user = userList[i];
-            if (!this.sb.isCurrentUser(user)) {
-                let item = this.chatSection.createUserListItem(user);
-                this.chatSection.addClickEvent(item, () => {
-                    hasClass(item.select, className.ACTIVE) ? removeClass(item.select, className.ACTIVE) : addClass(item.select, className.ACTIVE);
-                    let selectedUserCount = this.chatSection.getSelectedUserIds(userContent.list).length;
-                    this.chatSection.updateChatTop(target, selectedUserCount > 9 ? MAX_COUNT : selectedUserCount.toString(), null);
-                    selectedUserCount > 0 ? removeClass(target.startBtn, className.DISABLED) : addClass(target.startBtn, className.DISABLED);
-                });
-                userContent.list.appendChild(item);
-            }
+            let item = this.chatSection.createUserListItem(user);
+            this.chatSection.addClickEvent(item, () => {
+                hasClass(item.select, className.ACTIVE) ? removeClass(item.select, className.ACTIVE) : addClass(item.select, className.ACTIVE);
+                let selectedUserCount = this.chatSection.getSelectedUserIds(userContent.list).length;
+                this.chatSection.updateChatTop(target, selectedUserCount > 9 ? MAX_COUNT : selectedUserCount.toString(), null);
+                selectedUserCount > 0 ? removeClass(target.startBtn, className.DISABLED) : addClass(target.startBtn, className.DISABLED);
+            });
+            userContent.list.appendChild(item);
         }
     }
 
