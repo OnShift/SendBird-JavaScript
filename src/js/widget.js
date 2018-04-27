@@ -338,7 +338,6 @@ class SBWidget {
                     return msg;
                 }
             });
-
             channelSet.message = newMessages;
 
             let lastMessage = getLastItem(channelSet.message);
@@ -387,6 +386,18 @@ class SBWidget {
     }
 
     setUserList(target, userList) {
+        let sortAlgo = (a, b) => {
+            let firstNickname = a.nickname.toUpperCase();
+            let nextNickname = b.nickname.toUpperCase();
+            if (firstNickname < nextNickname) {
+                return -1;
+            }
+            if (firstNickname > nextNickname) {
+                return 1;
+            }
+            return 0;
+        };
+        userList = userList.filter(user => user.nickname && user.userId).sort(sortAlgo);
         let userContent = target.userContent;
         this.chatSection.createUserList(userContent);
         for (let i = 0 ; i < userList.length ; i++) {
