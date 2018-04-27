@@ -705,7 +705,7 @@
     .content {
       @include reset();
       width: 100%;
-      height: 95%;
+      height: 96%;
       background-color: $color-white;
 
       .sb-spinner {
@@ -826,14 +826,8 @@
       .message-content {
         @include reset();
         width: calc(100% - 16px);
-        @media #{$mobile} {
-          max-height: 85%;
-          height: 85%;
-        }
-        @media #{$desktop} {
-          max-height: 328px;
-          height: 328px;
-        }
+        max-height: 92%;
+        height: 92%;
         min-height: 240px;
         overflow-x: hidden;
         overflow-y: scroll;
@@ -873,25 +867,30 @@
 
       .input {
         @include reset();
-        width: calc(100% - 16px);
-        min-height: 51px;
-        max-height: 118px;
-        padding: 0 8px;
+        height: 7%;
+        @media #{$mobile} {
+          height: 10%;
+          background-color: white;
+        }
         border-top: 1px solid $color-list-border;
-
         .text {
           @include reset();
-          width: calc(100% - 8px);
-          min-height: 24px;
-          max-height: 90px;
+          width: 87%;
+          min-height: 13px;
+          max-height: 70%;
           padding: 5px 8px 0 0;
           outline: none !important;
           overflow-x: hidden;
           overflow-y: auto;
           word-wrap: break-word;
+          float: right;
           resize: none;
           border: 0;
           font-size: 13px;
+          @media #{$mobile} {
+            font-size: 16px;
+            min-height: 70%;
+          }
           color: $color-gray-darkest;
           background-color: $color-white;
           @include focus {
@@ -899,7 +898,7 @@
           }
           & > div {
             @include reset();
-            height: 0px !important;
+            height: 0 !important;
           }
         }
         .text:empty::before {
@@ -914,17 +913,22 @@
         .file {
           @include reset();
           float: left;
-          width: 22px;
-          height: 22px;
+          width: 9%;
+          height: 100%;
           cursor: pointer;
           @include icon($icon-file-add);
-          background-position: inherit;
-          background-size: 14px 14px;
-
-          @include hover {
-            @include icon($icon-file-add-hover);
-            background-position: inherit;
-            background-size: 14px 14px;
+          background-size: 18px 18px;
+          border-right: 1px solid $color-list-border;
+          @media #{$desktop} {
+            @include hover {
+              @include icon($icon-file-add-hover);
+              background-size: 18px 18px;
+            }
+          }
+          @media #{$mobile} {
+            background-size: 21px 21px;
+            background-position-x: 35%;
+            background-position-y: 28%;
           }
         }
 
@@ -1089,8 +1093,6 @@
       font-size: 11px;
       color: $color-gray-dark;
     }
-
-
   }
 
   // Popup
@@ -1098,6 +1100,7 @@
     @include reset();
     display: none;
     background-color: $color-transparent;
+    width: 100%;
     position: absolute;
     bottom: 26px;
     z-index: 999999;
@@ -1119,7 +1122,7 @@
         @include reset();
         overflow-y: scroll;
         overflow-x: hidden;
-        height: calc(100% - 51px - 2px);
+        height: 95%;
         margin: 0;
 
         & > ul {
@@ -1262,8 +1265,12 @@
 
       .title {
         @include reset();
+        margin-top: -5px;
         float: left;
         font-size: 13px;
+        @media #{$mobile} {
+          font-size: 16px;
+        }
         line-height: 52px;
         color: $color-gray-darker;
       }
@@ -1271,17 +1278,16 @@
       .count {
         @include reset();
         float: left;
-        width: 16px;
-        height: 16px;
         margin-left: 8px;
-        background-color: $color-popup-count-background;
-        font-weight: 700;
         font-size: 10px;
+        @media #{$mobile} {
+          font-size: 14px;
+        }
         color: $color-gray-darker;
         text-align: center;
         line-height: 16px;
         position: relative;
-        top: 50%;
+        top: 43%;
         @include transform-translate(0, -50%);
       }
 
@@ -1289,7 +1295,7 @@
         @extend .sb-common-btn;
         float: right;
         position: relative;
-        top: 50%;
+        top: 42%;
         width: 41px;
         height: 24px;
         font-size: 14px;
