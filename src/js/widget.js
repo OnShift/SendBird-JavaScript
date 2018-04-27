@@ -1,17 +1,18 @@
 'use strict';
 import '../scss/widget.scss';
-import ChatSection from './elements/chat-section.js';
-import ListBoard from './elements/list-board.js';
-import Popup from './elements/popup.js';
-import Sendbird from './sendbird-wrapper.js';
-import Spinner from './elements/spinner.js';
-import WidgetBtn from './elements/widget-btn.js';
+import ChatSection from './elements/chat-section';
+import ListBoard from './elements/list-board';
+import Popup from './elements/popup';
+import Sendbird from './sendbird-wrapper';
+import Spinner from './elements/spinner';
+import WidgetBtn from './elements/widget-btn';
 import {
     addClass,
     alphabetizeAlgo,
     getCookie,
     getFullHeight,
     getLastItem,
+    flipClass,
     hasClass,
     hide,
     insertMessageInList,
@@ -21,9 +22,9 @@ import {
     setCookie,
     show,
     xssEscape
-} from './utils.js';
+} from './utils';
 
-import { className, TYPE_STRING, MAX_COUNT } from './consts.js';
+import { className, TYPE_STRING, MAX_COUNT } from './consts';
 
 const ERROR_MESSAGE = 'Please create "sb_widget" element first.';
 const EVENT_TYPE_CLICK = 'click';
@@ -522,11 +523,7 @@ class SBWidget {
         let masterList = [];
         let clickEvent = (item) => {
             return () => {
-                if(hasClass(item.select, className.ACTIVE)) {
-                    removeClass(item.select, className.ACTIVE);
-                } else {
-                    addClass(item.select, className.ACTIVE);
-                }
+                flipClass(item.select, className.ACTIVE);
                 let selectedUserCount = this.popup.getSelectedUserIds(this.popup.invitePopup.list).length;
                 this.popup.updateCount(this.popup.invitePopup.count, selectedUserCount);
                 if(selectedUserCount > 0) {
