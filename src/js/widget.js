@@ -386,18 +386,8 @@ class SBWidget {
     }
 
     setUserList(target, userList) {
-        let sortAlgo = (firstUser, nextUser) => {
-            let firstNickname = firstUser.nickname.toUpperCase();
-            let nextNickname = nextUser.nickname.toUpperCase();
-            if (firstNickname < nextNickname) {
-                return -1;
-            }
-            if (firstNickname > nextNickname) {
-                return 1;
-            }
-            return 0;
-        };
-        userList = userList.filter(user => user.nickname && user.userId && !this.sb.isCurrentUser(user)).sort(sortAlgo);
+        userList = userList.filter(user => user.nickname && user.userId && !this.sb.isCurrentUser(user))
+            .sort(this.alphabetizeAlgo);
         let userContent = target.userContent;
         this.chatSection.createUserList(userContent);
         for (let i = 0 ; i < userList.length ; i++) {
@@ -552,14 +542,14 @@ class SBWidget {
             loadUsers();
         };
         let setList = () => {
+            masterList = masterList.filter(user => user.nickname && user.userId && memberIds.indexOf(user.userId) < 0)
+            .sort(this.alphabetizeAlgo);
             this.spinner.remove(this.popup.invitePopup.list);
             for (let i = 0 ; i < masterList.length ; i++) {
                 let user = masterList[i];
-                if (memberIds.indexOf(user.userId) < 0) {
-                    let item = this.popup.createMemberItem(user, true);
-                    this.popup.addClickEvent(item, clickEvent(item));
-                    this.popup.invitePopup.list.appendChild(item);
-                }
+                let item = this.popup.createMemberItem(user, true);
+                this.popup.addClickEvent(item, clickEvent(item));
+                this.popup.invitePopup.list.appendChild(item);
             }
         };
         let loadUsers = () => {
@@ -753,6 +743,18 @@ class SBWidget {
             hide(addClass(removeClass(this.listBoard.self, className.FADE_IN), className.FADE_OUT));
             show(addClass(removeClass(this.widgetBtn.self, className.FADE_OUT), className.FADE_IN));
         }
+    }
+
+    alphabetizeAlgo(firstUser, nextUser) {
+        let firstNickname = firstUser.nickname.toUpperCase();
+        let nextNickname = nextUser.nickname.toUpperCase();
+        if (firstNickname < nextNickname) {
+            return -1;
+        }
+        if (firstNickname > nextNickname) {
+            return 1;
+        }
+        return 0;
     }
 }
 
