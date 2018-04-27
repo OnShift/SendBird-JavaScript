@@ -520,35 +520,48 @@ class SBWidget {
 
     loadUsersForInviteList(memberIds) {
         let iterations = 0;
-        let loadUsers = (removeSpinner) => {
-            iterations += 1;
-            this.sb.getUserList((userList) => {
-                if (removeSpinner) {
-                    this.spinner.remove(this.popup.invitePopup.list);
+        let masterList = [];
+        let clickEvent = (item) => {
+            return () => {
+                // consider refactoring this to a 'flip' class
+                if(hasClass(item.select, className.ACTIVE)) {
+                    removeClass(item.select, className.ACTIVE);
+                } else {
+                    addClass(item.select, className.ACTIVE);
                 }
-                for (let i = 0 ; i < userList.length ; i++) {
-                    let user = userList[i];
-                    if (memberIds.indexOf(user.userId) < 0) {
-                        let item = this.popup.createMemberItem(user, true);
-                        this.popup.addClickEvent(item, () => {
-                            hasClass(item.select, className.ACTIVE) ? removeClass(item.select, className.ACTIVE) : addClass(item.select, className.ACTIVE);
-                            let selectedUserCount = this.popup.getSelectedUserIds(this.popup.invitePopup.list).length;
-                            this.popup.updateCount(this.popup.invitePopup.count, selectedUserCount);
-                            selectedUserCount > 0 ? removeClass(this.popup.invitePopup.inviteBtn, className.DISABLED) : addClass(this.popup.invitePopup.inviteBtn, className.DISABLED);
-                        });
-                        this.popup.invitePopup.list.appendChild(item);
-                    }
+                let selectedUserCount = this.popup.getSelectedUserIds(this.popup.invitePopup.list).length;
+                this.popup.updateCount(this.popup.invitePopup.count, selectedUserCount);
+                if(selectedUserCount > 0) {
+                    removeClass(this.popup.invitePopup.inviteBtn, className.DISABLED);
+                } else {
+                    addClass(this.popup.invitePopup.inviteBtn, className.DISABLED);
                 }
-                loadUsers(false);
-            }, iterations);
+            };
         };
-        loadUsers(true);
+        let getFullList = (userList) => {
+            masterList = masterList.concat(userList);
+            loadUsers();
+        };
+        let setList = () => {
+            this.spinner.remove(this.popup.invitePopup.list);
+            for (let i = 0 ; i < masterList.length ; i++) {
+                let user = masterList[i];
+                if (memberIds.indexOf(user.userId) < 0) {
+                    let item = this.popup.createMemberItem(user, true);
+                    this.popup.addClickEvent(item, clickEvent(item));
+                    this.popup.invitePopup.list.appendChild(item);
+                }
+            }
+        };
+        let loadUsers = () => {
+            iterations += 1;
+            this.sb.getUserList(getFullList, setList, iterations);
+        };
+        loadUsers();
     }
 
     updateChannelInfo(target, channel) {
-        this.chatSection.updateChatTop(
-        target, this.sb.getMemberCount(channel), this.sb.getNicknamesString(channel)
-    );
+        this.chatSection.updateChatTop(target, this.sb.getMemberCount(channel), this.sb.getNicknamesString(channel));
     }
 
     updateUnreadMessageCount(channel) {
