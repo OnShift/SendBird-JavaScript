@@ -222,17 +222,20 @@ class SBWidget {
 
     loadUsersForChatboard(chatBoard) {
         let iterations = 0;
-        let loadUsers = (removeSpinner) => {
-            iterations += 1;
-            this.sb.getUserList((userList) => {
-                if(removeSpinner) {
-                    this.spinner.remove(chatBoard.userContent);
-                }
-                this.setUserList(chatBoard, userList);
-                loadUsers(false);
-            }, iterations);
+        let masterList = [];
+        let setList = () => {
+            this.spinner.remove(chatBoard.userContent);
+            this.setUserList(chatBoard, masterList);
         };
-        loadUsers(true);
+        let getFullList = (userList) => {
+            masterList = masterList.concat(userList);
+            loadUsers();
+        };
+        let loadUsers = () => {
+            iterations += 1;
+            this.sb.getUserList(getFullList, setList, iterations);
+        };
+        loadUsers();
     }
 
     _connect(userId, nickname, accessToken) {
