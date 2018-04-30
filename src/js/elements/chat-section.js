@@ -474,6 +474,10 @@ class ChatSection extends Element {
         let userItem = this.createDiv();
         this._setClass(userItem, [className.SEARCH]);
 
+        let searchField = this.createTextInput();
+        this._setClass(searchField, [' search-input']);
+
+        userItem.appendChild(searchField);
         li.appendChild(userItem);
         return li;
     }
