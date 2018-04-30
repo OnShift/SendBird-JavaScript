@@ -58,6 +58,7 @@ export const className = {
     USER_CONTENT: 'user-content',
     USER_ITEM: 'user-item',
     USER_SELECT: 'user-select',
+    SEARCH: 'user-search',
     USER: 'user',
 
     IMAGE_ME: 'image-me',

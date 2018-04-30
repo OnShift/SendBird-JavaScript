@@ -469,6 +469,15 @@ class ChatSection extends Element {
         return li;
     }
 
+    createSearchBox() {
+        let li = this.createLi();
+        let userItem = this.createDiv();
+        this._setClass(userItem, [className.SEARCH]);
+
+        li.appendChild(userItem);
+        return li;
+    }
+
     getSelectedUserIds(target) {
         let items = target.querySelectorAll(`.${  className.ACTIVE}`);
         let userIds = [];

@@ -391,6 +391,8 @@ class SBWidget {
         userList = userList.filter(user => user.nickname && user.userId && !this.sb.isCurrentUser(user)).sort(alphabetizeAlgo);
         let userContent = target.userContent;
         this.chatSection.createUserList(userContent);
+        let searchBox = this.chatSection.createSearchBox();
+        userContent.list.appendChild(searchBox);
         for (let i = 0 ; i < userList.length ; i++) {
             let user = userList[i];
             let item = this.chatSection.createUserListItem(user);
