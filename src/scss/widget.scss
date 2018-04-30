@@ -1255,7 +1255,7 @@
 
     .popup-bottom {
       @include reset();
-      height: 52px;
+      height: 14%;
       background-color: $color-white;
       border-top: 1px solid rgba(0, 0, 0, 0.2);
       padding: 0 12px;
@@ -1277,14 +1277,15 @@
         float: left;
         margin-left: 8px;
         font-size: 10px;
+        top: 40%;
         @media #{$mobile} {
           font-size: 14px;
+          top: 22%;
         }
         color: $color-gray-darker;
         text-align: center;
         line-height: 16px;
         position: relative;
-        top: 43%;
         @include transform-translate(0, -50%);
       }
 
@@ -1293,6 +1294,9 @@
         float: right;
         position: relative;
         top: 42%;
+        @media #{$mobile} {
+          top: 22%;
+        }
         width: 41px;
         height: 24px;
         font-size: 14px;
