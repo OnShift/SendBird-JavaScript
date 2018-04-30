@@ -82,6 +82,6 @@ describe('getUserList', () => {
     test('sets the limit on the query to 100', () => {
         let sbWrapper = new SendBirdWrapper(appId);
         sbWrapper.getUserList(() => {}, () => {}, 1);
-        sbWrapper.userListQuery.limit = 100;
+        expect(sbWrapper.userListQuery.limit).toEqual(100);
     });
 });
