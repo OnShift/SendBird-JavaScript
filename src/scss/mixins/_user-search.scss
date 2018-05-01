@@ -2,7 +2,7 @@
 @import "../variables";
 @import "responsiveness";
 
-@mixin user-search($height) {
+@mixin user-search($height, $path-to-image) {
   .user-search {
     @include reset();
     width: 100%;
@@ -11,7 +11,7 @@
     border-bottom: 1px solid $color-list-border;
 
     .search-input-image {
-      background-image: url("../../assets/MagnifyingGlass.svg");
+      background-image: url($path-to-image);
     }
 
     .search-input {
