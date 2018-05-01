@@ -1,0 +1,29 @@
+@import "reset";
+@import "../variables";
+
+@mixin user-search($height) {
+  .user-search {
+    @include reset();
+    width: 100%;
+    height: $height;
+    padding: 6px 0;
+    border-bottom: 1px solid $color-list-border;
+
+    .search-input {
+      margin: auto;
+      height: 100%;
+      font-size: 12px;
+      padding-top: 2px;
+      @media #{$mobile} {
+        font-size: 16px;
+      }
+    }
+    .search-input:empty::before {
+      content: $content-search-input-default;
+      color: #6d7c9d;
+    }
+    .search-input:focus:empty::before {
+      content: $content-message-input-empty;
+    }
+  }
+}
