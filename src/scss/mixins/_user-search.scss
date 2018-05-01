@@ -1,5 +1,6 @@
 @import "reset";
 @import "../variables";
+@import "responsiveness";
 
 @mixin user-search($height) {
   .user-search {
@@ -8,6 +9,10 @@
     height: $height;
     padding: 6px 0;
     border-bottom: 1px solid $color-list-border;
+
+    .search-input-image {
+      background-image: url("../../assets/MagnifyingGlass.svg");
+    }
 
     .search-input {
       margin: auto;
