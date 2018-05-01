@@ -1173,6 +1173,32 @@
             background: $color-white;
             padding: 0 12px;
             cursor: pointer;
+
+            .user-search {
+              //@include reset();
+              width: 100%;
+              height: 100%;
+              padding: 6px 0;
+              border-bottom: 1px solid $color-list-border;
+
+              .search-input {
+                margin: auto;
+                height: 100%;
+                font-size: 12px;
+                padding-top: 2px;
+                @media #{$mobile} {
+                  font-size: 16px;
+                }
+              }
+              .search-input:empty::before {
+                content: $content-search-input-default;
+                color: #6d7c9d;
+              }
+              .search-input:focus:empty::before {
+                content: $content-message-input-empty;
+              }
+            }
+
             @include hover {
               background-color: $color-list-hover;
             }

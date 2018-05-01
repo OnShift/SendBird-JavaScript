@@ -541,6 +541,8 @@ class SBWidget {
         };
         let setList = () => {
             masterList = masterList.filter(user => user.nickname && user.userId && memberIds.indexOf(user.userId) < 0).sort(alphabetizeAlgo);
+            let searchBox = this.chatSection.createSearchBox();
+            this.popup.invitePopup.list.appendChild(searchBox);
             this.spinner.remove(this.popup.invitePopup.list);
             for (let i = 0 ; i < masterList.length ; i++) {
                 let user = masterList[i];
