@@ -33,7 +33,7 @@
       color: #6d7c9d;
     }
     .search-input:focus {
-      outline: 0px solid transparent;
+      outline: 0 solid transparent;
     }
     .search-input:focus:empty::before {
       content: $content-message-input-empty;

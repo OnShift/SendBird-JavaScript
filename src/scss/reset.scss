@@ -21,12 +21,10 @@ blockquote, q {
 
 blockquote {
   &:before, &:after {
-    content: '';
     content: none; } }
 
 q {
   &:before, &:after {
-    content: '';
     content: none; } }
 
 table {
