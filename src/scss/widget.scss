@@ -74,7 +74,7 @@
   }
 
   .ic-close {
-    @include icon($icon-close);
+    @include local-icon('../assets/close-btn.svg');
     @include hover {
       @include icon($icon-close-hover);
     }
