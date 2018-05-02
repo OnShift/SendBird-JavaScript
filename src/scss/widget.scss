@@ -677,7 +677,7 @@
             cursor: pointer;
           }
         }
-        @include user-search(60%, '../assets/MagnifyingGlass.svg');
+        @include user-search(60%, '../assets/close-clear-btn.svg');
         .user-item {
           width: 100%;
           height: calc(100% - 12px - 1px);
@@ -1061,10 +1061,7 @@
             background: $color-white;
             padding: 0 12px;
             cursor: pointer;
-            @include user-search(100%, '../assets/MagnifyingGlass.svg');
-            @include hover {
-              background-color: $color-list-hover;
-            }
+            @include user-search(100%, '../assets/close-clear-btn.svg');
 
             & > div {
               display: inline-block;

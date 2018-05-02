@@ -10,19 +10,19 @@
     position: relative;
 
     .search-input-image {
-      height: 20px;
+      height: 25px;
       width: 20px;
       background: url($path-to-image) no-repeat center;
-      background-size: 20px;
+      background-size: 130%;
       float: left;
     }
 
     .search-input {
       width: 85%;
       margin-left: 5%;
-      height: 90%;
+      height: 70%;
       font-size: 13px;
-      padding-top: 2px;
+      padding-top: 4px;
       float: left;
       @media #{$mobile} {
         font-size: 16px;
