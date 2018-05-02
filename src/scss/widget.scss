@@ -721,8 +721,8 @@
 
       .content-bottom {
         width: calc(100% - 24px);
-        height: calc(52px - 24px);
-        padding: 12px;
+        height: calc(52px - 7px);
+        padding: 4px 0 0 9px;
         background-color: $color-gray-lightest;
         text-align: center;
         @include box-shadow(0 1px 1px rgba(0, 0, 0, 0.20));
