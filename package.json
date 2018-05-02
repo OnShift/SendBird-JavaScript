@@ -40,7 +40,7 @@
     "optimize-css-classnames-plugin": "0.0.5",
     "sass-loader": "^6.0.3",
     "style-loader": "^0.14.1",
-    "url-loader": "^1.0.1",
+    "svg-url-loader": "^2.3.2",
     "webpack": "^3.4.1",
     "webpack-dev-server": "^2.9.4",
     "webpack-merge": "^4.1.2"
