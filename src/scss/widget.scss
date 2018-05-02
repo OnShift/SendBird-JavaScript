@@ -677,7 +677,7 @@
             cursor: pointer;
           }
         }
-        @include user-search(60%, '../assets/user-search-clear.svg');
+        @include user-search(60%, '../assets/mag-glass.svg', '../assets/user-search-clear.svg');
         .user-item {
           width: 100%;
           height: calc(100% - 12px - 1px);
@@ -1067,7 +1067,7 @@
             background: $color-white;
             padding: 0 12px;
             cursor: pointer;
-            @include user-search(100%, '../assets/user-search-clear.svg');
+            @include user-search(100%, '../assets/mag-glass.svg', '../assets/user-search-clear.svg');
 
             & > div {
               display: inline-block;

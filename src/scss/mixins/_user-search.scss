@@ -1,7 +1,7 @@
 @import "../variables";
 @import "responsiveness";
 
-@mixin user-search($height, $path-to-image) {
+@mixin user-search($height, $path-to-mag, $path-to-clear) {
   .user-search {
     width: 100%;
     height: $height;
@@ -12,9 +12,13 @@
     .search-input-image {
       height: 25px;
       width: 20px;
-      background: url($path-to-image) no-repeat center;
+      background: url($path-to-mag) no-repeat center;
       background-size: 100%;
       float: left;
+
+      &.clear-input {
+        background: url($path-to-clear) no-repeat center;
+      }
     }
 
     .search-input {

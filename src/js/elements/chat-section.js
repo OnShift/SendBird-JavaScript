@@ -1,10 +1,11 @@
 import { className } from '../consts.js';
 import Element from './elements.js';
 import {
-  show,
-  hide,
-  removeClass,
-  xssEscape
+    addClass,
+    hide,
+    removeClass,
+    show,
+    xssEscape
 } from '../utils.js';
 
 const DISPLAY_NONE = 'none';
@@ -31,6 +32,8 @@ class ChatSection extends Element {
     _create() {
         this.self = this.createDiv();
         this._setClass(this.self, [className.CHAT_SECTION]);
+        this.self.searchImage = null;
+        this.self.searchInput = null;
     }
 
     _getListBoardArray() {
@@ -474,12 +477,22 @@ class ChatSection extends Element {
         let userItem = this.createDiv();
         this._setClass(userItem, [className.SEARCH]);
 
-        let searchField = this.createTextInput();
-        this._setClass(searchField, [' search-input']);
-
         let imageDiv = this.createDiv();
         this._setClass(imageDiv, ['search-input-image']);
-        this.addClickEvent(imageDiv, () => { this.clearInputText(searchField); });
+        this.self.searchImage = imageDiv;
+
+        let searchField = this.createTextInput();
+        //todo add class here?
+        this._setClass(searchField, [' search-input']);
+        this.self.searchInput = searchField;
+        searchField.addEventListener('input', () => {
+            this.self.searchInput.textContent ? addClass(this.self.searchImage, 'clear-input') : removeClass(this.self.searchImage, 'clear-input');
+        });
+
+        this.addClickEvent(imageDiv, () => {
+            this.clearInputText(searchField);
+            removeClass(this.self.searchImage, 'clear-input');
+        });
 
         userItem.appendChild(imageDiv);
         userItem.appendChild(searchField);
