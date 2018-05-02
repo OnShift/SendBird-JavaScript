@@ -162,3 +162,10 @@ export function alphabetizeAlgo(firstUser, nextUser) {
     }
     return 0;
 }
+
+export function filterUsersAlgo(additionalReqs = () => { return true; }) {
+    let firstLetterBlank = (user) => { return user.nickname[0] !== ' '; };
+    return (user) => {
+        return user.nickname && user.userId && firstLetterBlank(user) && additionalReqs(user);
+    };
+}

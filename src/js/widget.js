@@ -9,6 +9,7 @@ import WidgetBtn from './elements/widget-btn';
 import {
     addClass,
     alphabetizeAlgo,
+    filterUsersAlgo,
     getCookie,
     getFullHeight,
     getLastItem,
@@ -388,7 +389,8 @@ class SBWidget {
     }
 
     setUserList(target, userList) {
-        userList = userList.filter(user => user.nickname && user.userId && !this.sb.isCurrentUser(user)).sort(alphabetizeAlgo);
+        let additionalCheck = (user) => { return !this.sb.isCurrentUser(user); };
+        userList = userList.filter(filterUsersAlgo(additionalCheck)).sort(alphabetizeAlgo);
         let userContent = target.userContent;
         this.chatSection.createUserList(userContent);
         let searchBox = this.chatSection.createSearchBox();
@@ -540,7 +542,8 @@ class SBWidget {
             loadUsers();
         };
         let setList = () => {
-            masterList = masterList.filter(user => user.nickname && user.userId && memberIds.indexOf(user.userId) < 0).sort(alphabetizeAlgo);
+            let additionalCheck = (user) => {return memberIds.indexOf(user.userId) < 0; };
+            masterList = masterList.filter(filterUsersAlgo(additionalCheck)).sort(alphabetizeAlgo);
             let searchBox = this.chatSection.createSearchBox();
             this.popup.invitePopup.list.appendChild(searchBox);
             this.spinner.remove(this.popup.invitePopup.list);
