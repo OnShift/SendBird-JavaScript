@@ -479,6 +479,7 @@ class ChatSection extends Element {
 
         let imageDiv = this.createDiv();
         this._setClass(imageDiv, ['search-input-image']);
+        this.addClickEvent(imageDiv, () => {this.clearInputText(searchField); });
 
         userItem.appendChild(imageDiv);
         userItem.appendChild(searchField);
