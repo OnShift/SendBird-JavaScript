@@ -114,34 +114,3 @@ export function requestNotification() {
         });
     }
 }
-
-export function setCookie(userId, nickname) {
-    let date = new Date();
-    date.setDate(date.getDate() + 1);
-    let expires = date.toGMTString();
-    document.cookie = `sendbirdUserId=${userId};expires=${expires}`;
-    document.cookie = `sendbirdNickname=${nickname};expires=${expires}`;
-}
-
-export function getCookie() {
-    let sendbirdUserInfo = {
-        'userId': '',
-        'nickname': ''
-    };
-    let cUserId = 'sendbirdUserId=';
-    let cNickname = 'sendbirdNickname=';
-    let cList = document.cookie.split(';');
-    for (let i = 0 ; i < cList.length ; i++) {
-        let c = cList[i];
-        while(c.charAt(0) === ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(cUserId) === 0) {
-            sendbirdUserInfo['userId'] = c.substring(cUserId.length, c.length);
-        }
-        else if (c.indexOf(cNickname) === 0) {
-            sendbirdUserInfo['nickname'] = c.substring(cNickname.length, c.length);
-        }
-    }
-    return sendbirdUserInfo;
-}

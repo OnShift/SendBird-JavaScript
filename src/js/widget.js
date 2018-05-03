@@ -8,7 +8,6 @@ import Spinner from './elements/spinner.js';
 import WidgetBtn from './elements/widget-btn.js';
 import {
     addClass,
-    getCookie,
     getFullHeight,
     getLastItem,
     hasClass,
@@ -17,7 +16,6 @@ import {
     isEmptyString,
     removeClass,
     requestNotification,
-    setCookie,
     show,
     xssEscape
 } from './utils.js';
@@ -202,7 +200,6 @@ class SBWidget {
                 this.listBoard.userId.disabled = true;
                 this.listBoard.nickname.disabled = true;
                 this._connect(this.listBoard.getUserId(), this.listBoard.getNickname());
-                setCookie(this.listBoard.getUserId(), this.listBoard.getNickname());
             }
         });
         this.listBoard.addKeyDownEvent(this.listBoard.nickname, (event) => {
@@ -210,14 +207,6 @@ class SBWidget {
                 this.listBoard.btnLogin.click();
             }
         });
-
-        const cookie = getCookie();
-        if (cookie.userId) {
-            this._connect(cookie.userId, cookie.nickname);
-            this.listBoard.showChannelList();
-            this.toggleBoard(true);
-            this.responsiveChatSection.bind(this);
-        }
     }
 
     loadUsersForChatboard(chatBoard) {
@@ -237,7 +226,6 @@ class SBWidget {
 
     _connect(userId, nickname, accessToken) {
         this.sb.connect(userId, nickname, accessToken, () => {
-            setCookie(userId, nickname);
             this.widgetBtn.toggleIcon(true);
             this.listBoard.showChannelList();
             this.spinner.insert(this.listBoard.list);

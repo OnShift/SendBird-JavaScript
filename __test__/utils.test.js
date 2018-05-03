@@ -140,24 +140,3 @@ describe('getFullHeight', () => {
         expect(utils.getFullHeight(target)).toEqual(4);
     });
 });
-
-describe('cookie manipulation', () => {
-    beforeEach(() => {
-        expect(document.cookie).toBeFalsy;
-    });
-
-    test('setCookie: sets the cookie to some values', () => {
-        let userId = 'userId';
-        let nickname = 'nickname';
-        utils.setCookie(userId, nickname);
-        expect(document.cookie).toBeTruthy();
-    });
-    test('getCookie: gets sb specific cookie info', () => {
-        let userId = 'userId';
-        let nickname = 'nickname';
-        utils.setCookie(userId, nickname);
-        let sbInfo = utils.getCookie();
-        expect(sbInfo.userId).toBe(userId);
-        expect(sbInfo.nickname).toBe(nickname);
-    });
-});
