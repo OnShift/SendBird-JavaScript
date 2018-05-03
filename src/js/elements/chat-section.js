@@ -478,20 +478,19 @@ class ChatSection extends Element {
         this._setClass(userItem, [className.SEARCH]);
 
         let imageDiv = this.createDiv();
-        this._setClass(imageDiv, ['search-input-image']);
+        this._setClass(imageDiv, [className.SEARCH_IMG]);
         this.self.searchImage = imageDiv;
 
         let searchField = this.createTextInput();
-        //todo add class here?
-        this._setClass(searchField, [' search-input']);
         this.self.searchInput = searchField;
+        addClass(this.self.searchInput, className.SEARCH_INPUT);
         searchField.addEventListener('input', () => {
-            this.self.searchInput.textContent ? addClass(this.self.searchImage, 'clear-input') : removeClass(this.self.searchImage, 'clear-input');
+            this.self.searchInput.textContent ? addClass(this.self.searchImage, className.CLEAR_INPUT) : removeClass(this.self.searchImage, className.CLEAR_INPUT);
         });
 
         this.addClickEvent(imageDiv, () => {
             this.clearInputText(searchField);
-            removeClass(this.self.searchImage, 'clear-input');
+            removeClass(this.self.searchImage, className.CLEAR_INPUT);
         });
 
         userItem.appendChild(imageDiv);
