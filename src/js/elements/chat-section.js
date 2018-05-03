@@ -476,6 +476,9 @@ class ChatSection extends Element {
 
         let searchField = this.createTextInput();
         this._setClass(searchField, [' search-input']);
+        searchField.addEventListener('keypress', (evt) => {
+            if(evt.which === 13) { evt.preventDefault(); }
+        });
 
         let imageDiv = this.createDiv();
         this._setClass(imageDiv, ['search-input-image']);
