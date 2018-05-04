@@ -147,7 +147,7 @@ class SendBirdWrapper {
 
     /*User*/
 
-    getUserList(action, iterations) {
+    getUserList(iterativeAction, finalAction, iterations) {
         if (!this.userListQuery) {
             this.userListQuery = this.sb.createUserListQuery();
             this.userListQuery.limit = 100;
@@ -159,10 +159,11 @@ class SendBirdWrapper {
                     this.userListQuery = null;
                     return;
                 }
-                action(userList);
+                iterativeAction(userList);
             });
         } else {
             this.userListQuery = null;
+            finalAction();
         }
     }
 

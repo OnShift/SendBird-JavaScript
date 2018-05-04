@@ -1,16 +1,18 @@
 'use strict';
 import '../scss/widget.scss';
-import ChatSection from './elements/chat-section.js';
-import ListBoard from './elements/list-board.js';
-import Popup from './elements/popup.js';
-import Sendbird from './sendbird-wrapper.js';
-import Spinner from './elements/spinner.js';
-import WidgetBtn from './elements/widget-btn.js';
+import ChatSection from './elements/chat-section';
+import ListBoard from './elements/list-board';
+import Popup from './elements/popup';
+import Sendbird from './sendbird-wrapper';
+import Spinner from './elements/spinner';
+import WidgetBtn from './elements/widget-btn';
 import {
     addClass,
+    alphabetizeAlgo,
     getCookie,
     getFullHeight,
     getLastItem,
+    flipClass,
     hasClass,
     hide,
     insertMessageInList,
@@ -20,9 +22,9 @@ import {
     setCookie,
     show,
     xssEscape
-} from './utils.js';
+} from './utils';
 
-import { className, TYPE_STRING, MAX_COUNT } from './consts.js';
+import { className, TYPE_STRING, MAX_COUNT } from './consts';
 
 const ERROR_MESSAGE = 'Please create "sb_widget" element first.';
 const EVENT_TYPE_CLICK = 'click';
@@ -222,17 +224,20 @@ class SBWidget {
 
     loadUsersForChatboard(chatBoard) {
         let iterations = 0;
-        let loadUsers = (removeSpinner) => {
-            iterations += 1;
-            this.sb.getUserList((userList) => {
-                if(removeSpinner) {
-                    this.spinner.remove(chatBoard.userContent);
-                }
-                this.setUserList(chatBoard, userList);
-                loadUsers(false);
-            }, iterations);
+        let masterList = [];
+        let setList = () => {
+            this.spinner.remove(chatBoard.userContent);
+            this.setUserList(chatBoard, masterList);
         };
-        loadUsers(true);
+        let getFullList = (userList) => {
+            masterList = masterList.concat(userList);
+            loadUsers();
+        };
+        let loadUsers = () => {
+            iterations += 1;
+            this.sb.getUserList(getFullList, setList, iterations);
+        };
+        loadUsers();
     }
 
     _connect(userId, nickname, accessToken) {
@@ -335,7 +340,6 @@ class SBWidget {
                     return msg;
                 }
             });
-
             channelSet.message = newMessages;
 
             let lastMessage = getLastItem(channelSet.message);
@@ -384,20 +388,19 @@ class SBWidget {
     }
 
     setUserList(target, userList) {
+        userList = userList.filter(user => user.nickname && user.userId && !this.sb.isCurrentUser(user)).sort(alphabetizeAlgo);
         let userContent = target.userContent;
         this.chatSection.createUserList(userContent);
         for (let i = 0 ; i < userList.length ; i++) {
             let user = userList[i];
-            if (!this.sb.isCurrentUser(user)) {
-                let item = this.chatSection.createUserListItem(user);
-                this.chatSection.addClickEvent(item, () => {
-                    hasClass(item.select, className.ACTIVE) ? removeClass(item.select, className.ACTIVE) : addClass(item.select, className.ACTIVE);
-                    let selectedUserCount = this.chatSection.getSelectedUserIds(userContent.list).length;
-                    this.chatSection.updateChatTop(target, selectedUserCount > 9 ? MAX_COUNT : selectedUserCount.toString(), null);
-                    selectedUserCount > 0 ? removeClass(target.startBtn, className.DISABLED) : addClass(target.startBtn, className.DISABLED);
-                });
-                userContent.list.appendChild(item);
-            }
+            let item = this.chatSection.createUserListItem(user);
+            this.chatSection.addClickEvent(item, () => {
+                hasClass(item.select, className.ACTIVE) ? removeClass(item.select, className.ACTIVE) : addClass(item.select, className.ACTIVE);
+                let selectedUserCount = this.chatSection.getSelectedUserIds(userContent.list).length;
+                this.chatSection.updateChatTop(target, selectedUserCount > 9 ? MAX_COUNT : selectedUserCount.toString(), null);
+                selectedUserCount > 0 ? removeClass(target.startBtn, className.DISABLED) : addClass(target.startBtn, className.DISABLED);
+            });
+            userContent.list.appendChild(item);
         }
     }
 
@@ -517,35 +520,42 @@ class SBWidget {
 
     loadUsersForInviteList(memberIds) {
         let iterations = 0;
-        let loadUsers = (removeSpinner) => {
-            iterations += 1;
-            this.sb.getUserList((userList) => {
-                if (removeSpinner) {
-                    this.spinner.remove(this.popup.invitePopup.list);
+        let masterList = [];
+        let clickEvent = (item) => {
+            return () => {
+                flipClass(item.select, className.ACTIVE);
+                let selectedUserCount = this.popup.getSelectedUserIds(this.popup.invitePopup.list).length;
+                this.popup.updateCount(this.popup.invitePopup.count, selectedUserCount);
+                if(selectedUserCount > 0) {
+                    removeClass(this.popup.invitePopup.inviteBtn, className.DISABLED);
+                } else {
+                    addClass(this.popup.invitePopup.inviteBtn, className.DISABLED);
                 }
-                for (let i = 0 ; i < userList.length ; i++) {
-                    let user = userList[i];
-                    if (memberIds.indexOf(user.userId) < 0) {
-                        let item = this.popup.createMemberItem(user, true);
-                        this.popup.addClickEvent(item, () => {
-                            hasClass(item.select, className.ACTIVE) ? removeClass(item.select, className.ACTIVE) : addClass(item.select, className.ACTIVE);
-                            let selectedUserCount = this.popup.getSelectedUserIds(this.popup.invitePopup.list).length;
-                            this.popup.updateCount(this.popup.invitePopup.count, selectedUserCount);
-                            selectedUserCount > 0 ? removeClass(this.popup.invitePopup.inviteBtn, className.DISABLED) : addClass(this.popup.invitePopup.inviteBtn, className.DISABLED);
-                        });
-                        this.popup.invitePopup.list.appendChild(item);
-                    }
-                }
-                loadUsers(false);
-            }, iterations);
+            };
         };
-        loadUsers(true);
+        let getFullList = (userList) => {
+            masterList = masterList.concat(userList);
+            loadUsers();
+        };
+        let setList = () => {
+            masterList = masterList.filter(user => user.nickname && user.userId && memberIds.indexOf(user.userId) < 0).sort(alphabetizeAlgo);
+            this.spinner.remove(this.popup.invitePopup.list);
+            for (let i = 0 ; i < masterList.length ; i++) {
+                let user = masterList[i];
+                let item = this.popup.createMemberItem(user, true);
+                this.popup.addClickEvent(item, clickEvent(item));
+                this.popup.invitePopup.list.appendChild(item);
+            }
+        };
+        let loadUsers = () => {
+            iterations += 1;
+            this.sb.getUserList(getFullList, setList, iterations);
+        };
+        loadUsers();
     }
 
     updateChannelInfo(target, channel) {
-        this.chatSection.updateChatTop(
-        target, this.sb.getMemberCount(channel), this.sb.getNicknamesString(channel)
-    );
+        this.chatSection.updateChatTop(target, this.sb.getMemberCount(channel), this.sb.getNicknamesString(channel));
     }
 
     updateUnreadMessageCount(channel) {

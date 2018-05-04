@@ -63,6 +63,11 @@ export function removeClass(...args) {
     });
 }
 
+export function flipClass(target, className) {
+    hasClass(target, className) ? removeClass(target, className) : addClass(target, className);
+
+}
+
 export function isEmptyString(target) {
     return target === null || target === undefined || target.length === 0;
 }
@@ -144,4 +149,16 @@ export function getCookie() {
         }
     }
     return sendbirdUserInfo;
+}
+
+export function alphabetizeAlgo(firstUser, nextUser) {
+    let firstNickname = firstUser.nickname.toUpperCase();
+    let nextNickname = nextUser.nickname.toUpperCase();
+    if (firstNickname < nextNickname) {
+        return -1;
+    }
+    if (firstNickname > nextNickname) {
+        return 1;
+    }
+    return 0;
 }
