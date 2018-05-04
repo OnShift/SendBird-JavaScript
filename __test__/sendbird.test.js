@@ -8,7 +8,15 @@ jest.mock('../node_modules/sendbird', () => {
     return jest.fn().mockImplementation(() => {
         return {
             ChannelHandler: mockChannelHandler,
-            addChannelHandler: mockAddChannelHandler
+            addChannelHandler: mockAddChannelHandler,
+            createUserListQuery: () =>  {
+                return {
+                    hasNext: true,
+                    limit: 25,
+                    isLoading: false,
+                    next: () => {}
+                };
+            }
         };
     });
 });
@@ -67,5 +75,13 @@ describe('createHandlerGlobal', () => {
         sbWrapper.createHandlerGlobal();
         expect(mockChannelHandler).toHaveBeenCalledTimes(1);
         expect(mockAddChannelHandler).toHaveBeenCalledTimes(1);
+    });
+});
+
+describe('getUserList', () => {
+    test('sets the limit on the query to 100', () => {
+        let sbWrapper = new SendBirdWrapper(appId);
+        sbWrapper.getUserList(() => {}, () => {}, 1);
+        expect(sbWrapper.userListQuery.limit).toEqual(100);
     });
 });
