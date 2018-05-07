@@ -226,7 +226,7 @@ class ChatSection extends Element {
             let typingUser = channel.getTypingMembers();
             spinner.insert(typing);
             let text = typingUser.length > 1 ? MESSAGE_TYPING_SEVERAL : xssEscape(typingUser[0].nickname) + MESSAGE_TYPING_MEMBER;
-            this._addContent(typing, text);
+            this._setContent(typing, text);
             show(typing);
         }
     }
