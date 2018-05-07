@@ -2,6 +2,7 @@
 @import "mixins";
 @import "animation";
 @import "icons";
+@import "reset";
 
 #sb_widget {
   z-index: 99990;
@@ -11,22 +12,18 @@
 
   // Animations
   .sb-fade-in {
-    @include reset();
     @include sb-ani-fade-in();
   }
 
   .sb-fade-out {
-    @include reset();
     @include sb-ani-fade-out();
   }
 
   .sb-spinner {
-    @include reset();
     width: 100%;
     text-align: center;
 
     div {
-      @include reset();
       display: inline-block;
       width: 12px;
       height: 12px;
@@ -35,11 +32,9 @@
       @include sb-ani-spinner();
     }
     :nth-child(1) {
-      @include reset();
       @include animation-delay(-0.32s);
     }
     :nth-child(2) {
-      @include reset();
       margin: 0 6px;
       @include animation-delay(-0.16s);
     }
@@ -47,17 +42,14 @@
 
   // Icons
   .ic-login {
-    @include reset();
     @include icon($icon-login);
   }
 
   .ic-connected {
-    @include reset();
     @include icon($icon-channel-list);
   }
 
   .ic-minimize {
-    @include reset();
     @include icon($icon-minimize);
     @include hover {
       @include icon($icon-minimize-hover);
@@ -65,7 +57,6 @@
   }
 
   .ic-option {
-    @include reset();
     @include icon($icon-option);
     @include hover {
       @include icon($icon-option-hover);
@@ -76,7 +67,6 @@
   }
 
   .ic-new-chat {
-    @include reset();
     @include icon($icon-new-chat);
     @include hover {
       @include icon($icon-new-chat-hover);
@@ -84,7 +74,6 @@
   }
 
   .ic-close {
-    @include reset();
     @include icon($icon-close);
     @include hover {
       @include icon($icon-close-hover);
@@ -95,7 +84,6 @@
   }
 
   .ic-members {
-    @include reset();
     @include icon($icon-friend-list);
     @include hover {
       @include icon($icon-friend-list-hover);
@@ -106,7 +94,6 @@
   }
 
   .ic-invite {
-    @include reset();
     @include icon($icon-friend-add);
     @include hover {
       @include icon($icon-friend-add-hover);
@@ -117,7 +104,6 @@
   }
 
   .ic-leave {
-    @include reset();
     @include icon($icon-leave-chat);
     @include hover {
       @include icon($icon-leave-chat-hover);
@@ -126,7 +112,6 @@
 
   // Tooltip
   .tooltip {
-    @include reset();
     display: none;
     background-color: $color-black;
     text-align: center;
@@ -152,7 +137,6 @@
 
   // Widget Button
   .widget {
-    @include reset();
     z-index: 99991;
     position: absolute;
     right: 20px;
@@ -176,7 +160,6 @@
     }
 
     .notification {
-      @include reset();
       display: none;
       position: absolute;
       top: 0;
@@ -197,7 +180,6 @@
 
   // Btn
   .sb-common-btn {
-    @include reset();
     padding: 0 16px;
     border: 1px solid $color-button-border;
     background-color: $color-button-background;
@@ -219,7 +201,6 @@
 
   // List Board
   .channel-board {
-    @include reset();
     @media #{$desktop} {
         margin: 0 10px 0 0;
     }
@@ -237,7 +218,6 @@
     @include box-shadow(0 3px 6px rgba(0, 0, 0, 0.3));
 
     .board-top {
-      @include reset();
       width: calc(100% - 24px);
       height: 36px;
       background-color: $color-purple;
@@ -245,7 +225,6 @@
       border-bottom: 1px solid $color-list-top-border;
 
       .title {
-        @include reset();
         display: inline-block;
         float: left;
         font-size: 16px;
@@ -255,7 +234,6 @@
       }
 
       .btn {
-        @include reset();
         display: inline-block;
         float: right;
         position: relative;
@@ -283,7 +261,6 @@
         }
 
         .option-menu {
-          @include reset();
           display: none;
           position: absolute;
           top: 25px;
@@ -293,7 +270,6 @@
           background-color: transparent;
           cursor: pointer;
           .option-content {
-            @include reset();
             position: absolute;
             bottom: 0;
             width: calc(100% - 32px);
@@ -322,29 +298,24 @@
     }
 
     .content {
-      @include reset();
       height: $height-list-board-content;
       background-color: $color-white;
 
       .user-id {
-        @include reset();
         width: 100%;
         padding-top: 30px;
       }
       .nickname {
-        @include reset();
         width: 100%;
         padding-top: 12px;
       }
 
       .title {
-        @include reset();
         font-size: 11px;
         color: $color-gray-darker;
         padding-bottom: 6px;
       }
       .input {
-        @include reset();
         width: calc(98% - 16px);
         height: 32px;
         border: 1px solid $color-input-border;
@@ -388,27 +359,23 @@
       }
     }
     .content.login-form {
-      @include reset();
       width: calc(100% - 24px);
       height: calc(100% - 37px);
       padding: 0 12px;
     }
     .content.channel-list {
-      @include reset();
       overflow-y: scroll;
       overflow-x: hidden;
       width: 100%;
       height: calc(100% - 37px);
 
       ul {
-        @include reset();
         width: 100%;
         margin: 0;
         padding: 0;
         list-style-type: none;
 
         li {
-          @include reset();
           width: calc(100% - 24px);
           height: 48px;
           padding: 0 12px;
@@ -422,7 +389,6 @@
           }
 
           .item {
-            @include reset();
             width: 100%;
             height: calc(100% - 12px - 1px);
             padding: 6px 0;
@@ -431,7 +397,6 @@
         }
 
         .image {
-          @include reset();
           float: left;
           width: 36px;
           height: 100%;
@@ -439,19 +404,16 @@
         }
 
         .content {
-          @include reset();
           float: right;
           width: calc(100% - 36px - 8px);
           height: 100%;
           margin-left: 8px;
         }
         .content-top {
-          @include reset();
           width: 100%;
           height: 50%;
 
           .title {
-            @include reset();
             padding: 0;
             float: left;
             width: 125px;
@@ -465,7 +427,6 @@
             white-space: nowrap;
           }
           time {
-            @include reset();
             float: right;
             font-size: 12px;
             line-height: 18px;
@@ -473,12 +434,10 @@
           }
         }
         .content-bottom {
-          @include reset();
           width: 100%;
           height: 50%;
 
           .last-message {
-            @include reset();
             float: left;
             width: 170px;
             height: 18px;
@@ -491,7 +450,6 @@
             white-space: nowrap;
           }
           span {
-            @include reset();
             display: none;
             float: right;
             width: 18px;
@@ -507,16 +465,13 @@
         }
 
         .empty-item {
-          @include reset();
           text-align: center;
           & > .title {
-            @include reset();
             margin: 130px 0 16px 0;
             font-size: 14px;
             color: $color-gray-darker;
           }
           & > .new-chat-btn {
-            @include reset();
             @extend .sb-common-btn;
             display: block;
             margin: 0 auto;
@@ -548,7 +503,6 @@
 
   // Chat Board
   .chat-section {
-    @include reset();
     z-index: 99992;
     position: absolute;
     display: none;
@@ -559,19 +513,15 @@
     }
     bottom: 0;
     @media #{$desktop} {
-      margin: 0 10px 0 0;
+      margin-right: 10px;
       right: 60px;
       max-height: 520px;
       width: 220px;
     }
 
     .chat-board {
-      @include reset();
       width: 280px;
       height: 426px;
-      @media #{$desktop} {
-        margin-right: 20px;
-      }
       @media #{$mobile} {
         height: 100%;
         width: 100%;
@@ -579,20 +529,17 @@
       @include box-shadow(0 3px 6px rgba(0, 0, 0, 0.3));
 
       .leave-popup {
-        @include reset();
         width: 280px;
         height: 100%;
         position: absolute;
         background-color: rgba(255, 255 ,255, 0.9);
         z-index: 1;
         & > .popup-top {
-          @include reset();
           margin-top: 130px;
           text-align: center;
           color: $color-gray-darker;
         }
         & > div {
-          @include reset();
           margin-top: 16px;
           text-align: center;
           .leave-btn {
@@ -635,7 +582,6 @@
     }
 
     .top {
-      @include reset();
       width: calc(100% - 24px);
       height: 35px;
       padding: 0 12px;
@@ -644,7 +590,6 @@
       @include box-shadow(0 1px 1px -2px rgba(0, 0, 0, 0.20));
 
       .title {
-        @include reset();
         float: left;
         max-width: 123px;
         font-size: 13px;
@@ -657,7 +602,6 @@
       }
 
       .count {
-        @include reset();
         float: left;
         width: 16px;
         height: 16px;
@@ -674,7 +618,6 @@
       }
 
       .btn {
-        @include reset();
         float: right;
         width: 24px;
         height: 26px;
@@ -703,7 +646,6 @@
     }
 
     .content {
-      @include reset();
       width: 100%;
       height: 96%;
       background-color: $color-white;
@@ -716,7 +658,6 @@
       }
 
       .user-content {
-        @include reset();
         width: 100%;
         height: calc(100% - 52px);
         background-color: $color-white;
@@ -724,32 +665,26 @@
         overflow-x: hidden;
 
         ul {
-          @include reset();
           width: 100%;
           margin: 0;
           padding: 0;
           list-style-type: none;
 
           li {
-            @include reset();
             width: calc(100% - 24px);
             height: 44px;
             padding: 0 12px;
             cursor: pointer;
-            @include hover {
-              background-color: $color-list-hover;
-            }
           }
         }
+        @include user-search(60%, '../assets/MagnifyingGlass.svg');
         .user-item {
-          @include reset();
           width: 100%;
           height: calc(100% - 12px - 1px);
           padding: 6px 0;
           border-bottom: 1px solid $color-list-border;
 
           .user-select {
-            @include reset();
             position: relative;
             top: 50%;
             float: left;
@@ -763,7 +698,6 @@
           }
 
           .image {
-            @include reset();
             float: left;
             width: 31px;
             height: 31px;
@@ -772,7 +706,6 @@
           }
 
           .nickname {
-            @include reset();
             float: left;
             font-size: 13px;
             color: $color-gray-darker;
@@ -787,7 +720,6 @@
       }
 
       .content-bottom {
-        @include reset();
         width: calc(100% - 24px);
         height: calc(52px - 24px);
         padding: 12px;
@@ -824,7 +756,6 @@
       }
 
       .message-content {
-        @include reset();
         width: calc(100% - 16px);
         max-height: 92%;
         height: 92%;
@@ -838,7 +769,6 @@
       }
 
       .typing {
-        @include reset();
         display: none;
         width: calc(100% - 16px);
         height: 22px;
@@ -866,7 +796,6 @@
       }
 
       .input {
-        @include reset();
         height: 7%;
         @media #{$mobile} {
           height: 10%;
@@ -874,7 +803,6 @@
         }
         border-top: 1px solid $color-list-border;
         .text {
-          @include reset();
           width: 87%;
           min-height: 13px;
           max-height: 70%;
@@ -897,7 +825,6 @@
             outline: 0;
           }
           & > div {
-            @include reset();
             height: 0 !important;
           }
         }
@@ -911,7 +838,6 @@
         }
 
         .file {
-          @include reset();
           float: left;
           width: 9%;
           height: 100%;
@@ -931,12 +857,10 @@
             background-position-y: 28%;
           }
         }
-
       }
     }
 
     .message-set {
-      @include reset();
       width: 100%;
       margin-top: 8px;
       float: left;
@@ -944,7 +868,6 @@
       text-align: left;
 
       .image {
-        @include reset();
         float: inherit;
         width: 32px;
         height: 32px;
@@ -954,19 +877,15 @@
       }
 
       .message {
-        @include reset();
         float: inherit;
       }
       .nickname {
-        @include reset();
         font-size: 12px;
         color: $color-gray-dark;
       }
       .message-item {
-        @include reset();
         float: inherit;
         .text {
-          @include reset();
           display: inline-block;
           text-align: inherit;
           max-width: 180px;
@@ -1006,10 +925,10 @@
           }
         }
         .file-message {
-          @include reset();
+
           display: inline-block;
           .image {
-            @include reset();
+
             display: inline-block;
             text-align: inherit;
             width: 160px;
@@ -1021,7 +940,6 @@
           }
         }
         .file {
-          @include reset();
           display: inline-flex;
           text-align: inherit;
           max-width: 180px;
@@ -1034,19 +952,16 @@
           vertical-align: bottom;
 
           & > .file-icon {
-            @include reset();
             display: inline-block;
             width: 24px;
             height: 26px;
             @include icon($icon-file);
           }
           & > .file-text {
-            @include reset();
             margin: 0 0 0 8px;
             max-width: calc(100% - 24px - 8px);
 
             & > .file-name {
-              @include reset();
               display: inline-block;
               max-width: 100%;
               -ms-text-overflow: ellipsis;
@@ -1055,7 +970,6 @@
               overflow: hidden;
             }
             & > .file-download {
-              @include reset();
               font-size: 11px;
               line-height: 6px;
               color: $color-text-download;
@@ -1097,7 +1011,6 @@
 
   // Popup
   .popup {
-    @include reset();
     display: none;
     background-color: $color-transparent;
     width: 100%;
@@ -1107,7 +1020,6 @@
     top: 36px;
 
     .popup-body {
-      @include reset();
       @media #{$desktop} {
         width: 280px;
         height: 389px;
@@ -1119,14 +1031,12 @@
       background-color: $color-white;
 
       & > .content {
-        @include reset();
         overflow-y: scroll;
         overflow-x: hidden;
         height: 95%;
         margin: 0;
 
         & > ul {
-          @include reset();
           width: 100%;
           min-height: 306px;
           margin: 0 0 2px 0;
@@ -1145,19 +1055,18 @@
           }
 
           & > li {
-            @include reset();
             display: inline-table;
             width: calc(100% - 24px);
             height: calc(44px - 11px);
             background: $color-white;
             padding: 0 12px;
             cursor: pointer;
+            @include user-search(100%, '../assets/MagnifyingGlass.svg');
             @include hover {
               background-color: $color-list-hover;
             }
 
             & > div {
-              @include reset();
               display: inline-block;
               width: 100%;
               padding: 5px 0;
@@ -1165,7 +1074,6 @@
             }
 
             .user-select {
-              @include reset();
               display: inline-block;
               margin-right: 8px;
               position: relative;
@@ -1180,14 +1088,12 @@
             }
 
             .image-me {
-              @include reset();
               width: 31px;
               height: 31px;
               position: absolute;
               @include icon($icon-member-me);
             }
             .image {
-              @include reset();
               display: inline-block;
               margin-right: 8px;
               width: 31px;
@@ -1195,7 +1101,6 @@
               @include icon($icon-member-1);
             }
             .nickname {
-              @include reset();
               display: inline-block;
               font-size: 13px;
               color: $color-gray-darker;
@@ -1212,14 +1117,12 @@
     }
 
     .popup-top {
-      @include reset();
       height: 36px;
       background-color: $color-gray-lightest;
       padding: 0 12px;
       @include box-shadow(0 1px 1px 0 rgba(0, 0, 0, 0.2));
 
       .title {
-        @include reset();
         float: left;
         font-size: 13px;
         color: $color-gray-darker;
@@ -1227,7 +1130,6 @@
       }
 
       .count {
-        @include reset();
         float: left;
         width: 16px;
         height: 16px;
@@ -1244,7 +1146,6 @@
       }
 
       .btn {
-        @include reset();
         float: right;
         width: 24px;
         height: 26px;
@@ -1257,14 +1158,12 @@
     }
 
     .popup-bottom {
-      @include reset();
-      height: 52px;
+      height: 14%;
       background-color: $color-white;
       border-top: 1px solid rgba(0, 0, 0, 0.2);
       padding: 0 12px;
 
       .title {
-        @include reset();
         margin-top: -5px;
         float: left;
         font-size: 13px;
@@ -1276,18 +1175,18 @@
       }
 
       .count {
-        @include reset();
         float: left;
         margin-left: 8px;
         font-size: 10px;
+        top: 40%;
         @media #{$mobile} {
           font-size: 14px;
+          top: 22%;
         }
         color: $color-gray-darker;
         text-align: center;
         line-height: 16px;
         position: relative;
-        top: 43%;
         @include transform-translate(0, -50%);
       }
 
@@ -1296,6 +1195,9 @@
         float: right;
         position: relative;
         top: 42%;
+        @media #{$mobile} {
+          top: 22%;
+        }
         width: 41px;
         height: 24px;
         font-size: 14px;
@@ -1338,8 +1240,5 @@
         }
       }
     }
-
   }
-
-
 }
