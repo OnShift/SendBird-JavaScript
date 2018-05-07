@@ -27,7 +27,6 @@ class ChatSection extends Element {
         this._create();
         widget.appendChild(this.self);
         this.textKr = EMPTY_STRING;
-        this.self.searchField = null;
     }
 
     _create() {
@@ -491,7 +490,7 @@ class ChatSection extends Element {
             this.self.searchInput.textContent ? addClass(this.self.searchImage, className.CLEAR_INPUT) : removeClass(this.self.searchImage, className.CLEAR_INPUT);
         });
         searchField.addEventListener('keypress', (evt) => {
-            if(invalidInput(evt, this.self.searchField)) { evt.preventDefault(); }
+            if(invalidInput(evt, this.self.searchInput)) { evt.preventDefault(); }
         });
 
         this.addClickEvent(imageDiv, () => {
