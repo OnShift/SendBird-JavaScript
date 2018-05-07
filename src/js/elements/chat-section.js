@@ -27,6 +27,7 @@ class ChatSection extends Element {
         this._create();
         widget.appendChild(this.self);
         this.textKr = EMPTY_STRING;
+        this.self.searchField = null;
     }
 
     _create() {
@@ -228,7 +229,7 @@ class ChatSection extends Element {
             let typingUser = channel.getTypingMembers();
             spinner.insert(typing);
             let text = typingUser.length > 1 ? MESSAGE_TYPING_SEVERAL : xssEscape(typingUser[0].nickname) + MESSAGE_TYPING_MEMBER;
-            this._addContent(typing, text);
+            this._setContent(typing, text);
             show(typing);
         }
     }
@@ -473,6 +474,8 @@ class ChatSection extends Element {
     }
 
     createSearchBox() {
+        let invalidInput = (e, target) => { return e.charCode === 13 || target.textContent.length > 28; };
+
         let li = this.createLi();
         let userItem = this.createDiv();
         this._setClass(userItem, [className.SEARCH]);
@@ -486,6 +489,9 @@ class ChatSection extends Element {
         addClass(this.self.searchInput, className.SEARCH_INPUT);
         searchField.addEventListener('input', () => {
             this.self.searchInput.textContent ? addClass(this.self.searchImage, className.CLEAR_INPUT) : removeClass(this.self.searchImage, className.CLEAR_INPUT);
+        });
+        searchField.addEventListener('keypress', (evt) => {
+            if(invalidInput(evt, this.self.searchField)) { evt.preventDefault(); }
         });
 
         this.addClickEvent(imageDiv, () => {
