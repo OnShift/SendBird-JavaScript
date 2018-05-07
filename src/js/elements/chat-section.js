@@ -471,10 +471,7 @@ class ChatSection extends Element {
     }
 
     createSearchBox() {
-        let invalidInput = (e, target) => {
-            debugger;
-            return e.charCode === 13 || target.textContent.length > 28;
-        };
+        let invalidInput = (e, target) => { return e.charCode === 13 || target.textContent.length > 28; };
 
         let li = this.createLi();
         let userItem = this.createDiv();
