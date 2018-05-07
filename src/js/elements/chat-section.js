@@ -486,11 +486,10 @@ class ChatSection extends Element {
         let searchField = this.createTextInput();
         this.self.searchInput = searchField;
         addClass(this.self.searchInput, className.SEARCH_INPUT);
-        searchField.addEventListener('input', () => {
-            this.self.searchInput.textContent ? addClass(this.self.searchImage, className.CLEAR_INPUT) : removeClass(this.self.searchImage, className.CLEAR_INPUT);
-        });
-        searchField.addEventListener('keypress', (evt) => {
-            if(invalidInput(evt, this.self.searchInput)) { evt.preventDefault(); }
+        this.addKeyDownEvent(searchField, (evt) => {
+            let searchInput = this.self.searchInput;
+            searchInput.textContent ? addClass(this.self.searchImage, className.CLEAR_INPUT) : removeClass(this.self.searchImage, className.CLEAR_INPUT);
+            if(invalidInput(evt, searchInput)) { evt.preventDefault(); }
         });
 
         this.addClickEvent(imageDiv, () => {
