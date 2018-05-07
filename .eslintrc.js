@@ -23,7 +23,6 @@ module.exports = {
     'no-var': 1,
     'no-extra-parens': 1,
     'block-scoped-var': 2,
-    'eqeqeq': 1,
-    'no-debugger': 0
+    'eqeqeq': 1
   }
 };
