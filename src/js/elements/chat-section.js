@@ -473,7 +473,13 @@ class ChatSection extends Element {
     }
 
     createSearchBox() {
-        let invalidInput = (e, target) => { return e.charCode === 13 || target.textContent.length > 28; };
+        const enterKeyCode = 13;
+        const backspaceKeyCode = 8;
+
+        let invalidInput = (e, target) => {
+            let input = e.keyCode;
+            return (input === enterKeyCode || target.textContent.length > 28) && input !== backspaceKeyCode;
+        };
 
         let li = this.createLi();
         let userItem = this.createDiv();
