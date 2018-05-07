@@ -26,6 +26,7 @@ class ChatSection extends Element {
         this._create();
         widget.appendChild(this.self);
         this.textKr = EMPTY_STRING;
+        this.self.searchField = null;
     }
 
     _create() {
@@ -470,14 +471,20 @@ class ChatSection extends Element {
     }
 
     createSearchBox() {
+        let invalidInput = (e, target) => {
+            debugger;
+            return e.charCode === 13 || target.textContent.length > 28;
+        };
+
         let li = this.createLi();
         let userItem = this.createDiv();
         this._setClass(userItem, [className.SEARCH]);
 
         let searchField = this.createTextInput();
+        this.self.searchField = searchField;
         this._setClass(searchField, [' search-input']);
         searchField.addEventListener('keypress', (evt) => {
-            if(evt.which === 13) { evt.preventDefault(); }
+            if(invalidInput(evt, this.self.searchField)) { evt.preventDefault(); }
         });
 
         let imageDiv = this.createDiv();
