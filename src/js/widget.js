@@ -395,7 +395,7 @@ class SBWidget {
         let userContent = target.userContent;
         let searchBox = this.chatSection.createSearchBox();
 
-        let renderFunction = () => {
+        let createUserList = () => {
             userContent.list.innerHTML = '';
             userContent.list.appendChild(searchBox);
             for (let i = 0 ; i < this.derivedUserList.length ; i++) {
@@ -413,8 +413,8 @@ class SBWidget {
         };
 
         this.chatSection.createUserList(userContent);
-        this.setSearchHandlers(renderFunction);
-        renderFunction();
+        this.setSearchHandlers(createUserList);
+        createUserList();
     }
 
     getChannelList() {
@@ -558,7 +558,7 @@ class SBWidget {
             this.derivedUserList = masterList;
             let searchBox = this.chatSection.createSearchBox();
 
-            let renderFunction = () => {
+            let createUserList = () => {
                 this.popup.invitePopup.list.innerHTML = '';
                 this.popup.invitePopup.list.appendChild(searchBox);
                 for (let i = 0 ; i < this.derivedUserList.length ; i++) {
@@ -568,8 +568,8 @@ class SBWidget {
                     this.popup.invitePopup.list.appendChild(item);
                 }
             };
-            this.setSearchHandlers(renderFunction);
-            renderFunction();
+            this.setSearchHandlers(createUserList);
+            createUserList();
         };
         let loadUsers = () => {
             iterations += 1;
