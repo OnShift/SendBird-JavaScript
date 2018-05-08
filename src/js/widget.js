@@ -93,6 +93,8 @@ class SBWidget {
         this.activeChannelSetList = [];
         this.extraChannelSetList = [];
 
+        this.userList = [];
+
         this.timeMessage = class TimeMessage {
             constructor(date) {
                 this.time = date;
@@ -379,13 +381,16 @@ class SBWidget {
     setUserList(target, userList) {
         let additionalCheck = (user) => { return !this.sb.isCurrentUser(user); };
         userList = userList.filter(filterUsersAlgo(additionalCheck)).sort(alphabetizeAlgo);
+
+        this.userList = userList;
+
         let userContent = target.userContent;
         this.chatSection.createUserList(userContent);
         let searchBox = this.chatSection.createSearchBox();
         this.setSearchHandlers();
         userContent.list.appendChild(searchBox);
-        for (let i = 0 ; i < userList.length ; i++) {
-            let user = userList[i];
+        for (let i = 0 ; i < this.userList.length ; i++) {
+            let user = this.userList[i];
             let item = this.chatSection.createUserListItem(user);
             this.chatSection.addClickEvent(item, () => {
                 hasClass(item.select, className.ACTIVE) ? removeClass(item.select, className.ACTIVE) : addClass(item.select, className.ACTIVE);
@@ -533,12 +538,15 @@ class SBWidget {
         let setList = () => {
             let additionalCheck = (user) => { return memberIds.indexOf(user.userId) < 0; };
             masterList = masterList.filter(filterUsersAlgo(additionalCheck)).sort(alphabetizeAlgo);
+
+            this.userList = masterList;
+
             let searchBox = this.chatSection.createSearchBox();
             this.setSearchHandlers();
             this.popup.invitePopup.list.appendChild(searchBox);
             this.spinner.remove(this.popup.invitePopup.list);
-            for (let i = 0 ; i < masterList.length ; i++) {
-                let user = masterList[i];
+            for (let i = 0 ; i < this.userList.length ; i++) {
+                let user = this.userList[i];
                 let item = this.popup.createMemberItem(user, true);
                 this.popup.addClickEvent(item, clickEvent(item));
                 this.popup.invitePopup.list.appendChild(item);
