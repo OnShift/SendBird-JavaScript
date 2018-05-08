@@ -561,7 +561,6 @@ class SBWidget {
             let renderFunction = () => {
                 this.popup.invitePopup.list.innerHTML = '';
                 this.popup.invitePopup.list.appendChild(searchBox);
-                this.spinner.remove(this.popup.invitePopup.list);
                 for (let i = 0 ; i < this.derivedUserList.length ; i++) {
                     let user = this.derivedUserList[i];
                     let item = this.popup.createMemberItem(user, true);
