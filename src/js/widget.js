@@ -100,7 +100,7 @@ class SBWidget {
         this.activeChannelSetList = [];
         this.extraChannelSetList = [];
 
-        this.userList = [];
+        this.baseUserList = [];
         this.derivedUserList = [];
 
         this.timeMessage = class TimeMessage {
@@ -390,7 +390,7 @@ class SBWidget {
         let additionalCheck = (user) => { return !this.sb.isCurrentUser(user); };
         userList = userList.filter(filterUsersAlgo(additionalCheck)).sort(alphabetizeAlgo);
 
-        this.userList = userList;
+        this.baseUserList = userList;
         this.derivedUserList = userList;
         let userContent = target.userContent;
         let searchBox = this.chatSection.createSearchBox();
@@ -554,7 +554,7 @@ class SBWidget {
             let additionalCheck = (user) => { return memberIds.indexOf(user.userId) < 0; };
             masterList = masterList.filter(filterUsersAlgo(additionalCheck)).sort(alphabetizeAlgo);
 
-            this.userList = masterList;
+            this.baseUserList = masterList;
             this.derivedUserList = masterList;
             let searchBox = this.chatSection.createSearchBox();
 
@@ -770,17 +770,22 @@ class SBWidget {
         });
 
         this.chatSection.addKeyUpEvent(searchInput, () => {
-            searchInput.textContent ? addClass(clearImage, className.CLEAR_INPUT) : removeClass(clearImage, className.CLEAR_INPUT);
-            let fuse = new Fuse(this.userList, searchOptions);
-            let searchResult = fuse.search(searchInput.textContent);
-            this.derivedUserList = searchResult;
-            renderFunction();
+            if(searchInput.textContent) {
+                addClass(clearImage, className.CLEAR_INPUT);
+                let fuse = new Fuse(this.baseUserList, searchOptions);
+                this.derivedUserList = fuse.search(searchInput.textContent);
+                renderFunction();
+            } else {
+                removeClass(clearImage, className.CLEAR_INPUT);
+                this.derivedUserList = this.baseUserList;
+                renderFunction();
+            }
         });
 
         this.chatSection.addClickEvent(clearImage, () => {
             this.chatSection.clearInputText(searchInput);
             removeClass(clearImage, className.CLEAR_INPUT);
-            this.derivedUserList = this.userList;
+            this.derivedUserList = this.baseUserList;
             renderFunction();
         });
     }
