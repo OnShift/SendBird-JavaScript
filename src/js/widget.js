@@ -6,6 +6,7 @@ import Popup from './elements/popup';
 import Sendbird from './sendbird-wrapper';
 import Spinner from './elements/spinner';
 import WidgetBtn from './elements/widget-btn';
+import Fuse from 'fuse.js';
 import {
     addClass,
     alphabetizeAlgo,
@@ -33,6 +34,12 @@ const NEW_CHAT_BOARD_ID = 'NEW_CHAT';
 const TIME_MESSAGE_TYPE = 'time';
 const TIME_STRING_TODAY = 'TODAY';
 const WIDGET_ID = 'sb_widget';
+
+const searchOptions = {
+    keys: ['nickname'],
+    shouldSort: true,
+    threshold: 0.3
+};
 
 window.WebFontConfig = {
     google: { families: ['Lato:400,700'] }
@@ -752,6 +759,8 @@ class SBWidget {
 
         this.chatSection.addKeyUpEvent(searchInput, () => {
             searchInput.textContent ? addClass(clearImage, className.CLEAR_INPUT) : removeClass(clearImage, className.CLEAR_INPUT);
+            let fuse = new Fuse(this.userList, searchOptions);
+            console.log(fuse.search(searchInput.textContent));
         });
 
         this.chatSection.addClickEvent(clearImage, () => {
