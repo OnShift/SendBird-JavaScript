@@ -101,6 +101,7 @@ class SBWidget {
         this.extraChannelSetList = [];
 
         this.userList = [];
+        this.derivedUserList = [];
 
         this.timeMessage = class TimeMessage {
             constructor(date) {
@@ -390,14 +391,15 @@ class SBWidget {
         userList = userList.filter(filterUsersAlgo(additionalCheck)).sort(alphabetizeAlgo);
 
         this.userList = userList;
+        this.derivedUserList = userList;
         let userContent = target.userContent;
         let searchBox = this.chatSection.createSearchBox();
 
         let renderFunction = () => {
             userContent.list.innerHTML = '';
             userContent.list.appendChild(searchBox);
-            for (let i = 0 ; i < this.userList.length ; i++) {
-                let user = this.userList[i];
+            for (let i = 0 ; i < this.derivedUserList.length ; i++) {
+                let user = this.derivedUserList[i];
                 let item = this.chatSection.createUserListItem(user);
                 this.chatSection.addClickEvent(item, () => {
                     hasClass(item.select, className.ACTIVE) ? removeClass(item.select, className.ACTIVE) : addClass(item.select, className.ACTIVE);
@@ -413,7 +415,6 @@ class SBWidget {
         this.chatSection.createUserList(userContent);
         this.setSearchHandlers(renderFunction);
         renderFunction();
-
     }
 
     getChannelList() {
@@ -554,14 +555,15 @@ class SBWidget {
             masterList = masterList.filter(filterUsersAlgo(additionalCheck)).sort(alphabetizeAlgo);
 
             this.userList = masterList;
+            this.derivedUserList = masterList;
             let searchBox = this.chatSection.createSearchBox();
 
             let renderFunction = () => {
                 this.popup.invitePopup.list.innerHTML = '';
                 this.popup.invitePopup.list.appendChild(searchBox);
                 this.spinner.remove(this.popup.invitePopup.list);
-                for (let i = 0 ; i < this.userList.length ; i++) {
-                    let user = this.userList[i];
+                for (let i = 0 ; i < this.derivedUserList.length ; i++) {
+                    let user = this.derivedUserList[i];
                     let item = this.popup.createMemberItem(user, true);
                     this.popup.addClickEvent(item, clickEvent(item));
                     this.popup.invitePopup.list.appendChild(item);
@@ -771,14 +773,16 @@ class SBWidget {
         this.chatSection.addKeyUpEvent(searchInput, () => {
             searchInput.textContent ? addClass(clearImage, className.CLEAR_INPUT) : removeClass(clearImage, className.CLEAR_INPUT);
             let fuse = new Fuse(this.userList, searchOptions);
-            let result = fuse.search(searchInput.textContent);
-            this.userList = result;
+            let searchResult = fuse.search(searchInput.textContent);
+            this.derivedUserList = searchResult;
             renderFunction();
         });
 
         this.chatSection.addClickEvent(clearImage, () => {
             this.chatSection.clearInputText(searchInput);
             removeClass(clearImage, className.CLEAR_INPUT);
+            this.derivedUserList = this.userList;
+            renderFunction();
         });
     }
 
