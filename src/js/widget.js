@@ -390,23 +390,30 @@ class SBWidget {
         userList = userList.filter(filterUsersAlgo(additionalCheck)).sort(alphabetizeAlgo);
 
         this.userList = userList;
-
         let userContent = target.userContent;
-        this.chatSection.createUserList(userContent);
         let searchBox = this.chatSection.createSearchBox();
-        this.setSearchHandlers();
-        userContent.list.appendChild(searchBox);
-        for (let i = 0 ; i < this.userList.length ; i++) {
-            let user = this.userList[i];
-            let item = this.chatSection.createUserListItem(user);
-            this.chatSection.addClickEvent(item, () => {
-                hasClass(item.select, className.ACTIVE) ? removeClass(item.select, className.ACTIVE) : addClass(item.select, className.ACTIVE);
-                let selectedUserCount = this.chatSection.getSelectedUserIds(userContent.list).length;
-                this.chatSection.updateChatTop(target, selectedUserCount > 9 ? MAX_COUNT : selectedUserCount.toString(), null);
-                selectedUserCount > 0 ? removeClass(target.startBtn, className.DISABLED) : addClass(target.startBtn, className.DISABLED);
-            });
-            userContent.list.appendChild(item);
-        }
+
+        let renderFunction = () => {
+            userContent.list.innerHTML = '';
+            userContent.list.appendChild(searchBox);
+            for (let i = 0 ; i < this.userList.length ; i++) {
+                let user = this.userList[i];
+                let item = this.chatSection.createUserListItem(user);
+                this.chatSection.addClickEvent(item, () => {
+                    hasClass(item.select, className.ACTIVE) ? removeClass(item.select, className.ACTIVE) : addClass(item.select, className.ACTIVE);
+                    let selectedUserCount = this.chatSection.getSelectedUserIds(userContent.list).length;
+                    this.chatSection.updateChatTop(target, selectedUserCount > 9 ? MAX_COUNT : selectedUserCount.toString(), null);
+                    selectedUserCount > 0 ? removeClass(target.startBtn, className.DISABLED) : addClass(target.startBtn, className.DISABLED);
+                });
+                userContent.list.appendChild(item);
+
+            }
+        };
+
+        this.chatSection.createUserList(userContent);
+        this.setSearchHandlers(renderFunction);
+        renderFunction();
+
     }
 
     getChannelList() {
@@ -547,17 +554,21 @@ class SBWidget {
             masterList = masterList.filter(filterUsersAlgo(additionalCheck)).sort(alphabetizeAlgo);
 
             this.userList = masterList;
-
             let searchBox = this.chatSection.createSearchBox();
-            this.setSearchHandlers();
-            this.popup.invitePopup.list.appendChild(searchBox);
-            this.spinner.remove(this.popup.invitePopup.list);
-            for (let i = 0 ; i < this.userList.length ; i++) {
-                let user = this.userList[i];
-                let item = this.popup.createMemberItem(user, true);
-                this.popup.addClickEvent(item, clickEvent(item));
-                this.popup.invitePopup.list.appendChild(item);
-            }
+
+            let renderFunction = () => {
+                this.popup.invitePopup.list.innerHTML = '';
+                this.popup.invitePopup.list.appendChild(searchBox);
+                this.spinner.remove(this.popup.invitePopup.list);
+                for (let i = 0 ; i < this.userList.length ; i++) {
+                    let user = this.userList[i];
+                    let item = this.popup.createMemberItem(user, true);
+                    this.popup.addClickEvent(item, clickEvent(item));
+                    this.popup.invitePopup.list.appendChild(item);
+                }
+            };
+            this.setSearchHandlers(renderFunction);
+            renderFunction();
         };
         let loadUsers = () => {
             iterations += 1;
@@ -742,7 +753,7 @@ class SBWidget {
         });
     }
 
-    setSearchHandlers() {
+    setSearchHandlers(renderFunction) {
         let searchInput = this.chatSection.self.searchInput;
         let clearImage = this.chatSection.self.searchImage;
         const enterKeyCode = 13;
@@ -761,6 +772,7 @@ class SBWidget {
             searchInput.textContent ? addClass(clearImage, className.CLEAR_INPUT) : removeClass(clearImage, className.CLEAR_INPUT);
             let fuse = new Fuse(this.userList, searchOptions);
             console.log(fuse.search(searchInput.textContent));
+            renderFunction();
         });
 
         this.chatSection.addClickEvent(clearImage, () => {
