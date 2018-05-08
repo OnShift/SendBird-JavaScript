@@ -737,7 +737,7 @@ class SBWidget {
             return (input === enterKeyCode || tar.textContent.length > 28) && input !== backspaceKeyCode;
         };
 
-        this.chatSection.addKeyDownEvent(searchInput, (evt) => {
+        this.chatSection.addKeyUpEvent(searchInput, (evt) => {
             searchInput.textContent ? addClass(clearImage, className.CLEAR_INPUT) : removeClass(clearImage, className.CLEAR_INPUT);
             if(invalidInput(evt, searchInput)) { evt.preventDefault(); }
         });
