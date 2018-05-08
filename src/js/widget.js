@@ -771,7 +771,8 @@ class SBWidget {
         this.chatSection.addKeyUpEvent(searchInput, () => {
             searchInput.textContent ? addClass(clearImage, className.CLEAR_INPUT) : removeClass(clearImage, className.CLEAR_INPUT);
             let fuse = new Fuse(this.userList, searchOptions);
-            console.log(fuse.search(searchInput.textContent));
+            let result = fuse.search(searchInput.textContent);
+            this.userList = result;
             renderFunction();
         });
 
