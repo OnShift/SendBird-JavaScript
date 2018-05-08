@@ -740,14 +740,18 @@ class SBWidget {
         let clearImage = this.chatSection.self.searchImage;
         const enterKeyCode = 13;
         const backspaceKeyCode = 8;
+
         let invalidInput = (e, tar) => {
             let input = e.keyCode;
             return (input === enterKeyCode || tar.textContent.length > 28) && input !== backspaceKeyCode;
         };
 
-        this.chatSection.addKeyUpEvent(searchInput, (evt) => {
-            searchInput.textContent ? addClass(clearImage, className.CLEAR_INPUT) : removeClass(clearImage, className.CLEAR_INPUT);
+        this.chatSection.addKeyDownEvent(searchInput, (evt) => {
             if(invalidInput(evt, searchInput)) { evt.preventDefault(); }
+        });
+
+        this.chatSection.addKeyUpEvent(searchInput, () => {
+            searchInput.textContent ? addClass(clearImage, className.CLEAR_INPUT) : removeClass(clearImage, className.CLEAR_INPUT);
         });
 
         this.chatSection.addClickEvent(clearImage, () => {
