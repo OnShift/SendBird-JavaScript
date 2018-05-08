@@ -396,8 +396,10 @@ class SBWidget {
         let searchBox = this.chatSection.createSearchBox();
 
         let createUserList = () => {
-            userContent.list.innerHTML = '';
-            userContent.list.appendChild(searchBox);
+            let userItems = document.getElementsByClassName(className.USER_LIST);
+            while(userItems.length > 0) {
+                userItems[0].parentNode.removeChild(userItems[0]);
+            }
             for (let i = 0 ; i < this.derivedUserList.length ; i++) {
                 let user = this.derivedUserList[i];
                 let item = this.chatSection.createUserListItem(user);
@@ -408,11 +410,11 @@ class SBWidget {
                     selectedUserCount > 0 ? removeClass(target.startBtn, className.DISABLED) : addClass(target.startBtn, className.DISABLED);
                 });
                 userContent.list.appendChild(item);
-
             }
-        };
 
+        };
         this.chatSection.createUserList(userContent);
+        userContent.list.appendChild(searchBox);
         this.setSearchHandlers(createUserList);
         createUserList();
     }
@@ -557,10 +559,15 @@ class SBWidget {
             this.baseUserList = masterList;
             this.derivedUserList = masterList;
             let searchBox = this.chatSection.createSearchBox();
+            this.popup.invitePopup.list.appendChild(searchBox);
 
             let createUserList = () => {
-                this.popup.invitePopup.list.innerHTML = '';
-                this.popup.invitePopup.list.appendChild(searchBox);
+                let userItems = document.getElementsByClassName(className.USER_LIST);
+                while(userItems.length > 0) {
+                    userItems[0].parentNode.removeChild(userItems[0]);
+                }
+                let spinner = document.getElementsByClassName(className.SPINNER)[0];
+                if(spinner) { spinner.remove(); }
                 for (let i = 0 ; i < this.derivedUserList.length ; i++) {
                     let user = this.derivedUserList[i];
                     let item = this.popup.createMemberItem(user, true);

@@ -84,6 +84,7 @@ class Popup extends Element {
 
     createMemberItem(member, isInvite, isCurrentUser) {
         let li = this.createLi();
+        this._setClass(li, [className.USER_LIST]);
         let div = this.createDiv();
 
         if (isInvite) {

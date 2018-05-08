@@ -450,6 +450,7 @@ class ChatSection extends Element {
 
     createUserListItem(user) {
         let li = this.createLi();
+        this._setClass(li, [className.USER_LIST]);
         let userItem = this.createDiv();
         this._setClass(userItem, [className.USER_ITEM]);
 
