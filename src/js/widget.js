@@ -382,6 +382,7 @@ class SBWidget {
         let userContent = target.userContent;
         this.chatSection.createUserList(userContent);
         let searchBox = this.chatSection.createSearchBox();
+        this.setSearchHandlers();
         userContent.list.appendChild(searchBox);
         for (let i = 0 ; i < userList.length ; i++) {
             let user = userList[i];
@@ -533,6 +534,7 @@ class SBWidget {
             let additionalCheck = (user) => { return memberIds.indexOf(user.userId) < 0; };
             masterList = masterList.filter(filterUsersAlgo(additionalCheck)).sort(alphabetizeAlgo);
             let searchBox = this.chatSection.createSearchBox();
+            this.setSearchHandlers();
             this.popup.invitePopup.list.appendChild(searchBox);
             this.spinner.remove(this.popup.invitePopup.list);
             for (let i = 0 ; i < masterList.length ; i++) {
@@ -722,6 +724,27 @@ class SBWidget {
 
         this.activeChannelSetList = this.activeChannelSetList.filter(function(obj) {
             return isObject ? obj.channel !== channel : obj.channel.url !== channel;
+        });
+    }
+
+    setSearchHandlers() {
+        let searchInput = this.chatSection.self.searchInput;
+        let clearImage = this.chatSection.self.searchImage;
+        const enterKeyCode = 13;
+        const backspaceKeyCode = 8;
+        let invalidInput = (e, tar) => {
+            let input = e.keyCode;
+            return (input === enterKeyCode || tar.textContent.length > 28) && input !== backspaceKeyCode;
+        };
+
+        this.chatSection.addKeyDownEvent(searchInput, (evt) => {
+            searchInput.textContent ? addClass(clearImage, className.CLEAR_INPUT) : removeClass(clearImage, className.CLEAR_INPUT);
+            if(invalidInput(evt, searchInput)) { evt.preventDefault(); }
+        });
+
+        this.chatSection.addClickEvent(clearImage, () => {
+            this.chatSection.clearInputText(searchInput);
+            removeClass(clearImage, className.CLEAR_INPUT);
         });
     }
 
