@@ -405,6 +405,7 @@ class SBWidget {
                 let item = this.chatSection.createUserListItem(user);
                 this.chatSection.addClickEvent(item, () => {
                     hasClass(item.select, className.ACTIVE) ? removeClass(item.select, className.ACTIVE) : addClass(item.select, className.ACTIVE);
+
                     let selectedUserCount = this.chatSection.getSelectedUserIds(userContent.list).length;
                     this.chatSection.updateChatTop(target, selectedUserCount > 9 ? MAX_COUNT : selectedUserCount.toString(), null);
                     selectedUserCount > 0 ? removeClass(target.startBtn, className.DISABLED) : addClass(target.startBtn, className.DISABLED);
@@ -535,7 +536,7 @@ class SBWidget {
 
     loadUsersForInviteList(memberIds) {
         let iterations = 0;
-        let masterList = [];
+        let sbUserList = [];
         let clickEvent = (item) => {
             return () => {
                 flipClass(item.select, className.ACTIVE);
@@ -549,15 +550,15 @@ class SBWidget {
             };
         };
         let getFullList = (userList) => {
-            masterList = masterList.concat(userList);
+            sbUserList = sbUserList.concat(userList);
             loadUsers();
         };
         let setList = () => {
             let additionalCheck = (user) => { return memberIds.indexOf(user.userId) < 0; };
-            masterList = masterList.filter(filterUsersAlgo(additionalCheck)).sort(alphabetizeAlgo);
+            sbUserList = sbUserList.filter(filterUsersAlgo(additionalCheck)).sort(alphabetizeAlgo);
 
-            this.baseUserList = masterList;
-            this.derivedUserList = masterList;
+            this.baseUserList = sbUserList;
+            this.derivedUserList = sbUserList;
             let searchBox = this.chatSection.createSearchBox();
             this.popup.invitePopup.list.appendChild(searchBox);
 
