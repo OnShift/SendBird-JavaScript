@@ -567,7 +567,6 @@ class SBWidget {
                 let activeSelection = (user) => {
                     return user.children[0].children[0].className.match(className.ACTIVE)
                 };
-                // debugger;
                 let userItems = document.getElementsByClassName(className.USER_LIST);
                 while(userItems.length > 0) {
                     let currentUser = userItems[0];
@@ -581,7 +580,7 @@ class SBWidget {
                 console.log(`reservedUsers: ${reservedUsers}`);
                 for (let i = 0 ; i < this.derivedUserList.length ; i++) {
                     let user = this.derivedUserList[i];
-                    let item = this.popup.createMemberItem(user, true);
+                    let item = this.popup.createMemberItem(user);
                     this.popup.addClickEvent(item, clickEvent(item));
                     this.popup.invitePopup.list.appendChild(item);
                 }
