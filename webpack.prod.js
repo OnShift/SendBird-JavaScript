@@ -5,6 +5,7 @@ const common = require('./webpack.common');
 const Uglify = require('uglifyjs-webpack-plugin');
 const OptimizeCss = require('optimize-css-assets-webpack-plugin');
 const OptimizeCssClassNames = require('optimize-css-classnames-plugin');
+const BundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = merge(common, {
     output: {
@@ -30,6 +31,10 @@ module.exports = merge(common, {
         new OptimizeCss(),
         new OptimizeCssClassNames({
             prefix: '_'
+        }),
+        new BundleAnalyzer({
+            analyzerMode: 'static',
+            openAnalyzer: false
         })
     ]
 });
