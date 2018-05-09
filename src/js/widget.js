@@ -563,12 +563,22 @@ class SBWidget {
             this.popup.invitePopup.list.appendChild(searchBox);
 
             let createUserList = () => {
+                let reservedUsers = [];
+                let activeSelection = (user) => {
+                    return user.children[0].children[0].className.match(className.ACTIVE)
+                };
+                // debugger;
                 let userItems = document.getElementsByClassName(className.USER_LIST);
                 while(userItems.length > 0) {
+                    let currentUser = userItems[0];
+                    if(activeSelection(currentUser)) {
+                        reservedUsers.push(currentUser)
+                    }
                     userItems[0].parentNode.removeChild(userItems[0]);
                 }
                 let spinner = document.getElementsByClassName(className.SPINNER)[0];
                 if(spinner) { spinner.remove(); }
+                console.log(`reservedUsers: ${reservedUsers}`);
                 for (let i = 0 ; i < this.derivedUserList.length ; i++) {
                     let user = this.derivedUserList[i];
                     let item = this.popup.createMemberItem(user, true);
