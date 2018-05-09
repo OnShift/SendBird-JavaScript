@@ -473,7 +473,10 @@ class ChatSection extends Element {
     }
 
     createSearchBox() {
-        let invalidInput = (e, target) => { return e.charCode === 13 || target.textContent.length > 28; };
+        let invalidInput = (e, tar) => {
+            let input = e.keyCode;
+            return (input === 13 || tar.textContent.length > 28) && input !== 8;
+        };
 
         let li = this.createLi();
         let userItem = this.createDiv();
@@ -487,9 +490,12 @@ class ChatSection extends Element {
         this.self.searchInput = searchField;
         addClass(this.self.searchInput, className.SEARCH_INPUT);
         this.addKeyDownEvent(searchField, (evt) => {
-            let searchInput = this.self.searchInput;
-            searchInput.textContent ? addClass(this.self.searchImage, className.CLEAR_INPUT) : removeClass(this.self.searchImage, className.CLEAR_INPUT);
-            if(invalidInput(evt, searchInput)) { evt.preventDefault(); }
+            if(invalidInput(evt, this.self.searchInput)) { evt.preventDefault(); }
+        });
+
+
+        this.addKeyUpEvent(searchField, () => {
+            this.self.searchInput.textContent ? addClass(this.self.searchImage, className.CLEAR_INPUT) : removeClass(this.self.searchImage, className.CLEAR_INPUT);
         });
 
         this.addClickEvent(imageDiv, () => {
