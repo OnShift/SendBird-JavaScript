@@ -404,7 +404,7 @@ class SBWidget {
                     activeUsers.push({
                         nickname: currentUser.getElementsByClassName(className.NICKNAME)[0].textContent,
                         userId: currentUser.getElementsByClassName(`${className.USER_SELECT} ${className.ACTIVE}`)[0].getAttribute('data-user-id')
-                    })
+                    });
                 }
                 currentUser.parentNode.removeChild(userItems[0]);
             }
@@ -610,7 +610,7 @@ class SBWidget {
 
             let seperateAndClearUserList = (userList) => {
                 let activeSelection = (user) => {
-                    return user.getElementsByClassName(`${className.USER_SELECT} ${className.ACTIVE}`).length !== 0
+                    return user.getElementsByClassName(`${className.USER_SELECT} ${className.ACTIVE}`).length !== 0;
                 };
 
                 let activeUsers = [];
@@ -620,7 +620,7 @@ class SBWidget {
                         activeUsers.push({
                             nickname: currentUser.getElementsByClassName(className.NICKNAME)[0].textContent,
                             userId: currentUser.getElementsByClassName(`${className.USER_SELECT} ${className.ACTIVE}`)[0].getAttribute('data-user-id')
-                        })
+                        });
                     }
                     currentUser.parentNode.removeChild(currentUser);
                 }

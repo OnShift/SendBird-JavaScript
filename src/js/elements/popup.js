@@ -88,7 +88,6 @@ class Popup extends Element {
         let div = this.createDiv();
 
         let userSelect = this.createDiv();
-        // this._setClass(userSelect, [className.USER_SELECT, ]);
         this._setClass(userSelect, isActive ? [className.USER_SELECT, className.ACTIVE] : [className.USER_SELECT]);
         this._setDataset(userSelect, 'user-id', member.userId);
         li.select = userSelect;
