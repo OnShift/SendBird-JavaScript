@@ -12,6 +12,9 @@
   </head>
   <body>
     <h2 id="currentUser"></h2>
+    <button id="openWidget" onclick="open_widget()" style="fo">Press Me to Open the Widget</button>
+    <br>
+    <button id="closeWidget" onclick="close_widget()">Press Me to Close the Widget</button>
     <div id="sb_widget"></div>
   </body>
   <script src="build/widget.SendBird.js"></script>
@@ -29,6 +32,19 @@
       document.cookie = `sendbirdUserId=${name}`;
     }
     document.getElementById("currentUser").innerText = 'LOGGED IN AS: ' + name;
+
+    function open_widget() {
+      var channelBoard = document.getElementsByClassName('channel-board')[0];
+      channelBoard.style = 'display: block';
+      channelBoard.className = "channel-board sb-fade-in";
+    }
+
+    function close_widget() {
+        var channelBoard = document.getElementsByClassName('channel-board')[0];
+        channelBoard.style = '';
+        channelBoard.className = "channel-board sb-fade-out";
+    }
+
     var sb = new window.onshiftChatWidget.default();
     sb.startWithConnect('9DA1B1F4-0BE6-4DA8-82C5-2E81DAB56F23', name, name);
   </script>
