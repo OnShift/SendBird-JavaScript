@@ -584,7 +584,7 @@ class SBWidget {
                         nickname: htmlUser.getElementsByClassName('nickname')[0].textContent,
                         userId: htmlUser.getElementsByClassName('user-select active')[0].getAttribute('data-user-id')
                     };
-                    let item = this.popup.createMemberItem(user);
+                    let item = this.popup.createMemberItem(user, true);
                     this.popup.addClickEvent(item, clickEvent(item));
                     this.popup.invitePopup.list.appendChild(item);
                 }
