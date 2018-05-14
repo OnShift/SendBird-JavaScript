@@ -574,7 +574,6 @@ class SBWidget {
             };
 
             let renderInactiveUserList = (inactiveUserList, activeUserIds) => {
-                debugger;
                 for (let i = 0 ; i < inactiveUserList.length ; i++) {
                     let user = inactiveUserList[i];
                     if(!activeUserIds.includes(user.userId)) {
@@ -585,29 +584,34 @@ class SBWidget {
                 }
             };
 
-            let createUserList = () => {
-                let reservedUsers = [];
+            let seperateAndClearUserList = (userList) => {
                 let activeSelection = (user) => {
                     // todo better way to do this?
                     return user.children[0].children[0].className.match(className.ACTIVE)
                 };
-                let userItems = document.getElementsByClassName(className.USER_LIST);
-                while(userItems.length > 0) {
-                    let currentUser = userItems[0];
+
+                let activeUsers = [];
+                while(userList.length > 0) {
+                    let currentUser = userList[0];
                     if (activeSelection(currentUser)) {
-                        reservedUsers.push({
+                        activeUsers.push({
                             nickname: currentUser.getElementsByClassName('nickname')[0].textContent,
                             userId: currentUser.getElementsByClassName('user-select active')[0].getAttribute('data-user-id')
                         })
                     }
                     currentUser.parentNode.removeChild(currentUser);
                 }
+                return activeUsers;
+            };
+
+            let createUserList = () => {
+                let userItems = document.getElementsByClassName(className.USER_LIST);
+                let reservedUsers = seperateAndClearUserList(userItems);
+
                 let spinner = document.getElementsByClassName(className.SPINNER)[0];
                 if(spinner) { spinner.remove(); }
-                let selectedUserIds = reservedUsers.map((u) => { return u.userId; });
                 renderActiveUserList(reservedUsers);
-                renderInactiveUserList(this.derivedUserList, selectedUserIds);
-
+                renderInactiveUserList(this.derivedUserList, reservedUsers.map((u) => { return u.userId; }));
             };
             this.setSearchHandlers(createUserList);
             createUserList();
