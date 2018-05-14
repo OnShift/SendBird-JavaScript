@@ -82,6 +82,11 @@ export const className = {
     IC_NEW_CHAT: 'ic-new-chat',
     IC_OPTION: 'ic-option',
 
+    SEARCH: 'user-search',
+    SEARCH_IMG: 'search-input-image',
+    SEARCH_INPUT: 'search-input',
+    CLEAR_INPUT: 'clear-input',
+
     FADE_IN: 'sb-fade-in',
     FADE_OUT: 'sb-fade-out',
     SPINNER: 'sb-spinner'

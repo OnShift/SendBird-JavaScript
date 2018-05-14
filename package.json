@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "prepublish": "npm run prod-build",
-    "prod-build": "webpack -p --config webpack.prod.js",
-    "start-dev": "webpack-dev-server --config webpack.dev.js",
+    "prod-build": "npm run prod-lint && webpack -p --config webpack.prod.js",
+    "start-dev": "npm run dev-lint && webpack-dev-server --config webpack.dev.js",
     "start-demo": "npm run prod-build && node test_server/server.js",
     "test": "jest",
     "coverage": "jest --coverage",
-    "lint": "eslint src/",
+    "prod-lint": "eslint -c .linter_config/prod-lint.js src/",
+    "dev-lint": "eslint -c .linter_config/dev-lint.js src/",
     "watch-stylesheet": "node-sass -w src/scss/widget.scss build/stylesheet.css"
   },
   "jest": {
@@ -33,17 +34,20 @@
     "eslint": "^3.18.0",
     "eslint-loader": "^1.6.3",
     "express": "^4.16.2",
+    "file-loader": "^1.1.11",
     "jest": "^22.4.2",
     "node-sass": "4.5.0",
     "optimize-css-assets-webpack-plugin": "3.2.0",
     "optimize-css-classnames-plugin": "0.0.5",
     "sass-loader": "^6.0.3",
     "style-loader": "^0.14.1",
+    "svg-url-loader": "^2.3.2",
     "webpack": "^3.4.1",
     "webpack-dev-server": "^2.9.4",
     "webpack-merge": "^4.1.2"
   },
   "dependencies": {
+    "fuse.js": "^3.2.0",
     "sendbird": "^3.0.53"
   }
 }

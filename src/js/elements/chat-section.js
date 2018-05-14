@@ -1,10 +1,11 @@
 import { className } from '../consts.js';
 import Element from './elements.js';
 import {
-  show,
-  hide,
-  removeClass,
-  xssEscape
+    addClass,
+    hide,
+    removeClass,
+    show,
+    xssEscape
 } from '../utils.js';
 
 const DISPLAY_NONE = 'none';
@@ -31,6 +32,8 @@ class ChatSection extends Element {
     _create() {
         this.self = this.createDiv();
         this._setClass(this.self, [className.CHAT_SECTION]);
+        this.self.searchImage = null;
+        this.self.searchInput = null;
     }
 
     _getListBoardArray() {
@@ -225,7 +228,7 @@ class ChatSection extends Element {
             let typingUser = channel.getTypingMembers();
             spinner.insert(typing);
             let text = typingUser.length > 1 ? MESSAGE_TYPING_SEVERAL : xssEscape(typingUser[0].nickname) + MESSAGE_TYPING_MEMBER;
-            this._addContent(typing, text);
+            this._setContent(typing, text);
             show(typing);
         }
     }
@@ -465,6 +468,43 @@ class ChatSection extends Element {
         this._setContent(userNickname, xssEscape(user.nickname));
         userItem.appendChild(userNickname);
 
+        li.appendChild(userItem);
+        return li;
+    }
+
+    createSearchBox() {
+        let invalidInput = (e, tar) => {
+            let input = e.keyCode;
+            return (input === 13 || tar.textContent.length > 28) && input !== 8;
+        };
+
+        let li = this.createLi();
+        let userItem = this.createDiv();
+        this._setClass(userItem, [className.SEARCH]);
+
+        let imageDiv = this.createDiv();
+        this._setClass(imageDiv, [className.SEARCH_IMG]);
+        this.self.searchImage = imageDiv;
+
+        let searchField = this.createTextInput();
+        this.self.searchInput = searchField;
+        addClass(this.self.searchInput, className.SEARCH_INPUT);
+        this.addKeyDownEvent(searchField, (evt) => {
+            if(invalidInput(evt, this.self.searchInput)) { evt.preventDefault(); }
+        });
+
+
+        this.addKeyUpEvent(searchField, () => {
+            this.self.searchInput.textContent ? addClass(this.self.searchImage, className.CLEAR_INPUT) : removeClass(this.self.searchImage, className.CLEAR_INPUT);
+        });
+
+        this.addClickEvent(imageDiv, () => {
+            this.clearInputText(searchField);
+            removeClass(this.self.searchImage, className.CLEAR_INPUT);
+        });
+
+        userItem.appendChild(imageDiv);
+        userItem.appendChild(searchField);
         li.appendChild(userItem);
         return li;
     }

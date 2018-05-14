@@ -9,6 +9,7 @@ import WidgetBtn from './elements/widget-btn';
 import {
     addClass,
     alphabetizeAlgo,
+    filterUsersAlgo,
     getFullHeight,
     getLastItem,
     flipClass,
@@ -380,9 +381,12 @@ class SBWidget {
     }
 
     setUserList(target, userList) {
-        userList = userList.filter(user => user.nickname && user.userId && !this.sbWrapper.isCurrentUser(user)).sort(alphabetizeAlgo);
+        let additionalCheck = (user) => { return !this.sb.isCurrentUser(user); };
+        userList = userList.filter(filterUsersAlgo(additionalCheck)).sort(alphabetizeAlgo);
         let userContent = target.userContent;
         this.chatSection.createUserList(userContent);
+        let searchBox = this.chatSection.createSearchBox();
+        userContent.list.appendChild(searchBox);
         for (let i = 0 ; i < userList.length ; i++) {
             let user = userList[i];
             let item = this.chatSection.createUserListItem(user);
@@ -530,7 +534,10 @@ class SBWidget {
             loadUsers();
         };
         let setList = () => {
-            masterList = masterList.filter(user => user.nickname && user.userId && memberIds.indexOf(user.userId) < 0).sort(alphabetizeAlgo);
+            let additionalCheck = (user) => { return memberIds.indexOf(user.userId) < 0; };
+            masterList = masterList.filter(filterUsersAlgo(additionalCheck)).sort(alphabetizeAlgo);
+            let searchBox = this.chatSection.createSearchBox();
+            this.popup.invitePopup.list.appendChild(searchBox);
             this.spinner.remove(this.popup.invitePopup.list);
             for (let i = 0 ; i < masterList.length ; i++) {
                 let user = masterList[i];
