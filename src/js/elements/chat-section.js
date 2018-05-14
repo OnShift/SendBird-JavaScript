@@ -1,4 +1,4 @@
-import { className } from '../consts.js';
+import { className, NO_SEARCH_RESULTS_MSG } from '../consts.js';
 import Element from './elements.js';
 import {
     addClass,
@@ -475,9 +475,8 @@ class ChatSection extends Element {
 
     createUserSearchEmptyResults() {
         let emptySearchResults = this.createDiv();
-        // todo make this a class constant
-        this._setClass(emptySearchResults, ['no-search-results']);
-        this._setContent(emptySearchResults, 'No users were returned for this search');
+        this._setClass(emptySearchResults, [className.NO_SEARCH_RESULTS]);
+        this._setContent(emptySearchResults, NO_SEARCH_RESULTS_MSG);
         return emptySearchResults;
     }
 

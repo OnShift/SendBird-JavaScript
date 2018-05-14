@@ -86,6 +86,7 @@ export const className = {
 
     SEARCH: 'user-search',
     SEARCH_IMG: 'search-input-image',
+    NO_SEARCH_RESULTS: 'no-search-results',
     SEARCH_INPUT: 'search-input',
     CLEAR_INPUT: 'clear-input',
 
@@ -105,6 +106,8 @@ export const DEFAULT_PROFILE_PIC = 'https://dxstmhyqfqr1o.cloudfront.net/widget/
 export const MAX_COUNT = '+9';
 export const MAX_FONT_SIZE = '11';
 export const TYPE_STRING = 'string';
+
+export const NO_SEARCH_RESULTS_MSG = 'No users were returned for this search'
 
 export const ANIMATION_EVENT = 'animationend';
 export const ANIMATION_REGEX = 'sb-fade.*';
