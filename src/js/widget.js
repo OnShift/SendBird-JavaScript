@@ -572,27 +572,29 @@ class SBWidget {
                 while(userItems.length > 0) {
                     let currentUser = userItems[0];
                     if (activeSelection(currentUser)) {
-                        reservedUsers.push(currentUser)
+                        reservedUsers.push({
+                            nickname: currentUser.getElementsByClassName('nickname')[0].textContent,
+                            userId: currentUser.getElementsByClassName('user-select active')[0].getAttribute('data-user-id')
+                        })
                     }
                     currentUser.parentNode.removeChild(currentUser);
                 }
                 let spinner = document.getElementsByClassName(className.SPINNER)[0];
                 if(spinner) { spinner.remove(); }
                 for (let i = 0 ; i < reservedUsers.length ; i++) {
-                    let htmlUser = reservedUsers[i];
-                    let user = {
-                        nickname: htmlUser.getElementsByClassName('nickname')[0].textContent,
-                        userId: htmlUser.getElementsByClassName('user-select active')[0].getAttribute('data-user-id')
-                    };
+                    let user = reservedUsers[i];
                     let item = this.popup.createMemberItem(user, true);
                     this.popup.addClickEvent(item, clickEvent(item));
                     this.popup.invitePopup.list.appendChild(item);
                 }
+                let selectedUserIds = reservedUsers.map((u) => { return u.userId; });
                 for (let i = 0 ; i < this.derivedUserList.length ; i++) {
                     let user = this.derivedUserList[i];
-                    let item = this.popup.createMemberItem(user);
-                    this.popup.addClickEvent(item, clickEvent(item));
-                    this.popup.invitePopup.list.appendChild(item);
+                    if(!selectedUserIds.includes(user.userId)) {
+                        let item = this.popup.createMemberItem(user);
+                        this.popup.addClickEvent(item, clickEvent(item));
+                        this.popup.invitePopup.list.appendChild(item);
+                    }
                 }
             };
             this.setSearchHandlers(createUserList);
