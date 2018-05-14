@@ -448,14 +448,14 @@ class ChatSection extends Element {
         }
     }
 
-    createUserListItem(user) {
+    createUserListItem(user, isActive) {
         let li = this.createLi();
         this._setClass(li, [className.USER_LIST]);
         let userItem = this.createDiv();
         this._setClass(userItem, [className.USER_ITEM]);
 
         let userSelect = this.createDiv();
-        this._setClass(userSelect, [className.USER_SELECT]);
+        this._setClass(userSelect, isActive ? [className.USER_SELECT, className.ACTIVE] : [className.USER_SELECT]);
         this._setDataset(userSelect, 'user-id', user.userId);
         li.select = userSelect;
         userItem.appendChild(userSelect);

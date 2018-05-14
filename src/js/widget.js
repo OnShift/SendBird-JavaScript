@@ -397,20 +397,47 @@ class SBWidget {
 
         let createUserList = () => {
             let userItems = document.getElementsByClassName(className.USER_LIST);
+            let activeUsers = [];
             while(userItems.length > 0) {
-                userItems[0].parentNode.removeChild(userItems[0]);
+                let currentUser = userItems[0];
+                // i think a better way to determine who is active
+                if(currentUser.getElementsByClassName('user-select active').length !== 0) {
+                    activeUsers.push({
+                        nickname: currentUser.getElementsByClassName('nickname')[0].textContent,
+                        userId: currentUser.getElementsByClassName('user-select active')[0].getAttribute('data-user-id')
+                    })
+                }
+                currentUser.parentNode.removeChild(userItems[0]);
             }
-            for (let i = 0 ; i < this.derivedUserList.length ; i++) {
-                let user = this.derivedUserList[i];
-                let item = this.chatSection.createUserListItem(user);
+
+            for (let i = 0 ; i < activeUsers.length ; i++) {
+                let user = activeUsers[i];
+                let item = this.chatSection.createUserListItem(user, true);
                 this.chatSection.addClickEvent(item, () => {
-                    hasClass(item.select, className.ACTIVE) ? removeClass(item.select, className.ACTIVE) : addClass(item.select, className.ACTIVE);
+                    flipClass(item.select, className.ACTIVE);
 
                     let selectedUserCount = this.chatSection.getSelectedUserIds(userContent.list).length;
                     this.chatSection.updateChatTop(target, selectedUserCount > 9 ? MAX_COUNT : selectedUserCount.toString(), null);
                     selectedUserCount > 0 ? removeClass(target.startBtn, className.DISABLED) : addClass(target.startBtn, className.DISABLED);
                 });
                 userContent.list.appendChild(item);
+            }
+
+            let activeUserIds = activeUsers.map((u) => { return u.userId; });
+
+            for (let i = 0 ; i < this.derivedUserList.length ; i++) {
+                let user = this.derivedUserList[i];
+                if(!activeUserIds.includes(user.userId)) {
+                    let item = this.chatSection.createUserListItem(user);
+                    this.chatSection.addClickEvent(item, () => {
+                        hasClass(item.select, className.ACTIVE) ? removeClass(item.select, className.ACTIVE) : addClass(item.select, className.ACTIVE);
+
+                        let selectedUserCount = this.chatSection.getSelectedUserIds(userContent.list).length;
+                        this.chatSection.updateChatTop(target, selectedUserCount > 9 ? MAX_COUNT : selectedUserCount.toString(), null);
+                        selectedUserCount > 0 ? removeClass(target.startBtn, className.DISABLED) : addClass(target.startBtn, className.DISABLED);
+                    });
+                    userContent.list.appendChild(item);
+                }
             }
 
         };
