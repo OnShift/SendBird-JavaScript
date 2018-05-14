@@ -400,10 +400,10 @@ class SBWidget {
             let activeUsers = [];
             while(userItems.length > 0) {
                 let currentUser = userItems[0];
-                if(currentUser.getElementsByClassName('user-select active').length !== 0) {
+                if(currentUser.getElementsByClassName(`${className.USER_SELECT} ${className.ACTIVE}`).length !== 0) {
                     activeUsers.push({
-                        nickname: currentUser.getElementsByClassName('nickname')[0].textContent,
-                        userId: currentUser.getElementsByClassName('user-select active')[0].getAttribute('data-user-id')
+                        nickname: currentUser.getElementsByClassName(className.NICKNAME)[0].textContent,
+                        userId: currentUser.getElementsByClassName(`${className.USER_SELECT} ${className.ACTIVE}`)[0].getAttribute('data-user-id')
                     })
                 }
                 currentUser.parentNode.removeChild(userItems[0]);
@@ -610,7 +610,7 @@ class SBWidget {
 
             let seperateAndClearUserList = (userList) => {
                 let activeSelection = (user) => {
-                    return user.getElementsByClassName('user-select active').length !== 0
+                    return user.getElementsByClassName(`${className.USER_SELECT} ${className.ACTIVE}`).length !== 0
                 };
 
                 let activeUsers = [];
@@ -618,8 +618,8 @@ class SBWidget {
                     let currentUser = userList[0];
                     if (activeSelection(currentUser)) {
                         activeUsers.push({
-                            nickname: currentUser.getElementsByClassName('nickname')[0].textContent,
-                            userId: currentUser.getElementsByClassName('user-select active')[0].getAttribute('data-user-id')
+                            nickname: currentUser.getElementsByClassName(className.NICKNAME)[0].textContent,
+                            userId: currentUser.getElementsByClassName(`${className.USER_SELECT} ${className.ACTIVE}`)[0].getAttribute('data-user-id')
                         })
                     }
                     currentUser.parentNode.removeChild(currentUser);
