@@ -105,7 +105,16 @@ class Popup extends Element {
         let emptySearchResults = this.createDiv();
         this._setClass(emptySearchResults, [className.NO_SEARCH_RESULTS]);
         this._setContent(emptySearchResults, NO_SEARCH_RESULTS_MSG);
+        this.emptySearchResults = emptySearchResults;
         return emptySearchResults;
+    }
+
+    removeEmptySearchResults() {
+        if(this.emptySearchResults) {
+            let emptySearchResults = this.emptySearchResults;
+            emptySearchResults.parentNode.removeChild(emptySearchResults);
+        }
+        this.emptySearchResults = null
     }
 
     _createInvitePopup() {
