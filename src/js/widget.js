@@ -101,7 +101,7 @@ class SBWidget {
         this.extraChannelSetList = [];
 
         this.baseUserList = [];
-        this.derivedUserList = [];
+        this.searchedUserList = [];
 
         this.timeMessage = class TimeMessage {
             constructor(date) {
@@ -391,7 +391,7 @@ class SBWidget {
         userList = userList.filter(filterUsersAlgo(additionalCheck)).sort(alphabetizeAlgo);
 
         this.baseUserList = userList;
-        this.derivedUserList = userList;
+        this.searchedUserList = userList;
         let userContent = target.userContent;
         let searchBox = this.chatSection.createSearchBox();
 
@@ -427,13 +427,16 @@ class SBWidget {
             }
 
             let activeUserIds = activeUsers.map((u) => { return u.userId; });
-
-            for (let i = 0 ; i < this.derivedUserList.length ; i++) {
-                let user = this.derivedUserList[i];
-                if(!activeUserIds.includes(user.userId)) {
-                    let item = this.chatSection.createUserListItem(user);
-                    clickEvent(item);
-                    userContent.list.appendChild(item);
+            if(this.searchedUserList.length === 0) {
+                userContent.list.appendChild(this.chatSection.createUserSearchEmptyResults());
+            } else {
+                for (let i = 0; i < this.searchedUserList.length; i++) {
+                    let user = this.searchedUserList[i];
+                    if (!activeUserIds.includes(user.userId)) {
+                        let item = this.chatSection.createUserListItem(user);
+                        clickEvent(item);
+                        userContent.list.appendChild(item);
+                    }
                 }
             }
 
@@ -584,7 +587,7 @@ class SBWidget {
             sbUserList = sbUserList.filter(filterUsersAlgo(additionalCheck)).sort(alphabetizeAlgo);
 
             this.baseUserList = sbUserList;
-            this.derivedUserList = sbUserList;
+            this.searchedUserList = sbUserList;
             let searchBox = this.chatSection.createSearchBox();
             this.popup.invitePopup.list.appendChild(searchBox);
 
@@ -598,12 +601,17 @@ class SBWidget {
             };
 
             let renderInactiveUserList = (inactiveUserList, activeUserIds) => {
-                for (let i = 0 ; i < inactiveUserList.length ; i++) {
-                    let user = inactiveUserList[i];
-                    if(!activeUserIds.includes(user.userId)) {
-                        let item = this.popup.createMemberItem(user);
-                        this.popup.addClickEvent(item, clickEvent(item));
-                        this.popup.invitePopup.list.appendChild(item);
+                if(inactiveUserList.length === 0) {
+                    let emptyResultsMsg = this.popup.createUserSearchEmptyResults();
+                    this.popup.invitePopup.list.appendChild(emptyResultsMsg)
+                } else {
+                    for (let i = 0; i < inactiveUserList.length; i++) {
+                        let user = inactiveUserList[i];
+                        if (!activeUserIds.includes(user.userId)) {
+                            let item = this.popup.createMemberItem(user);
+                            this.popup.addClickEvent(item, clickEvent(item));
+                            this.popup.invitePopup.list.appendChild(item);
+                        }
                     }
                 }
             };
@@ -634,7 +642,7 @@ class SBWidget {
                 let spinner = document.getElementsByClassName(className.SPINNER)[0];
                 if(spinner) { spinner.remove(); }
                 renderActiveUserList(reservedUsers);
-                renderInactiveUserList(this.derivedUserList, reservedUsers.map((u) => { return u.userId; }));
+                renderInactiveUserList(this.searchedUserList, reservedUsers.map((u) => { return u.userId; }));
             };
             this.setSearchHandlers(createUserList);
             createUserList();
@@ -841,11 +849,11 @@ class SBWidget {
             if(searchInput.textContent) {
                 addClass(clearImage, className.CLEAR_INPUT);
                 let fuse = new Fuse(this.baseUserList, searchOptions);
-                this.derivedUserList = fuse.search(searchInput.textContent);
+                this.searchedUserList = fuse.search(searchInput.textContent);
                 renderFunction();
             } else {
                 removeClass(clearImage, className.CLEAR_INPUT);
-                this.derivedUserList = this.baseUserList;
+                this.searchedUserList = this.baseUserList;
                 renderFunction();
             }
         });
@@ -853,7 +861,7 @@ class SBWidget {
         this.chatSection.addClickEvent(clearImage, () => {
             this.chatSection.clearInputText(searchInput);
             removeClass(clearImage, className.CLEAR_INPUT);
-            this.derivedUserList = this.baseUserList;
+            this.searchedUserList = this.baseUserList;
             renderFunction();
         });
     }

@@ -27,11 +27,6 @@ class Popup extends Element {
         addClass(this.invitePopup.inviteBtn, className.DISABLED);
     }
 
-    showMemberPopup(chatSection) {
-        chatSection.appendChild(this.memberPopup);
-        show(this.memberPopup);
-    }
-
     showInvitePopup(chatSection) {
         chatSection.appendChild(this.invitePopup);
         show(this.invitePopup);
@@ -104,6 +99,14 @@ class Popup extends Element {
 
         li.appendChild(div);
         return li;
+    }
+
+    createUserSearchEmptyResults() {
+        let emptySearchResults = this.createDiv();
+        // todo make this a class constant
+        this._setClass(emptySearchResults, ['no-search-results']);
+        this._setContent(emptySearchResults, 'No users were returned for this search');
+        return emptySearchResults;
     }
 
     _createInvitePopup() {

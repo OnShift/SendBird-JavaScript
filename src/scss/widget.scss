@@ -128,10 +128,19 @@
       top: 100%;
       left: 50%;
       margin-left: -5px;
-      border-width: 5px;
-      border-style: solid;
+      border: solid 5px;
       border-color: $color-black transparent transparent transparent;
     }
+  }
+
+  .no-search-results {
+    text-align: center;
+    color: $color-gray-darkest;
+    padding: 5%;
+    @media #{$mobile} {
+      font-size: 18px;
+    }
+    font-size: 14px;
   }
 
 
@@ -678,6 +687,7 @@
           }
         }
         @include user-search(60%, '../assets/mag-glass.svg', '../assets/user-search-clear.svg');
+
         .user-item {
           width: 100%;
           height: calc(100% - 12px - 1px);

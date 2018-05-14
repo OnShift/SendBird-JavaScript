@@ -473,6 +473,14 @@ class ChatSection extends Element {
         return li;
     }
 
+    createUserSearchEmptyResults() {
+        let emptySearchResults = this.createDiv();
+        // todo make this a class constant
+        this._setClass(emptySearchResults, ['no-search-results']);
+        this._setContent(emptySearchResults, 'No users were returned for this search');
+        return emptySearchResults;
+    }
+
     createSearchBox() {
         let li = this.createLi();
         let userItem = this.createDiv();
