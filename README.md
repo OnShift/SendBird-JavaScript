@@ -1,8 +1,8 @@
 # OnShift Chat Widget
 
-A chat widget designed to be used in both mobile and non-mobile environments. 
+A chat widget designed to be used in both mobile and non-mobile environments.
 Utilizing [Sendbird](https://sendbird.com/) and the SDK they provide, this widget will
-allow for conversational communication between the various members of a given Engage 
+allow for conversational communication between the various members of a given Engage
 community.
 
 ## Running in Development Mode
@@ -31,10 +31,20 @@ To incorporate the widget, the following code must be written in a React project
 ```
 
 - in order to initialize the widget, a `div` with an id of `sb_widget` must exist somewhere in the DOM
-- in order to start the widget, invoke `sbWidget.startWithConnect(appId, userId, userName)` where
+- create a json object, similar to the below:
+```
+    var loginData = {
+      appId:'XXXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXX',
+      nickname: 'Nickname Goes Here',
+      role: 'Administrator',
+      userId: 'Unique ID of user goes here'
+    };
+```
   - appId: the id of the Sendbird application we are connecting to
   - userId: the id of the user who is connecting to the Sendbird application
   - userName: the name to be displayed when displaying their name (in SB parlance, this is the nickname)
+
+- in order to start the widget, invoke the widget and pass in the loginData json object you created: `sbWidget.startWithConnect(loginData)`
 
 ## Running the tests
 
