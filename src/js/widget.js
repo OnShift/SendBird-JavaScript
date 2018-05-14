@@ -400,7 +400,6 @@ class SBWidget {
             let activeUsers = [];
             while(userItems.length > 0) {
                 let currentUser = userItems[0];
-                // i think a better way to determine who is active
                 if(currentUser.getElementsByClassName('user-select active').length !== 0) {
                     activeUsers.push({
                         nickname: currentUser.getElementsByClassName('nickname')[0].textContent,
@@ -410,16 +409,20 @@ class SBWidget {
                 currentUser.parentNode.removeChild(userItems[0]);
             }
 
-            for (let i = 0 ; i < activeUsers.length ; i++) {
-                let user = activeUsers[i];
-                let item = this.chatSection.createUserListItem(user, true);
-                this.chatSection.addClickEvent(item, () => {
-                    flipClass(item.select, className.ACTIVE);
+            let clickEvent = (userItem) => {
+                this.chatSection.addClickEvent(userItem, () => {
+                    flipClass(userItem.select, className.ACTIVE);
 
                     let selectedUserCount = this.chatSection.getSelectedUserIds(userContent.list).length;
                     this.chatSection.updateChatTop(target, selectedUserCount > 9 ? MAX_COUNT : selectedUserCount.toString(), null);
                     selectedUserCount > 0 ? removeClass(target.startBtn, className.DISABLED) : addClass(target.startBtn, className.DISABLED);
                 });
+            };
+
+            for (let i = 0 ; i < activeUsers.length ; i++) {
+                let user = activeUsers[i];
+                let item = this.chatSection.createUserListItem(user, true);
+                clickEvent(item);
                 userContent.list.appendChild(item);
             }
 
@@ -429,13 +432,7 @@ class SBWidget {
                 let user = this.derivedUserList[i];
                 if(!activeUserIds.includes(user.userId)) {
                     let item = this.chatSection.createUserListItem(user);
-                    this.chatSection.addClickEvent(item, () => {
-                        hasClass(item.select, className.ACTIVE) ? removeClass(item.select, className.ACTIVE) : addClass(item.select, className.ACTIVE);
-
-                        let selectedUserCount = this.chatSection.getSelectedUserIds(userContent.list).length;
-                        this.chatSection.updateChatTop(target, selectedUserCount > 9 ? MAX_COUNT : selectedUserCount.toString(), null);
-                        selectedUserCount > 0 ? removeClass(target.startBtn, className.DISABLED) : addClass(target.startBtn, className.DISABLED);
-                    });
+                    clickEvent(item);
                     userContent.list.appendChild(item);
                 }
             }
@@ -613,8 +610,7 @@ class SBWidget {
 
             let seperateAndClearUserList = (userList) => {
                 let activeSelection = (user) => {
-                    // todo better way to do this?
-                    return user.children[0].children[0].className.match(className.ACTIVE)
+                    return user.getElementsByClassName('user-select active').length !== 0
                 };
 
                 let activeUsers = [];
