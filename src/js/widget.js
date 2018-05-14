@@ -840,7 +840,6 @@ class SBWidget {
         this.chatSection.addKeyUpEvent(searchInput, () => {
             if(searchInput.textContent) {
                 addClass(clearImage, className.CLEAR_INPUT);
-                // todo can we pass in a list to operate on? as opposed to a global?
                 let fuse = new Fuse(this.baseUserList, searchOptions);
                 this.derivedUserList = fuse.search(searchInput.textContent);
                 renderFunction();
