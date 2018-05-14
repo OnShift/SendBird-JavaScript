@@ -565,19 +565,29 @@ class SBWidget {
             let createUserList = () => {
                 let reservedUsers = [];
                 let activeSelection = (user) => {
+                    // todo better way to do this?
                     return user.children[0].children[0].className.match(className.ACTIVE)
                 };
                 let userItems = document.getElementsByClassName(className.USER_LIST);
                 while(userItems.length > 0) {
                     let currentUser = userItems[0];
-                    if(activeSelection(currentUser)) {
+                    if (activeSelection(currentUser)) {
                         reservedUsers.push(currentUser)
                     }
-                    userItems[0].parentNode.removeChild(userItems[0]);
+                    currentUser.parentNode.removeChild(currentUser);
                 }
                 let spinner = document.getElementsByClassName(className.SPINNER)[0];
                 if(spinner) { spinner.remove(); }
-                console.log(`reservedUsers: ${reservedUsers}`);
+                for (let i = 0 ; i < reservedUsers.length ; i++) {
+                    let htmlUser = reservedUsers[i];
+                    let user = {
+                        nickname: htmlUser.getElementsByClassName('nickname')[0].textContent,
+                        userId: htmlUser.getElementsByClassName('user-select active')[0].getAttribute('data-user-id')
+                    };
+                    let item = this.popup.createMemberItem(user);
+                    this.popup.addClickEvent(item, clickEvent(item));
+                    this.popup.invitePopup.list.appendChild(item);
+                }
                 for (let i = 0 ; i < this.derivedUserList.length ; i++) {
                     let user = this.derivedUserList[i];
                     let item = this.popup.createMemberItem(user);
@@ -789,6 +799,7 @@ class SBWidget {
         this.chatSection.addKeyUpEvent(searchInput, () => {
             if(searchInput.textContent) {
                 addClass(clearImage, className.CLEAR_INPUT);
+                // todo can we pass in a list to operate on? as opposed to a global?
                 let fuse = new Fuse(this.baseUserList, searchOptions);
                 this.derivedUserList = fuse.search(searchInput.textContent);
                 renderFunction();
