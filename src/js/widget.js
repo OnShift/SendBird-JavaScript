@@ -530,7 +530,7 @@ class SBWidget {
             loadUsers();
         };
         let setList = () => {
-            let additionalCheck = (user) => {return memberIds.indexOf(user.userId) < 0; };
+            let additionalCheck = (user) => { return memberIds.indexOf(user.userId) < 0; };
             masterList = masterList.filter(filterUsersAlgo(additionalCheck)).sort(alphabetizeAlgo);
             let searchBox = this.chatSection.createSearchBox();
             this.popup.invitePopup.list.appendChild(searchBox);

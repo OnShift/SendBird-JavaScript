@@ -1,7 +1,7 @@
 @import "../variables";
 @import "responsiveness";
 
-@mixin user-search($height, $path-to-image) {
+@mixin user-search($height, $path-to-mag, $path-to-clear) {
   .user-search {
     width: 100%;
     height: $height;
@@ -10,19 +10,23 @@
     position: relative;
 
     .search-input-image {
-      height: 20px;
+      height: 25px;
       width: 20px;
-      background: url($path-to-image) no-repeat center;
-      background-size: 20px;
+      background: url($path-to-mag) no-repeat center;
+      background-size: 100%;
       float: left;
+
+      &.clear-input {
+        background: url($path-to-clear) no-repeat center;
+      }
     }
 
     .search-input {
       width: 85%;
       margin-left: 5%;
-      height: 90%;
+      height: 70%;
       font-size: 13px;
-      padding-top: 2px;
+      padding-top: 4px;
       float: left;
       @media #{$mobile} {
         font-size: 16px;
@@ -31,6 +35,9 @@
     .search-input:empty::before {
       content: $content-search-input-default;
       color: #6d7c9d;
+    }
+    .search-input:focus {
+      outline: 0 solid transparent;
     }
     .search-input:focus:empty::before {
       content: $content-message-input-empty;

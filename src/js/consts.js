@@ -58,7 +58,6 @@ export const className = {
     USER_CONTENT: 'user-content',
     USER_ITEM: 'user-item',
     USER_SELECT: 'user-select',
-    SEARCH: 'user-search',
     USER: 'user',
 
     IMAGE_ME: 'image-me',
@@ -82,6 +81,11 @@ export const className = {
     IC_MINIMIZE: 'ic-minimize',
     IC_NEW_CHAT: 'ic-new-chat',
     IC_OPTION: 'ic-option',
+
+    SEARCH: 'user-search',
+    SEARCH_IMG: 'search-input-image',
+    SEARCH_INPUT: 'search-input',
+    CLEAR_INPUT: 'clear-input',
 
     FADE_IN: 'sb-fade-in',
     FADE_OUT: 'sb-fade-out',

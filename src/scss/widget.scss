@@ -74,7 +74,7 @@
   }
 
   .ic-close {
-    @include icon($icon-close);
+    @include local-icon('../assets/close-btn.svg');
     @include hover {
       @include icon($icon-close-hover);
     }
@@ -677,7 +677,7 @@
             cursor: pointer;
           }
         }
-        @include user-search(60%, '../assets/MagnifyingGlass.svg');
+        @include user-search(60%, '../assets/mag-glass.svg', '../assets/user-search-clear.svg');
         .user-item {
           width: 100%;
           height: calc(100% - 12px - 1px);
@@ -720,9 +720,12 @@
       }
 
       .content-bottom {
-        width: calc(100% - 24px);
-        height: calc(52px - 24px);
-        padding: 12px;
+        width: 91%;
+        @media #{$mobile} {
+          width: 97%;
+        }
+        height: calc(52px - 7px);
+        padding: 4px 0 0 9px;
         background-color: $color-gray-lightest;
         text-align: center;
         @include box-shadow(0 1px 1px rgba(0, 0, 0, 0.20));
@@ -730,8 +733,11 @@
         .new-chat-btn {
           @extend .sb-common-btn;
           display: inline-block;
-          width: 70px;
-          height: 26px;
+          width: 33%;
+          height: 56%;
+          @media #{$mobile} {
+            height: 61%;
+          }
           padding: 0 12px;
           text-align: center;
           line-height: 26px;
@@ -1061,10 +1067,7 @@
             background: $color-white;
             padding: 0 12px;
             cursor: pointer;
-            @include user-search(100%, '../assets/MagnifyingGlass.svg');
-            @include hover {
-              background-color: $color-list-hover;
-            }
+            @include user-search(100%, '../assets/mag-glass.svg', '../assets/user-search-clear.svg');
 
             & > div {
               display: inline-block;

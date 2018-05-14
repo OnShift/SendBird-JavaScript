@@ -1,8 +1,8 @@
 # OnShift Chat Widget
 
-A chat widget designed to be used in both mobile and non-mobile environments. 
+A chat widget designed to be used in both mobile and non-mobile environments.
 Utilizing [Sendbird](https://sendbird.com/) and the SDK they provide, this widget will
-allow for conversational communication between the various members of a given Engage 
+allow for conversational communication between the various members of a given Engage
 community.
 
 ## Running in Development Mode
@@ -17,24 +17,25 @@ community.
 this is still very much in development, but we're trying to keep the documentation up to date
 
 ### Build
-The widget is still in it's infancy and there are some warts we inherited from the Sendbird team. In order to bundle the widget
-with another project, the following must occur
+The widget is transpiled down to ECMAScript 2015, so it should be easily utilized in older projects and work in a variety
+of older browsers.
 - the widget has been implemented into other projects systems using the [webpack module bundler](https://webpack.js.org/)
-- the widget must be transpiled via [babel](https://github.com/babel/babel)
+- the widget utilizes the JS module system in order to achieve ease of use.
 
 ### Incorporation
 To incorporate the widget, the following code must be written in a React project
 
 ```
-    import SendBirdWidget from 'onshift-chat-widget/src/js/widget';`
-    let sbWidget = new SendBirdWidget()
+    import SendBirdWidget from 'onshift-chat-widget/build/widget.Sendbird.js';`
+    let sbWidget = new SendBirdWidget();
 ```
 
 - in order to initialize the widget, a `div` with an id of `sb_widget` must exist somewhere in the DOM
-- in order to start the widget, invoke `sbWidget.startWithConnect(appId, userId, userName)` where
+- in order to start the widget, invoke `sbWidget.startWithConnect(appId, userId, nickname, accessToken)` where
   - appId: the id of the Sendbird application we are connecting to
   - userId: the id of the user who is connecting to the Sendbird application
-  - userName: the name to be displayed when displaying their name (in SB parlance, this is the nickname)
+  - nickname: the name to be displayed when displaying their name
+  - accessToken: some valid access token that
 
 ## Running the tests
 

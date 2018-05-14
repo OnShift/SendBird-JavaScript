@@ -11,7 +11,6 @@ $icon-option-hover:           'btn-option-over.svg';
 $icon-new-chat:               'btn-new-chat-default.svg';
 $icon-new-chat-hover:         'btn-new-chat-over.svg';
 
-$icon-close:                  'btn-close-default.svg';
 $icon-close-hover:            'btn-close-over.svg';
 $icon-close-selected:         'btn-close-select.svg';
 $icon-leave-chat:             'btn-leave-chat-normal.svg';
@@ -44,6 +43,11 @@ $icon-member-4:               'thumnail-member-04.svg';
 
 @mixin icon($name) {
   background: url($icon-prefix + $name) center no-repeat;
+  background-size: cover;
+}
+
+@mixin local-icon($path) {
+  background: url($path) center no-repeat;
   background-size: cover;
 }
 
