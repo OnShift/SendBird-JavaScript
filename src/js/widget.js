@@ -549,10 +549,12 @@ class SBWidget {
                 }
             };
         };
+
         let getFullList = (userList) => {
             sbUserList = sbUserList.concat(userList);
             loadUsers();
         };
+
         let setList = () => {
             let additionalCheck = (user) => { return memberIds.indexOf(user.userId) < 0; };
             sbUserList = sbUserList.filter(filterUsersAlgo(additionalCheck)).sort(alphabetizeAlgo);
@@ -561,6 +563,27 @@ class SBWidget {
             this.derivedUserList = sbUserList;
             let searchBox = this.chatSection.createSearchBox();
             this.popup.invitePopup.list.appendChild(searchBox);
+
+            let renderActiveUserList = (activeUsers) => {
+                for (let i = 0 ; i < activeUsers.length ; i++) {
+                    let user = activeUsers[i];
+                    let item = this.popup.createMemberItem(user, true);
+                    this.popup.addClickEvent(item, clickEvent(item));
+                    this.popup.invitePopup.list.appendChild(item);
+                }
+            };
+
+            let renderInactiveUserList = (inactiveUserList, activeUserIds) => {
+                debugger;
+                for (let i = 0 ; i < inactiveUserList.length ; i++) {
+                    let user = inactiveUserList[i];
+                    if(!activeUserIds.includes(user.userId)) {
+                        let item = this.popup.createMemberItem(user);
+                        this.popup.addClickEvent(item, clickEvent(item));
+                        this.popup.invitePopup.list.appendChild(item);
+                    }
+                }
+            };
 
             let createUserList = () => {
                 let reservedUsers = [];
@@ -581,21 +604,10 @@ class SBWidget {
                 }
                 let spinner = document.getElementsByClassName(className.SPINNER)[0];
                 if(spinner) { spinner.remove(); }
-                for (let i = 0 ; i < reservedUsers.length ; i++) {
-                    let user = reservedUsers[i];
-                    let item = this.popup.createMemberItem(user, true);
-                    this.popup.addClickEvent(item, clickEvent(item));
-                    this.popup.invitePopup.list.appendChild(item);
-                }
                 let selectedUserIds = reservedUsers.map((u) => { return u.userId; });
-                for (let i = 0 ; i < this.derivedUserList.length ; i++) {
-                    let user = this.derivedUserList[i];
-                    if(!selectedUserIds.includes(user.userId)) {
-                        let item = this.popup.createMemberItem(user);
-                        this.popup.addClickEvent(item, clickEvent(item));
-                        this.popup.invitePopup.list.appendChild(item);
-                    }
-                }
+                renderActiveUserList(reservedUsers);
+                renderInactiveUserList(this.derivedUserList, selectedUserIds);
+
             };
             this.setSearchHandlers(createUserList);
             createUserList();
