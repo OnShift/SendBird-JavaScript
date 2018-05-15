@@ -4,23 +4,13 @@ import {
     MAX_FONT_SIZE,
     DEFAULT_PROFILE_PIC
 } from '../consts.js';
-import {
-    show,
-    hide,
-    isEmptyString,
-    removeWhiteSpace
-} from '../utils.js';
+import { show, hide } from '../utils.js';
 
 import Element from './elements.js';
-const EMPTY_STRING = '';
-const INPUT_MAX_LENGTH = 20;
-const INPUT_TYPE = 'text';
+
 const NEW_CHAT_TOOLTIP_TEXT = 'New Message';
 const TITLE_EMPTY_BTN = 'Create';
 const TITLE_EMPTY_ITEM = 'Click below to start';
-const TITLE_LOGIN_BTN = 'Start Chat';
-const TITLE_LOGIN_NICKNAME = 'NICKNAME';
-const TITLE_LOGIN_USER_ID = 'USER ID';
 const TITLE_TOP_CHANNEL = 'Channel List';
 const TITLE_TOP_LOGIN = 'SendBird Widget';
 
@@ -29,8 +19,6 @@ class ListBoard extends Element {
         super();
         this._createBoard();
         widget.appendChild(this.self);
-
-        this.createLoginForm();
         this.createChannelListBoard();
     }
 
@@ -66,106 +54,13 @@ class ListBoard extends Element {
         this._setClickEvent(this.btnMini, action);
     }
 
-    addNewChatClickEvent(action) {
-        this._setClickEvent(this.btnNewChat, action);
-    }
+    addNewChatClickEvent(action) { this._setClickEvent(this.btnNewChat, action); }
 
-    createLoginForm() {
-        this.loginForm = this.createDiv();
-        this._setClass(this.loginForm, [className.CONTENT, className.LOGIN_FORM]);
+    getUserId() { return this.userId.value; }
 
-        let userIdEl = this.createDiv();
-        this._setClass(userIdEl, [className.USER_ID]);
+    getNickname() { return this.nickname.value; }
 
-        let idTitle = this.createDiv();
-        this._setClass(idTitle, [className.TITLE]);
-        this._setContent(idTitle, TITLE_LOGIN_USER_ID);
-        userIdEl.appendChild(idTitle);
-
-        this.userId = this.createInput();
-        this._setClass(this.userId, [className.INPUT]);
-        this.userId.type = INPUT_TYPE;
-        this.userId.maxlength = INPUT_MAX_LENGTH;
-        this.userId.title = TITLE_LOGIN_USER_ID;
-        this._setKeyupEvent(this.userId, this._toggleLoginBtn.bind(this));
-        this._setChangeEvent(this.userId, this._toggleLoginBtn.bind(this));
-        userIdEl.appendChild(this.userId);
-        this.loginForm.appendChild(userIdEl);
-
-        let userNicknameEl = this.createDiv();
-        this._setClass(userNicknameEl, [className.NICKNAME]);
-
-        let nicknameTitle = this.createDiv();
-        this._setClass(nicknameTitle, [className.TITLE]);
-        this._setContent(nicknameTitle, TITLE_LOGIN_NICKNAME);
-        userNicknameEl.appendChild(nicknameTitle);
-
-        this.nickname = this.createInput();
-        this._setClass(this.nickname, [className.INPUT]);
-        this.nickname.type = INPUT_TYPE;
-        this.nickname.maxlength = INPUT_MAX_LENGTH;
-        this.nickname.title = TITLE_LOGIN_NICKNAME;
-        this._setKeyupEvent(this.nickname, this._toggleLoginBtn.bind(this));
-        this._setChangeEvent(this.nickname, this._toggleLoginBtn.bind(this));
-        userNicknameEl.appendChild(this.nickname);
-        this.loginForm.appendChild(userNicknameEl);
-
-        this.btnLogin = this.createDiv();
-        this._setClass(this.btnLogin, [className.LOGIN_BTN]);
-        this._setContent(this.btnLogin, TITLE_LOGIN_BTN);
-        this.loginForm.appendChild(this.btnLogin);
-    }
-
-    showLoginForm() {
-        if (this.self.lastElementChild === this.listContent) {
-            this.self.removeChild(this.listContent);
-        }
-        this._setContent(this.topTitle, TITLE_TOP_LOGIN);
-        hide(this.btnNewChat);
-        this.self.appendChild(this.loginForm);
-        this._toggleLoginBtn();
-    }
-
-    _cleanLoginForm() {
-        this.userId.disabled = false;
-        this.nickname.disabled = false;
-        this._setUserId(EMPTY_STRING);
-        this._setNickname(EMPTY_STRING);
-        this._setContent(this.btnLogin, TITLE_LOGIN_BTN);
-        this.enabledToggle(this.btnLogin, true);
-    }
-
-    _toggleLoginBtn() {
-        if (!isEmptyString(removeWhiteSpace(this.userId.value)) && !isEmptyString(removeWhiteSpace(this.nickname.value))) {
-            if (this.btnLogin.innerHTML === TITLE_LOGIN_BTN) {
-                this.enabledToggle(this.btnLogin, true);
-            }
-        }
-        else {
-            this.enabledToggle(this.btnLogin, false);
-        }
-    }
-
-    _setUserId(value) {
-        this.userId.value = value;
-    }
-    getUserId() {
-        return this.userId.value;
-    }
-    _setNickname(value) {
-        this.nickname.value = value;
-    }
-    getNickname() {
-        return this.nickname.value;
-    }
-
-    addLoginClickEvent(action) {
-        this._setClickEvent(this.btnLogin, action);
-    }
-
-    addKeyDownEvent(target, action) {
-        this._setKeydownEvent(target, action);
-    }
+    addKeyDownEvent(target, action) {this._setKeydownEvent(target, action); }
 
     createChannelListBoard() {
         this.listContent = this.createDiv();
@@ -176,10 +71,6 @@ class ListBoard extends Element {
     }
 
     showChannelList() {
-        if (this.self.lastElementChild === this.loginForm) {
-            this.self.removeChild(this.loginForm);
-            this._cleanLoginForm();
-        }
         this._setContent(this.topTitle, TITLE_TOP_CHANNEL);
         show(this.btnNewChat);
         this.self.appendChild(this.listContent);

@@ -152,7 +152,7 @@ class SBWidget {
         });
 
         this.widgetBtn.addClickEvent(() => {
-            this.sb.isConnected() ? this.listBoard.showChannelList() : this.listBoard.showLoginForm();
+            this.listBoard.showChannelList();
             this.toggleBoard(true);
             this.listBoard.addChannelListScrollEvent(() => {
                 this.getChannelList();
@@ -194,21 +194,6 @@ class SBWidget {
             this.closePopup();
             this.toggleBoard(false);
             this.responsiveChatSection.bind(this);
-        });
-
-        this.listBoard.addLoginClickEvent(() => {
-            if (!hasClass(this.listBoard.btnLogin, className.DISABLED)) {
-                this.spinner.insert(this.listBoard.btnLogin);
-                this.listBoard.enabledToggle(this.listBoard.btnLogin, false);
-                this.listBoard.userId.disabled = true;
-                this.listBoard.nickname.disabled = true;
-                this._connect(this.listBoard.getUserId(), this.listBoard.getNickname());
-            }
-        });
-        this.listBoard.addKeyDownEvent(this.listBoard.nickname, (event) => {
-            if (event.keyCode === KEY_DOWN_ENTER) {
-                this.listBoard.btnLogin.click();
-            }
         });
     }
 
