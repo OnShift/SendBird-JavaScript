@@ -608,11 +608,11 @@ class SBWidget {
                 }
             };
 
-            let seperateAndClearUserList = (userList) => {
-                let activeSelection = (user) => {
-                    return user.getElementsByClassName(`${className.USER_SELECT} ${className.ACTIVE}`).length !== 0;
-                };
+            let activeSelection = (user) => {
+                return user.getElementsByClassName(`${className.USER_SELECT} ${className.ACTIVE}`).length !== 0;
+            };
 
+            let seperateAndClearUserList = (userList) => {
                 let activeUsers = [];
                 while(userList.length > 0) {
                     let currentUser = userList[0];
