@@ -431,10 +431,17 @@ class SBWidget {
             }
 
             let activeUserIds = activeUsers.map((u) => { return u.userId; });
-
-            for (let i = 0 ; i < this.searchedUserList.length ; i++) {
-                let user = this.searchedUserList[i];
-                if(!activeUserIds.includes(user.userId)) { renderUser(user, false); }
+            this.chatSection.removeEmptySearchResults();
+            if(this.searchedUserList.length === 0) {
+                let emptySearchResults = this.chatSection.createUserSearchEmptyResults();
+                userContent.list.appendChild(emptySearchResults);
+            } else {
+                for (let i = 0; i < this.searchedUserList.length; i++) {
+                    let user = this.searchedUserList[i];
+                    if (!activeUserIds.includes(user.userId)) {
+                        renderUser(user, false)
+                    }
+                }
             }
 
         };
