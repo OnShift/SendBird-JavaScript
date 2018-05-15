@@ -55,6 +55,8 @@ export const className = {
     PREVIEW_TITLE: 'preview-title',
     TEXT: 'text',
     TYPING: 'typing',
+
+    USER_LIST: 'user-list',
     USER_CONTENT: 'user-content',
     USER_ITEM: 'user-item',
     USER_SELECT: 'user-select',

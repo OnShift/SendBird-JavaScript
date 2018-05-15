@@ -6,6 +6,7 @@ import Popup from './elements/popup';
 import Sendbird from './sendbird-wrapper';
 import Spinner from './elements/spinner';
 import WidgetBtn from './elements/widget-btn';
+import Fuse from 'fuse.js';
 import {
     addClass,
     alphabetizeAlgo,
@@ -33,6 +34,12 @@ const NEW_CHAT_BOARD_ID = 'NEW_CHAT';
 const TIME_MESSAGE_TYPE = 'time';
 const TIME_STRING_TODAY = 'TODAY';
 const WIDGET_ID = 'sb_widget';
+
+const searchOptions = {
+    keys: ['nickname'],
+    shouldSort: true,
+    threshold: 0.3
+};
 
 window.WebFontConfig = {
     google: { families: ['Lato:400,700'] }
@@ -92,6 +99,9 @@ class SBWidget {
 
         this.activeChannelSetList = [];
         this.extraChannelSetList = [];
+
+        this.baseUserList = [];
+        this.derivedUserList = [];
 
         this.timeMessage = class TimeMessage {
             constructor(date) {
@@ -379,21 +389,60 @@ class SBWidget {
     setUserList(target, userList) {
         let additionalCheck = (user) => { return !this.sb.isCurrentUser(user); };
         userList = userList.filter(filterUsersAlgo(additionalCheck)).sort(alphabetizeAlgo);
+
+        this.baseUserList = userList;
+        this.derivedUserList = userList;
         let userContent = target.userContent;
-        this.chatSection.createUserList(userContent);
         let searchBox = this.chatSection.createSearchBox();
+
+        let createUserList = () => {
+            let userItems = document.getElementsByClassName(className.USER_LIST);
+            let activeUsers = [];
+            while(userItems.length > 0) {
+                let currentUser = userItems[0];
+                if(currentUser.getElementsByClassName(`${className.USER_SELECT} ${className.ACTIVE}`).length !== 0) {
+                    activeUsers.push({
+                        nickname: currentUser.getElementsByClassName(className.NICKNAME)[0].textContent,
+                        userId: currentUser.getElementsByClassName(`${className.USER_SELECT} ${className.ACTIVE}`)[0].getAttribute('data-user-id')
+                    });
+                }
+                currentUser.parentNode.removeChild(userItems[0]);
+            }
+
+            let clickEvent = (userItem) => {
+                this.chatSection.addClickEvent(userItem, () => {
+                    flipClass(userItem.select, className.ACTIVE);
+
+                    let selectedUserCount = this.chatSection.getSelectedUserIds(userContent.list).length;
+                    this.chatSection.updateChatTop(target, selectedUserCount > 9 ? MAX_COUNT : selectedUserCount.toString(), null);
+                    selectedUserCount > 0 ? removeClass(target.startBtn, className.DISABLED) : addClass(target.startBtn, className.DISABLED);
+                });
+            };
+
+            let renderUser = (user, isActive) => {
+                let item = this.chatSection.createUserListItem(user, isActive);
+                clickEvent(item);
+                userContent.list.appendChild(item);
+            };
+
+            for (let i = 0 ; i < activeUsers.length ; i++) {
+                let user = activeUsers[i];
+                renderUser(user, true)
+            }
+
+            let activeUserIds = activeUsers.map((u) => { return u.userId; });
+
+            for (let i = 0 ; i < this.derivedUserList.length ; i++) {
+                let user = this.derivedUserList[i];
+                if(!activeUserIds.includes(user.userId)) { renderUser(user, false); }
+            }
+
+        };
+
+        this.chatSection.createUserList(userContent);
         userContent.list.appendChild(searchBox);
-        for (let i = 0 ; i < userList.length ; i++) {
-            let user = userList[i];
-            let item = this.chatSection.createUserListItem(user);
-            this.chatSection.addClickEvent(item, () => {
-                hasClass(item.select, className.ACTIVE) ? removeClass(item.select, className.ACTIVE) : addClass(item.select, className.ACTIVE);
-                let selectedUserCount = this.chatSection.getSelectedUserIds(userContent.list).length;
-                this.chatSection.updateChatTop(target, selectedUserCount > 9 ? MAX_COUNT : selectedUserCount.toString(), null);
-                selectedUserCount > 0 ? removeClass(target.startBtn, className.DISABLED) : addClass(target.startBtn, className.DISABLED);
-            });
-            userContent.list.appendChild(item);
-        }
+        this.setSearchHandlers(createUserList);
+        createUserList();
     }
 
     getChannelList() {
@@ -512,7 +561,7 @@ class SBWidget {
 
     loadUsersForInviteList(memberIds) {
         let iterations = 0;
-        let masterList = [];
+        let sbUserList = [];
         let clickEvent = (item) => {
             return () => {
                 flipClass(item.select, className.ACTIVE);
@@ -525,22 +574,71 @@ class SBWidget {
                 }
             };
         };
+
         let getFullList = (userList) => {
-            masterList = masterList.concat(userList);
+            sbUserList = sbUserList.concat(userList);
             loadUsers();
         };
+
         let setList = () => {
             let additionalCheck = (user) => { return memberIds.indexOf(user.userId) < 0; };
-            masterList = masterList.filter(filterUsersAlgo(additionalCheck)).sort(alphabetizeAlgo);
+            sbUserList = sbUserList.filter(filterUsersAlgo(additionalCheck)).sort(alphabetizeAlgo);
+
+            this.baseUserList = sbUserList;
+            this.derivedUserList = sbUserList;
             let searchBox = this.chatSection.createSearchBox();
             this.popup.invitePopup.list.appendChild(searchBox);
-            this.spinner.remove(this.popup.invitePopup.list);
-            for (let i = 0 ; i < masterList.length ; i++) {
-                let user = masterList[i];
-                let item = this.popup.createMemberItem(user, true);
-                this.popup.addClickEvent(item, clickEvent(item));
-                this.popup.invitePopup.list.appendChild(item);
-            }
+
+            let renderActiveUserList = (activeUsers) => {
+                for (let i = 0 ; i < activeUsers.length ; i++) {
+                    let user = activeUsers[i];
+                    let item = this.popup.createMemberItem(user, true);
+                    this.popup.addClickEvent(item, clickEvent(item));
+                    this.popup.invitePopup.list.appendChild(item);
+                }
+            };
+
+            let renderInactiveUserList = (inactiveUserList, activeUserIds) => {
+                for (let i = 0 ; i < inactiveUserList.length ; i++) {
+                    let user = inactiveUserList[i];
+                    if(!activeUserIds.includes(user.userId)) {
+                        let item = this.popup.createMemberItem(user);
+                        this.popup.addClickEvent(item, clickEvent(item));
+                        this.popup.invitePopup.list.appendChild(item);
+                    }
+                }
+            };
+
+            let activeSelection = (user) => {
+                return user.getElementsByClassName(`${className.USER_SELECT} ${className.ACTIVE}`).length !== 0;
+            };
+
+            let seperateAndClearUserList = (userList) => {
+                let activeUsers = [];
+                while(userList.length > 0) {
+                    let currentUser = userList[0];
+                    if (activeSelection(currentUser)) {
+                        activeUsers.push({
+                            nickname: currentUser.getElementsByClassName(className.NICKNAME)[0].textContent,
+                            userId: currentUser.getElementsByClassName(`${className.USER_SELECT} ${className.ACTIVE}`)[0].getAttribute('data-user-id')
+                        });
+                    }
+                    currentUser.parentNode.removeChild(currentUser);
+                }
+                return activeUsers;
+            };
+
+            let createUserList = () => {
+                let userItems = document.getElementsByClassName(className.USER_LIST);
+                let reservedUsers = seperateAndClearUserList(userItems);
+
+                let spinner = document.getElementsByClassName(className.SPINNER)[0];
+                if(spinner) { spinner.remove(); }
+                renderActiveUserList(reservedUsers);
+                renderInactiveUserList(this.derivedUserList, reservedUsers.map((u) => { return u.userId; }));
+            };
+            this.setSearchHandlers(createUserList);
+            createUserList();
         };
         let loadUsers = () => {
             iterations += 1;
@@ -722,6 +820,42 @@ class SBWidget {
 
         this.activeChannelSetList = this.activeChannelSetList.filter(function(obj) {
             return isObject ? obj.channel !== channel : obj.channel.url !== channel;
+        });
+    }
+
+    setSearchHandlers(renderFunction) {
+        let searchInput = this.chatSection.self.searchInput;
+        let clearImage = this.chatSection.self.searchImage;
+        const enterKeyCode = 13;
+        const backspaceKeyCode = 8;
+
+        let invalidInput = (e, tar) => {
+            let input = e.keyCode;
+            return (input === enterKeyCode || tar.textContent.length > 28) && input !== backspaceKeyCode;
+        };
+
+        this.chatSection.addKeyDownEvent(searchInput, (evt) => {
+            if(invalidInput(evt, searchInput)) { evt.preventDefault(); }
+        });
+
+        this.chatSection.addKeyUpEvent(searchInput, () => {
+            if(searchInput.textContent) {
+                addClass(clearImage, className.CLEAR_INPUT);
+                let fuse = new Fuse(this.baseUserList, searchOptions);
+                this.derivedUserList = fuse.search(searchInput.textContent);
+                renderFunction();
+            } else {
+                removeClass(clearImage, className.CLEAR_INPUT);
+                this.derivedUserList = this.baseUserList;
+                renderFunction();
+            }
+        });
+
+        this.chatSection.addClickEvent(clearImage, () => {
+            this.chatSection.clearInputText(searchInput);
+            removeClass(clearImage, className.CLEAR_INPUT);
+            this.derivedUserList = this.baseUserList;
+            renderFunction();
         });
     }
 

@@ -448,13 +448,14 @@ class ChatSection extends Element {
         }
     }
 
-    createUserListItem(user) {
+    createUserListItem(user, isActive) {
         let li = this.createLi();
+        this._setClass(li, [className.USER_LIST]);
         let userItem = this.createDiv();
         this._setClass(userItem, [className.USER_ITEM]);
 
         let userSelect = this.createDiv();
-        this._setClass(userSelect, [className.USER_SELECT]);
+        this._setClass(userSelect, isActive ? [className.USER_SELECT, className.ACTIVE] : [className.USER_SELECT]);
         this._setDataset(userSelect, 'user-id', user.userId);
         li.select = userSelect;
         userItem.appendChild(userSelect);
@@ -473,11 +474,6 @@ class ChatSection extends Element {
     }
 
     createSearchBox() {
-        let invalidInput = (e, tar) => {
-            let input = e.keyCode;
-            return (input === 13 || tar.textContent.length > 28) && input !== 8;
-        };
-
         let li = this.createLi();
         let userItem = this.createDiv();
         this._setClass(userItem, [className.SEARCH]);
@@ -489,19 +485,6 @@ class ChatSection extends Element {
         let searchField = this.createTextInput();
         this.self.searchInput = searchField;
         addClass(this.self.searchInput, className.SEARCH_INPUT);
-        this.addKeyDownEvent(searchField, (evt) => {
-            if(invalidInput(evt, this.self.searchInput)) { evt.preventDefault(); }
-        });
-
-
-        this.addKeyUpEvent(searchField, () => {
-            this.self.searchInput.textContent ? addClass(this.self.searchImage, className.CLEAR_INPUT) : removeClass(this.self.searchImage, className.CLEAR_INPUT);
-        });
-
-        this.addClickEvent(imageDiv, () => {
-            this.clearInputText(searchField);
-            removeClass(this.self.searchImage, className.CLEAR_INPUT);
-        });
 
         userItem.appendChild(imageDiv);
         userItem.appendChild(searchField);
