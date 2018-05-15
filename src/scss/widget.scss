@@ -42,11 +42,11 @@
 
   // Icons
   .ic-login {
-    @include icon($icon-login);
+    @include local-icon('../assets/icon-open-member.svg');
   }
 
   .ic-connected {
-    @include icon($icon-channel-list);
+    @include local-icon('../assets/icon-open-member.svg');
   }
 
   .ic-minimize {
