@@ -474,11 +474,20 @@ class ChatSection extends Element {
     }
 
     createUserSearchEmptyResults() {
+        //todo give this a class
+        let container = this.createDiv();
+        this.self.emptySearchResults = container;
+
         let emptySearchResults = this.createDiv();
         this._setClass(emptySearchResults, [className.NO_SEARCH_RESULTS]);
         this._setContent(emptySearchResults, NO_SEARCH_RESULTS_MSG);
-        this.self.emptySearchResults = emptySearchResults;
-        return emptySearchResults;
+
+        let errorImage = this.createDiv();
+        this._setClass(errorImage, [className.SEARCH_ERROR_IMG]);
+
+        container.appendChild(errorImage);
+        container.appendChild(emptySearchResults);
+        return container;
     }
 
     removeEmptySearchResults() {
@@ -486,7 +495,7 @@ class ChatSection extends Element {
             let emptySearchResults = this.self.emptySearchResults;
             emptySearchResults.parentNode.removeChild(emptySearchResults);
         }
-        this.self.emptySearchResults = null
+        this.self.emptySearchResults = null;
     }
 
     createSearchBox() {

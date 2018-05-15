@@ -133,16 +133,6 @@
     }
   }
 
-  .no-search-results {
-    text-align: center;
-    color: $color-gray-darkest;
-    padding: 5%;
-    @media #{$mobile} {
-      font-size: 18px;
-    }
-    font-size: 14px;
-  }
-
 
   // Widget Button
   .widget {
@@ -686,7 +676,7 @@
             cursor: pointer;
           }
         }
-        @include user-search(60%, '../assets/mag-glass.svg', '../assets/user-search-clear.svg');
+        @include user-search(60%, '../assets/mag-glass.svg', '../assets/user-search-clear.svg', '../assets/search-error-yellow.svg');
 
         .user-item {
           width: 100%;
@@ -1077,7 +1067,7 @@
             background: $color-white;
             padding: 0 12px;
             cursor: pointer;
-            @include user-search(100%, '../assets/mag-glass.svg', '../assets/user-search-clear.svg');
+            @include user-search(100%, '../assets/mag-glass.svg', '../assets/user-search-clear.svg', '../assets/search-error-yellow.svg');
 
             & > div {
               display: inline-block;

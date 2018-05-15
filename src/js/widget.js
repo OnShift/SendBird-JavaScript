@@ -606,7 +606,7 @@ class SBWidget {
                 this.popup.removeEmptySearchResults();
                 if(inactiveUserList.length === 0) {
                     let emptyResultsMsg = this.popup.createUserSearchEmptyResults();
-                    this.popup.invitePopup.list.appendChild(emptyResultsMsg)
+                    this.popup.invitePopup.list.appendChild(emptyResultsMsg);
                 } else {
                     for (let i = 0; i < inactiveUserList.length; i++) {
                         let user = inactiveUserList[i];
