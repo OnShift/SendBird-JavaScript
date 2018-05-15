@@ -44,22 +44,24 @@
     }
   }
 
-  .no-search-results {
-    text-align: left;
-    color: $color-gray-darkest;
-    padding: 3%;
-    @media #{$mobile} {
-      font-size: 18px;
+  .search-error-container {
+    margin-top: 2%;
+    .no-search-results {
+      text-align: left;
+      color: $color-gray-darkest;
+      padding: 3%;
+      @media #{$mobile} {
+        font-size: 18px;
+      }
+      font-size: 14px;
     }
-    font-size: 14px;
-  }
-
-  .search-error-image {
-    height: 45px;
-    width: 13%;
-    margin: 0 4% 0 4% ;
-    background: url($path-to-error-image) no-repeat center;
-    background-size: 100%;
-    float: left;
+    .search-error-image {
+      height: 45px;
+      width: 13%;
+      margin: 0 4% 0 4% ;
+      background: url($path-to-error-image) no-repeat center;
+      background-size: 100%;
+      float: left;
+    }
   }
 }

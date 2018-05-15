@@ -476,6 +476,7 @@ class ChatSection extends Element {
     createUserSearchEmptyResults() {
         //todo give this a class
         let container = this.createDiv();
+        this._setClass(container, [className.SEARCH_ERROR_CONTAINER]);
         this.self.emptySearchResults = container;
 
         let emptySearchResults = this.createDiv();

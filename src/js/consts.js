@@ -89,6 +89,7 @@ export const className = {
     NO_SEARCH_RESULTS: 'no-search-results',
     SEARCH_INPUT: 'search-input',
     SEARCH_ERROR_IMG: 'search-error-image',
+    SEARCH_ERROR_CONTAINER: 'search-error-container',
     CLEAR_INPUT: 'clear-input',
 
     FADE_IN: 'sb-fade-in',
