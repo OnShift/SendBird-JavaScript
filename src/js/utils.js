@@ -112,7 +112,7 @@ export function xssEscape(target) {
 
 export function requestNotification() {
     if (window.Notification && Notification.permission !== 'granted') {
-        Notification.requestPermission(function (permission) {
+        Notification.requestPermission.then((permission) => {
             if (Notification.permission !== permission) {
                 Notification.permission = permission;
             }

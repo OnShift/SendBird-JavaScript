@@ -286,18 +286,15 @@ class SBWidget {
             this.setMessageItem(channelSet.channel, targetBoard, [message], false, isBottom, lastMessage);
             channel.markAsRead();
             this.updateUnreadMessageCount(channel);
-        }
-        if (!targetBoard) {
-            if ('Notification' in window) {
+        } else {
+            if('Notification' in window) {
                 let notification = new Notification(
                     "New Message",
                     {
                         "body": message.isFileMessage() ? message.name : message.message
                     }
                 );
-                notification.onclick = function() {
-                    window.focus();
-                };
+                notification.onclick = () => { window.focus(); };
             }
         }
     }
