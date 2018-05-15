@@ -45,9 +45,9 @@
   }
 
   .no-search-results {
-    text-align: center;
+    text-align: left;
     color: $color-gray-darkest;
-    padding: 5%;
+    padding: 3%;
     @media #{$mobile} {
       font-size: 18px;
     }
@@ -56,8 +56,8 @@
 
   .search-error-image {
     height: 45px;
-    width: 15%;
-    margin-left: 4%;
+    width: 13%;
+    margin: 0 4% 0 4% ;
     background: url($path-to-error-image) no-repeat center;
     background-size: 100%;
     float: left;
