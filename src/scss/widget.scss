@@ -315,53 +315,6 @@
         color: $color-gray-darker;
         padding-bottom: 6px;
       }
-      .input {
-        width: calc(98% - 16px);
-        height: 32px;
-        border: 1px solid $color-input-border;
-        background-color: $color-input-background;
-        font-size: 13px;
-        color: $color-login-title;
-        padding: 0 8px;
-        @include border-radius(3px);
-        @include focus {
-          outline: none;
-          border: 1px solid $color-purple-dark;
-          @include box-shadow(0 0 4px $color-purple-light);
-        }
-      }
-
-      .login-btn {
-        @extend .sb-common-btn;
-        display: inline-block;
-        position: absolute;
-        left: 50%;
-        margin-top: 20px;
-        height: 32px;
-        width: calc(98px - 32px);
-        text-align: center;
-        line-height: 32px;
-        font-size: 14px;
-        @include transform-translate(-50%, 0);
-
-        .sb-spinner {
-          margin-top: 7px;
-          div {
-            width: 8px;
-            height: 8px;
-            margin-top: 4px;
-            background-color: $color-button-spinner;
-          }
-          :nth-child(2) {
-            margin: 0 4px;
-          }
-        }
-      }
-    }
-    .content.login-form {
-      width: calc(100% - 24px);
-      height: calc(100% - 37px);
-      padding: 0 12px;
     }
     .content.channel-list {
       overflow-y: scroll;
