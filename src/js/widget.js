@@ -19,6 +19,7 @@ import {
     isEmptyString,
     removeClass,
     requestNotification,
+    determineNotificationMessage,
     show,
     xssEscape
 } from './utils';
@@ -289,9 +290,9 @@ class SBWidget {
         } else {
             if('Notification' in window) {
                 let notification = new Notification(
-                    "New Message",
+                    "New Chat Message",
                     {
-                        "body": message.isFileMessage() ? message.name : message.message
+                        "body": determineNotificationMessage(message)
                     }
                 );
                 notification.onclick = () => { window.focus(); };
