@@ -292,8 +292,7 @@ class SBWidget {
                 let notification = new Notification(
                     "New Message",
                     {
-                        "body": message.isFileMessage() ? message.name : message.message,
-                        "icon": "http://qnimate.com/wp-content/uploads/2014/07/web-notification-api-300x150.jpg"
+                        "body": message.isFileMessage() ? message.name : message.message
                     }
                 );
                 notification.onclick = function() {
