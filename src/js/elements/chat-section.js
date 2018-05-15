@@ -474,10 +474,9 @@ class ChatSection extends Element {
     }
 
     createUserSearchEmptyResults() {
-        //todo give this a class
-        let container = this.createDiv();
-        this._setClass(container, [className.SEARCH_ERROR_CONTAINER]);
-        this.self.emptySearchResults = container;
+        let errorContainer = this.createDiv();
+        this._setClass(errorContainer, [className.SEARCH_ERROR_CONTAINER]);
+        this.self.emptySearchResults = errorContainer;
 
         let emptySearchResults = this.createDiv();
         this._setClass(emptySearchResults, [className.NO_SEARCH_RESULTS]);
@@ -486,9 +485,9 @@ class ChatSection extends Element {
         let errorImage = this.createDiv();
         this._setClass(errorImage, [className.SEARCH_ERROR_IMG]);
 
-        container.appendChild(errorImage);
-        container.appendChild(emptySearchResults);
-        return container;
+        errorContainer.appendChild(errorImage);
+        errorContainer.appendChild(emptySearchResults);
+        return errorContainer;
     }
 
     removeEmptySearchResults() {
