@@ -122,7 +122,9 @@ export function requestNotification() {
 
 export function determineNotificationMessage(message) {
     if(message.isFileMessage()) {
-        return message.name
+        return message.name;
+    } else if(message.isAdminMessage()) {
+        return `${message.message} Invited by ${JSON.parse(message.data).inviter.nickname}`;
     } else {
         return `${message._sender.nickname}: ${message.message}`
     }
