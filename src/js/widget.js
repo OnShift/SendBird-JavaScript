@@ -419,30 +419,26 @@ class SBWidget {
                 });
             };
 
-            for (let i = 0 ; i < activeUsers.length ; i++) {
-                let user = activeUsers[i];
-                let item = this.chatSection.createUserListItem(user, true);
+            let renderUser = (user, isActive) => {
+                let item = this.chatSection.createUserListItem(user, isActive);
                 clickEvent(item);
                 userContent.list.appendChild(item);
+            };
+
+            for (let i = 0 ; i < activeUsers.length ; i++) {
+                let user = activeUsers[i];
+                renderUser(user, true)
             }
 
             let activeUserIds = activeUsers.map((u) => { return u.userId; });
-            this.chatSection.removeEmptySearchResults();
-            if(this.searchedUserList.length === 0) {
-                let emptySearchResults = this.chatSection.createUserSearchEmptyResults();
-                userContent.list.appendChild(emptySearchResults);
-            } else {
-                for (let i = 0; i < this.searchedUserList.length; i++) {
-                    let user = this.searchedUserList[i];
-                    if (!activeUserIds.includes(user.userId)) {
-                        let item = this.chatSection.createUserListItem(user);
-                        clickEvent(item);
-                        userContent.list.appendChild(item);
-                    }
-                }
+
+            for (let i = 0 ; i < this.searchedUserList.length ; i++) {
+                let user = this.searchedUserList[i];
+                if(!activeUserIds.includes(user.userId)) { renderUser(user, false); }
             }
 
         };
+
         this.chatSection.createUserList(userContent);
         userContent.list.appendChild(searchBox);
         this.setSearchHandlers(createUserList);
@@ -619,11 +615,11 @@ class SBWidget {
                 }
             };
 
-            let seperateAndClearUserList = (userList) => {
-                let activeSelection = (user) => {
-                    return user.getElementsByClassName(`${className.USER_SELECT} ${className.ACTIVE}`).length !== 0;
-                };
+            let activeSelection = (user) => {
+                return user.getElementsByClassName(`${className.USER_SELECT} ${className.ACTIVE}`).length !== 0;
+            };
 
+            let seperateAndClearUserList = (userList) => {
                 let activeUsers = [];
                 while(userList.length > 0) {
                     let currentUser = userList[0];
