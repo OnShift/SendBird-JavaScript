@@ -56,7 +56,10 @@
       font-size: 14px;
     }
     .search-error-image {
-      height: 45px;
+      height: 3em;
+      @media #{$mobile} {
+        height: 4em;
+      }
       width: 13%;
       margin: 0 4% 0 4% ;
       background: url($path-to-error-image) no-repeat center;
