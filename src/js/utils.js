@@ -126,7 +126,7 @@ export function determineNotificationMessage(message) {
     } else if(message.isAdminMessage()) {
         return `${message.message} Invited by ${JSON.parse(message.data).inviter.nickname}`;
     } else {
-        return `${message._sender.nickname}: ${message.message}`
+        return `${message._sender.nickname}: ${message.message}`;
     }
 }
 
