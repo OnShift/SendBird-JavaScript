@@ -419,25 +419,26 @@ class SBWidget {
                 });
             };
 
-            for (let i = 0 ; i < activeUsers.length ; i++) {
-                let user = activeUsers[i];
-                let item = this.chatSection.createUserListItem(user, true);
+            let renderUser = (user, isActive) => {
+                let item = this.chatSection.createUserListItem(user, isActive);
                 clickEvent(item);
                 userContent.list.appendChild(item);
+            };
+
+            for (let i = 0 ; i < activeUsers.length ; i++) {
+                let user = activeUsers[i];
+                renderUser(user, true)
             }
 
             let activeUserIds = activeUsers.map((u) => { return u.userId; });
 
             for (let i = 0 ; i < this.derivedUserList.length ; i++) {
                 let user = this.derivedUserList[i];
-                if(!activeUserIds.includes(user.userId)) {
-                    let item = this.chatSection.createUserListItem(user);
-                    clickEvent(item);
-                    userContent.list.appendChild(item);
-                }
+                if(!activeUserIds.includes(user.userId)) { renderUser(user, false); }
             }
 
         };
+
         this.chatSection.createUserList(userContent);
         userContent.list.appendChild(searchBox);
         this.setSearchHandlers(createUserList);
