@@ -41,18 +41,14 @@
   }
 
   // Icons
-  .ic-login {
-    @include local-icon('../assets/icon-open-member.svg');
-  }
-
   .ic-connected {
     @include local-icon('../assets/icon-open-member.svg');
   }
 
   .ic-minimize {
-    @include icon($icon-minimize);
+    @include local-icon('../assets/btn-minimize-default.svg');
     @include hover {
-      @include icon($icon-minimize-hover);
+      @include local-icon('../assets/btn-minimize-over.svg');
     }
   }
 
