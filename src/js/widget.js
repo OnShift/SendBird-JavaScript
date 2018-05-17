@@ -86,7 +86,6 @@ class SBWidget {
     _init() {
         this.spinner = new Spinner();
 
-        this.widgetBtn = new WidgetBtn(this.widget);
         this.listBoard = new ListBoard(this.widget);
         this.chatSection = new ChatSection(this.widget);
         this.popup = new Popup();
@@ -152,15 +151,6 @@ class SBWidget {
             this.closePopup();
         });
 
-        this.widgetBtn.addClickEvent(() => {
-            this.listBoard.showChannelList();
-            this.toggleBoard(true);
-            this.listBoard.addChannelListScrollEvent(() => {
-                this.getChannelList();
-            });
-            this.responsiveChatSection.bind(this);
-        });
-
         this.listBoard.addNewChatClickEvent(() => {
             let chatBoard = this.chatSection.createChatBoard(NEW_CHAT_BOARD_ID);
             this.responsiveChatSection(null);
@@ -218,7 +208,17 @@ class SBWidget {
 
     _connect(userId, nickname, accessToken) {
         this.sb.connect(userId, nickname, accessToken, () => {
-            this.widgetBtn.toggleIcon(true);
+            this.widgetBtn = new WidgetBtn(this.widget);
+            this.widgetBtn.addClickEvent(() => {
+                this.listBoard.showChannelList();
+                this.toggleBoard(true);
+                this.listBoard.addChannelListScrollEvent(() => {
+                    this.getChannelList();
+                });
+                this.responsiveChatSection.bind(this);
+
+            });
+
             this.listBoard.showChannelList();
             this.spinner.insert(this.listBoard.list);
             this.getChannelList();
