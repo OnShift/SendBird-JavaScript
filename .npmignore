@@ -8,6 +8,5 @@ src/
 __test__/
 test_server/
 index.html
-index.js
 webpack*
 build/*.html
