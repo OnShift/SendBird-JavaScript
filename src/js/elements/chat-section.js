@@ -31,8 +31,6 @@ class ChatSection extends Element {
     _create() {
         this.self = this.createDiv();
         this._setClass(this.self, [className.CHAT_SECTION]);
-        this.self.searchImage = null;
-        this.self.searchInput = null;
     }
 
     _getListBoardArray() {
@@ -264,9 +262,7 @@ class ChatSection extends Element {
         let messageSet = this.createDiv();
         messageSet.id = message.messageId;
         this._setClass(messageSet, isCurrentUser ? [className.MESSAGE_SET, className.USER] : [className.MESSAGE_SET]);
-        if (isContinue) {
-            messageSet.style.marginTop = MARGIN_TOP_MESSAGE;
-        }
+        if (isContinue) { messageSet.style.marginTop = MARGIN_TOP_MESSAGE; }
 
         let senderImg = this.createDiv();
         this._setClass(senderImg, [className.IMAGE]);
@@ -278,9 +274,7 @@ class ChatSection extends Element {
         let senderNickname = this.createDiv();
         this._setClass(senderNickname, [className.NICKNAME]);
         this._setContent(senderNickname, xssEscape(message.sender.nickname));
-        if (isContinue) {
-            senderNickname.style.display = DISPLAY_NONE;
-        }
+        if (isContinue) { senderNickname.style.display = DISPLAY_NONE; }
         messageContent.appendChild(senderNickname);
 
         let messageItem = this.createDiv();

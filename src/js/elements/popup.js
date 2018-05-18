@@ -25,7 +25,6 @@ class Popup extends Element {
         this._setContent(this.invitePopup.count, '0');
         this._setContent(this.invitePopup.inviteBtn, TITLE_POPUP_INVITE_BTN);
         addClass(this.invitePopup.inviteBtn, className.DISABLED);
-        this.emptySearchResults = null;
     }
 
     showInvitePopup(chatSection) {
