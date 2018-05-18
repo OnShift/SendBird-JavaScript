@@ -91,10 +91,10 @@ class UserManagement extends Element {
     }
 
     filteredList(fullUserList, additionalCheck) {
-        return fullUserList.filter(this.filterUsersAlgo(additionalCheck)).sort(this.alphabetizeAlgo)
+        return fullUserList.filter(this.filterUsersAlgo(additionalCheck)).sort(this.alphabetizeAlgo);
     }
 
-    restrictEmployeeAccess(user) { return user.metadata.role !== 'employee' };
+    restrictEmployeeAccess(user) { return user.metadata.role !== 'employee'; }
 
     filterUsersAlgo(additionalReqs) {
         let firstLetterBlank = (user) => { return user.nickname[0] !== ' '; };
