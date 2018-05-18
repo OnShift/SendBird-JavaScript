@@ -16,13 +16,16 @@ describe('_init', () => {
     widget.widget = new Element().createDiv();
     widget._init();
 
-    test('initializes the elelments needed for a functional chat widget', () => {
-        expect(widget.widgetBtn).toBeInstanceOf(WidgetBtn);
+    test('initializes the elements needed for a functional chat widget', () => {
         expect(widget.popup).toBeInstanceOf(Popup);
         expect(widget.spinner).toBeInstanceOf(Spinner);
         expect(widget.listBoard).toBeInstanceOf(ListBoard);
         expect(widget.chatSection).toBeInstanceOf(ChatSection);
     });
+
+    test('the widget itself is not initialized until later in the start up process', () => {
+        expect(widget.widgetBtn).toBe(undefined)
+    })
 
     test('initializes member variables to sane empty states', () => {
         expect(widget.activeChannelSetList).toEqual([]);
