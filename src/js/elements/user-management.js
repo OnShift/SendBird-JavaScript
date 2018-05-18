@@ -69,8 +69,8 @@ class UserManagement extends Element {
             if(this.activeSelection(currentUser)) {
                 activeUsers.push({
                     nickname: currentUser.getElementsByClassName(className.NICKNAME)[0].textContent,
-                    //todo constantize
-                    userId: currentUser.getElementsByClassName(`${className.USER_SELECT} ${className.ACTIVE}`)[0].getAttribute('data-user-id')
+                    userId: currentUser.getElementsByClassName(`${className.USER_SELECT} ${className.ACTIVE}`)[0]
+                                       .getAttribute(className.DATA_USER_ID)
                 });
             }
             currentUser.parentNode.removeChild(users[0]);

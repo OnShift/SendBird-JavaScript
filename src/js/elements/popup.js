@@ -146,7 +146,7 @@ class Popup extends Element {
         let userIds = [];
         for (let i = 0 ; i < items.length ; i++) {
             let item = items[i];
-            userIds.push(item.getAttribute('data-user-id'));
+            userIds.push(item.getAttribute(className.DATA_USER_ID));
         }
         return userIds;
     }
