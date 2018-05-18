@@ -391,7 +391,7 @@ class SBWidget {
     }
 
     setUserList(target, userList) {
-        let additionalCheck = (user) => { return !this.sb.isCurrentUser(user); };
+        let additionalCheck = (user) => { return !this.sbWrapper.isCurrentUser(user); };
         userList = userList.filter(filterUsersAlgo(additionalCheck)).sort(alphabetizeAlgo);
 
         this.baseUserList = userList;
@@ -431,7 +431,7 @@ class SBWidget {
 
             for (let i = 0 ; i < activeUsers.length ; i++) {
                 let user = activeUsers[i];
-                renderUser(user, true)
+                renderUser(user, true);
             }
 
             let activeUserIds = activeUsers.map((u) => { return u.userId; });
