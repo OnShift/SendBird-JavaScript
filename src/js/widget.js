@@ -35,9 +35,6 @@ const NEW_CHAT_BOARD_ID = 'NEW_CHAT';
 const TIME_MESSAGE_TYPE = 'time';
 const TIME_STRING_TODAY = 'TODAY';
 const WIDGET_ID = 'sb_widget';
-// providedRole is groundwork for list filtering by role, PL-33
-// eslint-disable-next-line
-let providedRole;
 
 const searchOptions = {
     keys: ['nickname'],
@@ -54,14 +51,13 @@ class SBWidget {
     }
 
     startWithConnect(loginData) {
-        providedRole = loginData.role;
         this._getGoogleFont();
         this.widget = document.getElementById(WIDGET_ID);
         if (this.widget) {
             document.addEventListener(EVENT_TYPE_CLICK, (event) => {
                 this._initClickEvent(event);
             });
-            this._init();
+            this._init(loginData.role);
             this._start(loginData.appId);
             this._connect(loginData.userId, loginData.nickname, loginData.token);
         } else {
@@ -94,7 +90,7 @@ class SBWidget {
         }
     }
 
-    _init() {
+    _init(providedRole) {
         this.spinner = new Spinner();
 
         this.widgetBtn = new WidgetBtn(this.widget);
@@ -108,6 +104,9 @@ class SBWidget {
 
         this.baseUserList = [];
         this.searchedUserList = [];
+
+        // eslint-disable-next-line
+        this.providedRole = providedRole;
 
         this.timeMessage = class TimeMessage {
             constructor(date) {
