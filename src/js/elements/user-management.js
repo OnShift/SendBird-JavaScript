@@ -33,6 +33,16 @@ class UserManagement extends Element {
         return li;
     }
 
+    getSelectedUserIds(target) {
+        let items = target.querySelectorAll(`.${className.ACTIVE}`);
+        let userIds = [];
+        for (let i = 0; i < items.length; i++) {
+            let item = items[i];
+            userIds.push(item.getAttribute(className.DATA_USER_ID));
+        }
+        return userIds;
+    }
+
     createUserSearchEmptyResults() {
         let errorContainer = this.createDiv();
         this._setClass(errorContainer, [className.SEARCH_ERROR_CONTAINER]);

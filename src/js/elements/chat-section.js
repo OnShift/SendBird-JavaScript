@@ -459,16 +459,6 @@ class ChatSection extends Element {
         return li;
     }
 
-    getSelectedUserIds(target) {
-        let items = target.querySelectorAll(`.${className.ACTIVE}`);
-        let userIds = [];
-        for (let i = 0; i < items.length; i++) {
-            let item = items[i];
-            userIds.push(item.getAttribute(className.DATA_USER_ID));
-        }
-        return userIds;
-    }
-
     isBottom(targetContent, targetList) {
         return this._isBottom(targetContent, targetList);
     }

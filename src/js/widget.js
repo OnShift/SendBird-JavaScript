@@ -183,7 +183,7 @@ class SBWidget {
                     addClass(chatBoard.startBtn, className.DISABLED);
                     this.sbWrapper.userListQuery = null;
                     this.spinner.insert(chatBoard.startBtn);
-                    let selectedUserIds = this.chatSection.getSelectedUserIds(chatBoard.userContent);
+                    let selectedUserIds = this.userManagement.getSelectedUserIds(chatBoard.userContent);
                     this.sbWrapper.createNewChannel(selectedUserIds, (channel) => {
                         chatBoard.parentNode.removeChild(chatBoard);
                         this._connectChannel(channel.url, true);
@@ -407,7 +407,7 @@ class SBWidget {
                 this.chatSection.addClickEvent(userItem, () => {
                     flipClass(userItem.select, className.ACTIVE);
 
-                    let selectedUserCount = this.chatSection.getSelectedUserIds(userContent.list).length;
+                    let selectedUserCount = this.userManagement.getSelectedUserIds(userContent.list).length;
                     this.chatSection.updateChatTop(target, selectedUserCount > 9 ? MAX_COUNT : selectedUserCount.toString(), null);
                     selectedUserCount > 0 ? removeClass(target.startBtn, className.DISABLED) : addClass(target.startBtn, className.DISABLED);
                 });
@@ -514,7 +514,7 @@ class SBWidget {
                 if (!hasClass(this.popup.invitePopup.inviteBtn, className.DISABLED)) {
                     addClass(this.popup.invitePopup.inviteBtn, className.DISABLED);
                     this.spinner.insert(this.popup.invitePopup.inviteBtn);
-                    let selectedUserIds = this.popup.getSelectedUserIds(this.popup.invitePopup.list);
+                    let selectedUserIds = this.userManagement.getSelectedUserIds(this.popup.invitePopup.list);
                     let channelSet = this.getChannelSet(this.chatSection.channelUrl);
                     this.sbWrapper.inviteMember(channelSet.channel, selectedUserIds, () => {
                         this.spinner.remove(this.popup.invitePopup.inviteBtn);
@@ -565,7 +565,7 @@ class SBWidget {
         let clickEvent = (item) => {
             return () => {
                 flipClass(item.select, className.ACTIVE);
-                let selectedUserCount = this.popup.getSelectedUserIds(this.popup.invitePopup.list).length;
+                let selectedUserCount = this.userManagement.getSelectedUserIds(this.popup.invitePopup.list).length;
                 this.popup.updateCount(this.popup.invitePopup.count, selectedUserCount);
                 if(selectedUserCount > 0) {
                     removeClass(this.popup.invitePopup.inviteBtn, className.DISABLED);
