@@ -105,13 +105,12 @@ class UserManagement extends Element {
     alphabetizeAlgo(firstUser, nextUser) {
         let firstNickname = firstUser.nickname.toUpperCase();
         let nextNickname = nextUser.nickname.toUpperCase();
-        let result;
+        let result = 0;
+
         if (firstNickname < nextNickname) {
-            result = -1;
+            result--;
         } else if (firstNickname > nextNickname) {
-            result =  1;
-        } else {
-            result = 0;
+            result++;
         }
         return result;
     }
