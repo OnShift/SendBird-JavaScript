@@ -25,7 +25,7 @@ describe('_init', () => {
 
     test('the widget itself is not initialized until later in the start up process', () => {
         expect(widget.widgetBtn).toBe(undefined)
-    })
+    });
 
     test('initializes member variables to sane empty states', () => {
         expect(widget.activeChannelSetList).toEqual([]);
