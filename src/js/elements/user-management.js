@@ -57,6 +57,26 @@ class UserManagement extends Element {
         }
         this.emptySearchResults = null;
     }
+
+    activeSelection(user) {
+        return user.getElementsByClassName(`${className.USER_SELECT} ${className.ACTIVE}`).length !== 0;
+    };
+
+    seperateAndClearUserList(users) {
+        let activeUsers = [];
+        while(users.length > 0) {
+            let currentUser = users[0];
+            if(this.activeSelection(currentUser)) {
+                activeUsers.push({
+                    nickname: currentUser.getElementsByClassName(className.NICKNAME)[0].textContent,
+                    //todo constantize
+                    userId: currentUser.getElementsByClassName(`${className.USER_SELECT} ${className.ACTIVE}`)[0].getAttribute('data-user-id')
+                });
+            }
+            currentUser.parentNode.removeChild(users[0]);
+        }
+        return activeUsers;
+    }
 }
 
 export { UserManagement as default };

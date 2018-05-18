@@ -403,17 +403,7 @@ class SBWidget {
 
         let createUserList = () => {
             let userItems = document.getElementsByClassName(className.USER_LIST);
-            let activeUsers = [];
-            while(userItems.length > 0) {
-                let currentUser = userItems[0];
-                if(currentUser.getElementsByClassName(`${className.USER_SELECT} ${className.ACTIVE}`).length !== 0) {
-                    activeUsers.push({
-                        nickname: currentUser.getElementsByClassName(className.NICKNAME)[0].textContent,
-                        userId: currentUser.getElementsByClassName(`${className.USER_SELECT} ${className.ACTIVE}`)[0].getAttribute('data-user-id')
-                    });
-                }
-                currentUser.parentNode.removeChild(userItems[0]);
-            }
+            let activeUsers = this.userManagement.seperateAndClearUserList(userItems);
 
             let clickEvent = (userItem) => {
                 this.chatSection.addClickEvent(userItem, () => {
@@ -437,6 +427,7 @@ class SBWidget {
             }
 
             let activeUserIds = activeUsers.map((u) => { return u.userId; });
+
             this.userManagement.removeEmptySearchResults();
             if(this.searchedUserList.length === 0) {
                 let emptySearchResults = this.userManagement.createUserSearchEmptyResults();
@@ -595,6 +586,7 @@ class SBWidget {
 
         let setList = () => {
             let additionalCheck = (user) => { return memberIds.indexOf(user.userId) < 0; };
+            //todo move these to user management
             sbUserList = sbUserList.filter(filterUsersAlgo(additionalCheck)).sort(alphabetizeAlgo);
 
             this.baseUserList = sbUserList;
@@ -628,28 +620,9 @@ class SBWidget {
                 }
             };
 
-            let activeSelection = (user) => {
-                return user.getElementsByClassName(`${className.USER_SELECT} ${className.ACTIVE}`).length !== 0;
-            };
-
-            let seperateAndClearUserList = (userList) => {
-                let activeUsers = [];
-                while(userList.length > 0) {
-                    let currentUser = userList[0];
-                    if (activeSelection(currentUser)) {
-                        activeUsers.push({
-                            nickname: currentUser.getElementsByClassName(className.NICKNAME)[0].textContent,
-                            userId: currentUser.getElementsByClassName(`${className.USER_SELECT} ${className.ACTIVE}`)[0].getAttribute('data-user-id')
-                        });
-                    }
-                    currentUser.parentNode.removeChild(currentUser);
-                }
-                return activeUsers;
-            };
-
             let createUserList = () => {
                 let userItems = document.getElementsByClassName(className.USER_LIST);
-                let reservedUsers = seperateAndClearUserList(userItems);
+                let reservedUsers = this.userManagement.seperateAndClearUserList(userItems);
 
                 let spinner = document.getElementsByClassName(className.SPINNER)[0];
                 if(spinner) { spinner.remove(); }
