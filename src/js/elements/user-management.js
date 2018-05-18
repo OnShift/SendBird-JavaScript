@@ -88,6 +88,10 @@ class UserManagement extends Element {
         return activeUsers;
     }
 
+    filteredList(fullUserList, additionalCheck) {
+        return fullUserList.filter(this.filterUsersAlgo(additionalCheck)).sort(this.alphabetizeAlgo)
+    }
+
     filterUsersAlgo(additionalReqs = () => { return true; }) {
         let firstLetterBlank = (user) => { return user.nickname[0] !== ' '; };
         return (user) => { return user.nickname && user.userId && firstLetterBlank(user) && additionalReqs(user); };

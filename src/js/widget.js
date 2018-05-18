@@ -391,8 +391,7 @@ class SBWidget {
 
     setUserList(target, userList) {
         let additionalCheck = (user) => { return !this.sbWrapper.isCurrentUser(user); };
-        userList = userList.filter(this.userManagement.filterUsersAlgo(additionalCheck))
-                            .sort(this.userManagement.alphabetizeAlgo);
+        userList = this.userManagement.filteredList(userList, additionalCheck);
 
         this.baseUserList = userList;
         this.searchedUserList = userList;
@@ -582,10 +581,7 @@ class SBWidget {
 
         let setList = () => {
             let additionalCheck = (user) => { return memberIds.indexOf(user.userId) < 0; };
-            //todo move these to user management
-            sbUserList = sbUserList.filter(this.userManagement.filterUsersAlgo(additionalCheck))
-                                    .sort(this.userManagement.alphabetizeAlgo);
-
+            sbUserList = this.userManagement.filteredList(sbUserList, additionalCheck);
             this.baseUserList = sbUserList;
             this.searchedUserList = sbUserList;
             let searchBox = this.userManagement.createSearchBox();
