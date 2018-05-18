@@ -6,6 +6,7 @@ import Popup from './elements/popup';
 import Sendbird from './sendbird-wrapper';
 import Spinner from './elements/spinner';
 import WidgetBtn from './elements/widget-btn';
+import UserManagement from './elements/user-management'
 import Fuse from 'fuse.js';
 import {
     addClass,
@@ -99,6 +100,7 @@ class SBWidget {
         this.widgetBtn = new WidgetBtn(this.widget);
         this.listBoard = new ListBoard(this.widget);
         this.chatSection = new ChatSection(this.widget);
+        this.userManagement = new UserManagement();
         this.popup = new Popup();
 
         this.activeChannelSetList = [];
@@ -397,7 +399,7 @@ class SBWidget {
         this.baseUserList = userList;
         this.searchedUserList = userList;
         let userContent = target.userContent;
-        let searchBox = this.chatSection.createSearchBox();
+        let searchBox = this.userManagement.createSearchBox();
 
         let createUserList = () => {
             let userItems = document.getElementsByClassName(className.USER_LIST);
@@ -597,7 +599,7 @@ class SBWidget {
 
             this.baseUserList = sbUserList;
             this.searchedUserList = sbUserList;
-            let searchBox = this.chatSection.createSearchBox();
+            let searchBox = this.userManagement.createSearchBox();
             this.popup.invitePopup.list.appendChild(searchBox);
 
             let renderActiveUserList = (activeUsers) => {
@@ -841,8 +843,8 @@ class SBWidget {
     }
 
     setSearchHandlers(renderFunction) {
-        let searchInput = this.chatSection.self.searchInput;
-        let clearImage = this.chatSection.self.searchImage;
+        let searchInput = this.userManagement.searchInput;
+        let clearImage = this.userManagement.searchImage;
         const enterKeyCode = 13;
         const backspaceKeyCode = 8;
 

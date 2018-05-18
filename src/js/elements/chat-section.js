@@ -1,7 +1,6 @@
 import { className, NO_SEARCH_RESULTS_MSG } from '../consts.js';
 import Element from './elements.js';
 import {
-    addClass,
     hide,
     removeClass,
     show,
@@ -180,13 +179,6 @@ class ChatSection extends Element {
         target.input = chatText;
         target.file = chatFileInput;
         target.appendChild(chatContent);
-    }
-
-    createTextInput() {
-        let chatText = this.createDiv();
-        this._setClass(chatText, [className.TEXT]);
-        chatText.setAttribute('contenteditable', true);
-        return chatText;
     }
 
     clearInputText(target) {
@@ -496,25 +488,6 @@ class ChatSection extends Element {
             emptySearchResults.parentNode.removeChild(emptySearchResults);
         }
         this.self.emptySearchResults = null;
-    }
-
-    createSearchBox() {
-        let li = this.createLi();
-        let userItem = this.createDiv();
-        this._setClass(userItem, [className.SEARCH]);
-
-        let imageDiv = this.createDiv();
-        this._setClass(imageDiv, [className.SEARCH_IMG]);
-        this.self.searchImage = imageDiv;
-
-        let searchField = this.createTextInput();
-        this.self.searchInput = searchField;
-        addClass(this.self.searchInput, className.SEARCH_INPUT);
-
-        userItem.appendChild(imageDiv);
-        userItem.appendChild(searchField);
-        li.appendChild(userItem);
-        return li;
     }
 
     getSelectedUserIds(target) {
