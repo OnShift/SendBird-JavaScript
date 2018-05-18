@@ -82,23 +82,16 @@ class Popup extends Element {
         this._setContent(target, text);
     }
 
-    createMemberItem(member, isInvite, isCurrentUser) {
+    createMemberItem(member, isActive) {
         let li = this.createLi();
+        this._setClass(li, [className.USER_LIST]);
         let div = this.createDiv();
 
-        if (isInvite) {
-            let userSelect = this.createDiv();
-            this._setClass(userSelect, [className.USER_SELECT]);
-            this._setDataset(userSelect, 'user-id', member.userId);
-            li.select = userSelect;
-            div.appendChild(userSelect);
-        }
-
-        if (isCurrentUser) {
-            let userProfileMe = this.createDiv();
-            this._setClass(userProfileMe, [className.IMAGE_ME]);
-            div.appendChild(userProfileMe);
-        }
+        let userSelect = this.createDiv();
+        this._setClass(userSelect, isActive ? [className.USER_SELECT, className.ACTIVE] : [className.USER_SELECT]);
+        this._setDataset(userSelect, 'user-id', member.userId);
+        li.select = userSelect;
+        div.appendChild(userSelect);
 
         let userProfile = this.createDiv();
         this._setClass(userProfile, [className.IMAGE]);
