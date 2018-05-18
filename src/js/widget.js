@@ -220,7 +220,7 @@ class SBWidget {
     }
 
     _connect(userId, nickname, accessToken) {
-        this.sb.connect(userId, nickname, accessToken, () => {
+        this.sbWrapper.connect(userId, nickname, accessToken, () => {
             this.widgetBtn = new WidgetBtn(this.widget);
             this.widgetBtn.addClickEvent(() => {
                 this.listBoard.showChannelList();
@@ -411,7 +411,7 @@ class SBWidget {
 
             for (let i = 0 ; i < activeUsers.length ; i++) {
                 let user = activeUsers[i];
-                renderUser(user, true)
+                renderUser(user, true);
             }
 
             let activeUserIds = activeUsers.map((u) => { return u.userId; });
