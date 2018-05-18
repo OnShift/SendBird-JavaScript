@@ -34,6 +34,9 @@ const NEW_CHAT_BOARD_ID = 'NEW_CHAT';
 const TIME_MESSAGE_TYPE = 'time';
 const TIME_STRING_TODAY = 'TODAY';
 const WIDGET_ID = 'sb_widget';
+// providedRole is groundwork for list filtering by role, PL-33
+// eslint-disable-next-line
+let providedRole;
 
 const searchOptions = {
     keys: ['nickname'],
@@ -49,7 +52,8 @@ class SBWidget {
     constructor() {
     }
 
-    startWithConnect(appId, userId, nickname, accessToken) {
+    startWithConnect(loginData) {
+        providedRole = loginData.role;
         this._getGoogleFont();
         this.widget = document.getElementById(WIDGET_ID);
         if (this.widget) {
@@ -57,8 +61,8 @@ class SBWidget {
                 this._initClickEvent(event);
             });
             this._init();
-            this._start(appId);
-            this._connect(userId, nickname, accessToken);
+            this._start(loginData.appId);
+            this._connect(loginData.userId, loginData.nickname, loginData.token);
         } else {
             console.error(ERROR_MESSAGE);
         }
@@ -155,14 +159,14 @@ class SBWidget {
     }
 
     _start(appId) {
-        this.sb = new Sendbird(appId);
+        this.sbWrapper = new Sendbird(appId);
 
         this.popup.addCloseBtnClickEvent(() => {
             this.closePopup();
         });
 
         this.widgetBtn.addClickEvent(() => {
-            this.sb.isConnected() ? this.listBoard.showChannelList() : this.listBoard.showLoginForm();
+            this.sbWrapper.isConnected() ? this.listBoard.showChannelList() : this.listBoard.showLoginForm();
             this.toggleBoard(true);
             this.listBoard.addChannelListScrollEvent(() => {
                 this.getChannelList();
@@ -178,10 +182,10 @@ class SBWidget {
             this.chatSection.addClickEvent(chatBoard.startBtn, () => {
                 if (!hasClass(chatBoard.startBtn, className.DISABLED)) {
                     addClass(chatBoard.startBtn, className.DISABLED);
-                    this.sb.userListQuery = null;
+                    this.sbWrapper.userListQuery = null;
                     this.spinner.insert(chatBoard.startBtn);
                     let selectedUserIds = this.chatSection.getSelectedUserIds(chatBoard.userContent);
-                    this.sb.createNewChannel(selectedUserIds, (channel) => {
+                    this.sbWrapper.createNewChannel(selectedUserIds, (channel) => {
                         chatBoard.parentNode.removeChild(chatBoard);
                         this._connectChannel(channel.url, true);
                         this.listBoard.checkEmptyList();
@@ -235,13 +239,13 @@ class SBWidget {
         };
         let loadUsers = () => {
             iterations += 1;
-            this.sb.getUserList(getFullList, setList, iterations);
+            this.sbWrapper.getUserList(getFullList, setList, iterations);
         };
         loadUsers();
     }
 
     _connect(userId, nickname, accessToken) {
-        this.sb.connect(userId, nickname, accessToken, () => {
+        this.sbWrapper.connect(userId, nickname, accessToken, () => {
             this.widgetBtn.toggleIcon(true);
             this.listBoard.showChannelList();
             this.spinner.insert(this.listBoard.list);
@@ -265,12 +269,12 @@ class SBWidget {
                 userLeftHandler: (channel, user) => {
                     let channelUrl = channel.url;
                     let listBoard = this.listBoard;
-                    if (this.sb.isCurrentUser(user)) {
+                    if (this.sbWrapper.isCurrentUser(user)) {
                         let item = listBoard.getChannelItem(channelUrl);
                         listBoard.list.removeChild(item);
                         listBoard.checkEmptyList();
                     } else {
-                        listBoard.setChannelTitle(channelUrl, this.sb.getNicknamesString(channel));
+                        listBoard.setChannelTitle(channelUrl, this.sbWrapper.getNicknamesString(channel));
                         this.updateUnreadMessageCount(channel);
                         let targetChatBoard = this.chatSection.getChatBoard(channelUrl);
                         if (targetChatBoard) {
@@ -280,14 +284,14 @@ class SBWidget {
                 },
                 userJoinedHandler: (channel) => {
                     let channelUrl = channel.url;
-                    this.listBoard.setChannelTitle(channelUrl, this.sb.getNicknamesString(channel));
+                    this.listBoard.setChannelTitle(channelUrl, this.sbWrapper.getNicknamesString(channel));
                     let targetChatBoard = this.chatSection.getChatBoard(channelUrl);
                     if (targetChatBoard) {
                         this.updateChannelInfo(targetChatBoard, channel);
                     }
                 }
             };
-            this.sb.createHandlerGlobal(handlers);
+            this.sbWrapper.createHandlerGlobal(handlers);
         });
     }
 
@@ -300,7 +304,7 @@ class SBWidget {
         this.listBoard.addListOnFirstIndex(target);
 
         this.listBoard.setChannelLastMessage(channel.url, message.isFileMessage() ? xssEscape(message.name) : xssEscape(message.message));
-        this.listBoard.setChannelLastMessageTime(channel.url, this.sb.getMessageTime(message));
+        this.listBoard.setChannelLastMessageTime(channel.url, this.sbWrapper.getMessageTime(message));
 
         let targetBoard = this.chatSection.getChatBoard(channel.url);
         if (targetBoard) {
@@ -387,7 +391,7 @@ class SBWidget {
     }
 
     setUserList(target, userList) {
-        let additionalCheck = (user) => { return !this.sb.isCurrentUser(user); };
+        let additionalCheck = (user) => { return !this.sbWrapper.isCurrentUser(user); };
         userList = userList.filter(filterUsersAlgo(additionalCheck)).sort(alphabetizeAlgo);
 
         this.baseUserList = userList;
@@ -427,7 +431,7 @@ class SBWidget {
 
             for (let i = 0 ; i < activeUsers.length ; i++) {
                 let user = activeUsers[i];
-                renderUser(user, true)
+                renderUser(user, true);
             }
 
             let activeUserIds = activeUsers.map((u) => { return u.userId; });
@@ -455,7 +459,7 @@ class SBWidget {
     getChannelList() {
         let _list = this.listBoard.list;
         let _spinner = this.spinner;
-        this.sb.getChannelList((channelList) => {
+        this.sbWrapper.getChannelList((channelList) => {
             if (_list.lastElementChild === _spinner.self) {
                 _spinner.remove(_list);
             }
@@ -472,10 +476,10 @@ class SBWidget {
         let channelData = {
             channelUrl: channel.url,
             coverUrl: channel.coverUrl,
-            nicknames: this.sb.getNicknamesString(channel),
-            messageTime: this.sb.getMessageTime(channel),
-            lastMessage: this.sb.getLastMessage(channel),
-            unreadCount: this.sb.getChannelUnreadCount(channel)
+            nicknames: this.sbWrapper.getNicknamesString(channel),
+            messageTime: this.sbWrapper.getMessageTime(channel),
+            lastMessage: this.sbWrapper.getLastMessage(channel),
+            unreadCount: this.sbWrapper.getChannelUnreadCount(channel)
         };
         let item = this.listBoard.createChannelItem(channelData);
         this.listBoard.addChannelClickEvent(item, () => {
@@ -523,10 +527,10 @@ class SBWidget {
                     this.spinner.insert(this.popup.invitePopup.inviteBtn);
                     let selectedUserIds = this.popup.getSelectedUserIds(this.popup.invitePopup.list);
                     let channelSet = this.getChannelSet(this.chatSection.channelUrl);
-                    this.sb.inviteMember(channelSet.channel, selectedUserIds, () => {
+                    this.sbWrapper.inviteMember(channelSet.channel, selectedUserIds, () => {
                         this.spinner.remove(this.popup.invitePopup.inviteBtn);
                         this.closeInvitePopup();
-                        this.listBoard.setChannelTitle(channelSet.channel.url, this.sb.getNicknamesString(channelSet.channel));
+                        this.listBoard.setChannelTitle(channelSet.channel.url, this.sbWrapper.getNicknamesString(channelSet.channel));
                         this.updateChannelInfo(chatBoard, channelSet.channel);
                     });
                 }
@@ -549,7 +553,7 @@ class SBWidget {
             }
         });
         this.spinner.insert(chatBoard.content);
-        this.sb.getChannelInfo(channelUrl, (channel) => {
+        this.sbWrapper.getChannelInfo(channelUrl, (channel) => {
             this.updateChannelInfo(chatBoard, channel);
             let channelSet = this.getChannelSet(channel);
             this.getMessageList(channelSet, chatBoard, false, () => {
@@ -655,17 +659,17 @@ class SBWidget {
         };
         let loadUsers = () => {
             iterations += 1;
-            this.sb.getUserList(getFullList, setList, iterations);
+            this.sbWrapper.getUserList(getFullList, setList, iterations);
         };
         loadUsers();
     }
 
     updateChannelInfo(target, channel) {
-        this.chatSection.updateChatTop(target, this.sb.getMemberCount(channel), this.sb.getNicknamesString(channel));
+        this.chatSection.updateChatTop(target, this.sbWrapper.getMemberCount(channel), this.sbWrapper.getNicknamesString(channel));
     }
 
     updateUnreadMessageCount(channel) {
-        this.sb.getTotalUnreadCount((unreadCount) => {
+        this.sbWrapper.getTotalUnreadCount((unreadCount) => {
             this.widgetBtn.setUnreadCount(unreadCount);
         });
         if (channel) {
@@ -674,14 +678,14 @@ class SBWidget {
     }
 
     getMessageList(channelSet, target, loadmore, scrollEvent) {
-        this.sb.getMessageList(channelSet, (messageList) => {
+        this.sbWrapper.getMessageList(channelSet, (messageList) => {
             let messageItems = messageList.slice();
             let tempTime;
             for (let index = 0 ; index < messageList.length ; index++) {
                 let message = messageList[index];
                 loadmore ? channelSet.message.unshift(message) : channelSet.message.push(message);
 
-                let time = this.sb.getMessageTime(message);
+                let time = this.sbWrapper.getMessageTime(message);
                 if (time.indexOf(':') > -1) {
                     time = TIME_STRING_TODAY;
                 }
@@ -701,7 +705,7 @@ class SBWidget {
                 this.chatSection.createMessageContent(target);
                 this.chatSection.addFileSelectEvent(target.file, () => {
                     let file = target.file.files[0];
-                    this.sb.sendFileMessage(channelSet.channel, file, (message) => {
+                    this.sbWrapper.sendFileMessage(channelSet.channel, file, (message) => {
                         this.messageReceivedAction(channelSet.channel, message);
                     });
                 });
@@ -712,7 +716,7 @@ class SBWidget {
                     if (event.keyCode === KEY_DOWN_ENTER && !event.shiftKey) {
                         let textMessage = target.input.textContent || this.chatSection.textKr;
                         if (!isEmptyString(textMessage.trim())) {
-                            this.sb.sendTextMessage(channelSet.channel, textMessage, (message) => {
+                            this.sbWrapper.sendTextMessage(channelSet.channel, textMessage, (message) => {
                                 this.messageReceivedAction(channelSet.channel, message);
                             });
                         }
@@ -781,7 +785,7 @@ class SBWidget {
                 prevMessage = null;
             } else if (!message.isAdminMessage()) {
                 let isContinue = prevMessage && prevMessage.sender ? message.sender.userId === prevMessage.sender.userId : false;
-                let isCurrentUser = this.sb.isCurrentUser(message.sender);
+                let isCurrentUser = this.sbWrapper.isCurrentUser(message.sender);
                 newMessage = this.chatSection.createMessageItem(message, isCurrentUser, isContinue);
                 insertMessageIntoBoard(newMessage);
                 prevMessage = message;

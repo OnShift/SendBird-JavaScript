@@ -31,11 +31,21 @@ To incorporate the widget, the following code must be written in a React project
 ```
 
 - in order to initialize the widget, a `div` with an id of `sb_widget` must exist somewhere in the DOM
-- in order to start the widget, invoke `sbWidget.startWithConnect(appId, userId, nickname, accessToken)` where
+- create a json object, similar to the below:
+```
+    var loginData = {
+      appId:'XXXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXX',
+      nickname: 'Nickname Goes Here',
+      role: 'Administrator',
+      userId: 'Unique ID of user goes here'
+    };
+```
   - appId: the id of the Sendbird application we are connecting to
   - userId: the id of the user who is connecting to the Sendbird application
   - nickname: the name to be displayed when displaying their name
   - accessToken: some valid access token that
+
+- in order to start the widget, invoke the widget and pass in the loginData json object you created: `sbWidget.startWithConnect(loginData)`
 
 ## Running the tests
 
