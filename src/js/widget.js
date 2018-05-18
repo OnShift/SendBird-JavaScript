@@ -6,12 +6,10 @@ import Popup from './elements/popup';
 import Sendbird from './sendbird-wrapper';
 import Spinner from './elements/spinner';
 import WidgetBtn from './elements/widget-btn';
-import UserManagement from './elements/user-management'
+import UserManagement from './elements/user-management';
 import Fuse from 'fuse.js';
 import {
     addClass,
-    alphabetizeAlgo,
-    filterUsersAlgo,
     getFullHeight,
     getLastItem,
     flipClass,
@@ -393,7 +391,8 @@ class SBWidget {
 
     setUserList(target, userList) {
         let additionalCheck = (user) => { return !this.sbWrapper.isCurrentUser(user); };
-        userList = userList.filter(filterUsersAlgo(additionalCheck)).sort(alphabetizeAlgo);
+        userList = userList.filter(this.userManagement.filterUsersAlgo(additionalCheck))
+                            .sort(this.userManagement.alphabetizeAlgo);
 
         this.baseUserList = userList;
         this.searchedUserList = userList;
@@ -434,9 +433,7 @@ class SBWidget {
             } else {
                 for (let i = 0; i < this.searchedUserList.length; i++) {
                     let user = this.searchedUserList[i];
-                    if (!activeUserIds.includes(user.userId)) {
-                        renderUser(user, false)
-                    }
+                    if (!activeUserIds.includes(user.userId)) { renderUser(user, false); }
                 }
             }
 
@@ -586,7 +583,8 @@ class SBWidget {
         let setList = () => {
             let additionalCheck = (user) => { return memberIds.indexOf(user.userId) < 0; };
             //todo move these to user management
-            sbUserList = sbUserList.filter(filterUsersAlgo(additionalCheck)).sort(alphabetizeAlgo);
+            sbUserList = sbUserList.filter(this.userManagement.filterUsersAlgo(additionalCheck))
+                                    .sort(this.userManagement.alphabetizeAlgo);
 
             this.baseUserList = sbUserList;
             this.searchedUserList = sbUserList;

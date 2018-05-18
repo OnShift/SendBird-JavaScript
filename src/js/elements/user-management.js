@@ -5,7 +5,7 @@ import { addClass } from "../utils";
 class UserManagement extends Element {
     constructor() {
         super();
-        this.initializeMemberVariables()
+        this.initializeMemberVariables();
     }
 
     initializeMemberVariables() {
@@ -60,7 +60,7 @@ class UserManagement extends Element {
 
     activeSelection(user) {
         return user.getElementsByClassName(`${className.USER_SELECT} ${className.ACTIVE}`).length !== 0;
-    };
+    }
 
     seperateAndClearUserList(users) {
         let activeUsers = [];
@@ -76,6 +76,25 @@ class UserManagement extends Element {
             currentUser.parentNode.removeChild(users[0]);
         }
         return activeUsers;
+    }
+
+    filterUsersAlgo(additionalReqs = () => { return true; }) {
+        let firstLetterBlank = (user) => { return user.nickname[0] !== ' '; };
+        return (user) => { return user.nickname && user.userId && firstLetterBlank(user) && additionalReqs(user); };
+    }
+
+    alphabetizeAlgo(firstUser, nextUser) {
+        let firstNickname = firstUser.nickname.toUpperCase();
+        let nextNickname = nextUser.nickname.toUpperCase();
+        let result;
+        if (firstNickname < nextNickname) {
+            result = -1;
+        } else if (firstNickname > nextNickname) {
+            result =  1;
+        } else {
+            result = 0;
+        }
+        return result;
     }
 }
 
