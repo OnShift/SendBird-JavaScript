@@ -437,9 +437,9 @@ class SBWidget {
             }
 
             let activeUserIds = activeUsers.map((u) => { return u.userId; });
-            this.chatSection.removeEmptySearchResults();
+            this.userManagement.removeEmptySearchResults();
             if(this.searchedUserList.length === 0) {
-                let emptySearchResults = this.chatSection.createUserSearchEmptyResults();
+                let emptySearchResults = this.userManagement.createUserSearchEmptyResults();
                 userContent.list.appendChild(emptySearchResults);
             } else {
                 for (let i = 0; i < this.searchedUserList.length; i++) {
@@ -612,9 +612,9 @@ class SBWidget {
             };
 
             let renderInactiveUserList = (inactiveUserList, activeUserIds) => {
-                this.popup.removeEmptySearchResults();
+                this.userManagement.removeEmptySearchResults();
                 if(inactiveUserList.length === 0) {
-                    let emptyResultsMsg = this.popup.createUserSearchEmptyResults();
+                    let emptyResultsMsg = this.userManagement.createUserSearchEmptyResults();
                     this.popup.invitePopup.list.appendChild(emptyResultsMsg);
                 } else {
                     for (let i = 0; i < inactiveUserList.length; i++) {

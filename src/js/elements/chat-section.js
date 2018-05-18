@@ -1,4 +1,4 @@
-import { className, NO_SEARCH_RESULTS_MSG } from '../consts.js';
+import { className } from '../consts.js';
 import Element from './elements.js';
 import {
     hide,
@@ -463,31 +463,6 @@ class ChatSection extends Element {
 
         li.appendChild(userItem);
         return li;
-    }
-
-    createUserSearchEmptyResults() {
-        let errorContainer = this.createDiv();
-        this._setClass(errorContainer, [className.SEARCH_ERROR_CONTAINER]);
-        this.self.emptySearchResults = errorContainer;
-
-        let emptySearchResults = this.createDiv();
-        this._setClass(emptySearchResults, [className.NO_SEARCH_RESULTS]);
-        this._setContent(emptySearchResults, NO_SEARCH_RESULTS_MSG);
-
-        let errorImage = this.createDiv();
-        this._setClass(errorImage, [className.SEARCH_ERROR_IMG]);
-
-        errorContainer.appendChild(errorImage);
-        errorContainer.appendChild(emptySearchResults);
-        return errorContainer;
-    }
-
-    removeEmptySearchResults() {
-        if(this.self.emptySearchResults) {
-            let emptySearchResults = this.self.emptySearchResults;
-            emptySearchResults.parentNode.removeChild(emptySearchResults);
-        }
-        this.self.emptySearchResults = null;
     }
 
     getSelectedUserIds(target) {

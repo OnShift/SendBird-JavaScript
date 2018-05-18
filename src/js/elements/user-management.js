@@ -1,4 +1,4 @@
-import { className }  from '../consts.js';
+import { className, NO_SEARCH_RESULTS_MSG }  from '../consts.js';
 import Element from './elements.js';
 import { addClass } from "../utils";
 
@@ -11,6 +11,7 @@ class UserManagement extends Element {
     initializeMemberVariables() {
         this.searchInput = null;
         this.searchImage = null;
+        this.emptySearchResults = null;
     }
 
     createSearchBox() {
@@ -30,6 +31,31 @@ class UserManagement extends Element {
         userItem.appendChild(searchField);
         li.appendChild(userItem);
         return li;
+    }
+
+    createUserSearchEmptyResults() {
+        let errorContainer = this.createDiv();
+        this._setClass(errorContainer, [className.SEARCH_ERROR_CONTAINER]);
+        this.emptySearchResults = errorContainer;
+
+        let emptySearchResults = this.createDiv();
+        this._setClass(emptySearchResults, [className.NO_SEARCH_RESULTS]);
+        this._setContent(emptySearchResults, NO_SEARCH_RESULTS_MSG);
+
+        let errorImage = this.createDiv();
+        this._setClass(errorImage, [className.SEARCH_ERROR_IMG]);
+
+        errorContainer.appendChild(errorImage);
+        errorContainer.appendChild(emptySearchResults);
+        return errorContainer;
+    }
+
+    removeEmptySearchResults() {
+        if(this.emptySearchResults) {
+            let emptySearchResults = this.emptySearchResults;
+            emptySearchResults.parentNode.removeChild(emptySearchResults);
+        }
+        this.emptySearchResults = null;
     }
 }
 
