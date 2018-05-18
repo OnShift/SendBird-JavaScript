@@ -19,19 +19,19 @@
   </body>
   <script src="build/widget.SendBird.js"></script>
   <script>
-    function open_widget() {
-      var channelBoard = document.getElementsByClassName('channel-board')[0];
-      channelBoard.style = 'display: block';
-      channelBoard.className = "channel-board sb-fade-in";
-    }
+    var channelBoard = document.getElementsByClassName('channel-board')[0];
+    var userId;
 
+    function open_widget() {
+        channelBoard.style = 'display: block';
+        channelBoard.className = "channel-board sb-fade-in";
+
+    }
     function close_widget() {
-        var channelBoard = document.getElementsByClassName('channel-board')[0];
         channelBoard.style = '';
         channelBoard.className = "channel-board sb-fade-out";
-    }
 
-    var userId;
+    }
     if(document.cookie) {
       userId = document.cookie.split(';')[0].split('=')[1]
     } else {
@@ -41,9 +41,8 @@
         possibleNames.push('a_widget_user_' + i);
       }
       userId = possibleNames[Math.floor(Math.random() * Math.floor(limit))];
-      document.cookie = `sendbirdUserId=${name}`;
+      document.cookie = `sendbirdUserId=${userId}`;
     }
-    document.getElementById("currentUser").innerText = 'LOGGED IN AS: ' + name;
 
     document.getElementById("currentUser").innerText = 'LOGGED IN AS: ' + userId;
     var sb = new window.onshiftChatWidget.default();
