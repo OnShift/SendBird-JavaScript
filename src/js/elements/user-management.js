@@ -3,15 +3,17 @@ import Element from './elements.js';
 import { addClass } from "../utils";
 
 class UserManagement extends Element {
-    constructor() {
+    constructor(role) {
         super();
-        this.initializeMemberVariables();
+        this.initializeMemberVariables(role);
     }
 
-    initializeMemberVariables() {
+    initializeMemberVariables(role) {
         this.searchInput = null;
         this.searchImage = null;
         this.emptySearchResults = null;
+        // eslint-disable-next-line
+        this.role = role;
     }
 
     createSearchBox() {

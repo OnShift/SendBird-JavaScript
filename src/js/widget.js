@@ -94,7 +94,7 @@ class SBWidget {
         this.widgetBtn = new WidgetBtn(this.widget);
         this.listBoard = new ListBoard(this.widget);
         this.chatSection = new ChatSection(this.widget);
-        this.userManagement = new UserManagement();
+        this.userManagement = new UserManagement(providedRole);
         this.popup = new Popup();
 
         this.activeChannelSetList = [];
@@ -102,9 +102,6 @@ class SBWidget {
 
         this.baseUserList = [];
         this.searchedUserList = [];
-
-        // eslint-disable-next-line
-        this.providedRole = providedRole;
 
         this.timeMessage = class TimeMessage {
             constructor(date) {
