@@ -12,7 +12,6 @@ class UserManagement extends Element {
         this.searchInput = null;
         this.searchImage = null;
         this.emptySearchResults = null;
-        // eslint-disable-next-line
         this.role = role;
     }
 
