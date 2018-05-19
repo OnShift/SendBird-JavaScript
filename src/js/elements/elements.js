@@ -55,7 +55,6 @@ class Element {
         return document.createElement(this.tagType.INPUT);
     }
 
-    // todo test this
     createTextInput() {
         let chatText = this.createDiv();
         this._setClass(chatText, [className.TEXT]);
