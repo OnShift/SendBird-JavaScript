@@ -43,5 +43,5 @@ describe('createSearchBox', () => {
         expect(searchContainer.childNodes[0].className).toBe(className.SEARCH_IMG);
         expect(searchContainer.childNodes[1].className).toContain(className.TEXT);
         expect(searchContainer.childNodes[1].className).toContain(className.SEARCH_INPUT);
-    })
+    });
 });
