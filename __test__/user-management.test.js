@@ -54,6 +54,12 @@ describe('filteredList', () => {
         let userManager = new UserManagement('test');
         let filteredList = userManager.filteredList(mixedUserList, defaultCheck);
 
+        function filterAlteredList(baseList, action) {
+            let copiedList = Object.assign([], baseList);
+            action(copiedList);
+            return userManager.filteredList(copiedList, defaultCheck);
+        }
+
         test('does no filtering based on metadata', () => {
             expect(filteredList.length).toBe(mixedUserList.length)
         });
@@ -70,23 +76,17 @@ describe('filteredList', () => {
         });
 
         test('filters out people who do not have a nickname', () => {
-            let copiedList = Object.assign([], mixedUserList);
-            copiedList[0].nickname = undefined;
-            let copiedFilteredList = userManager.filteredList(copiedList, defaultCheck);
+            let copiedFilteredList = filterAlteredList(mixedUserList, (list) => { list[0].nickname = undefined });
             expect(copiedFilteredList.length).toBe(mixedUserList.length - 1);
         });
 
         test('filters out people who do not have a user id', () => {
-            let copiedList = Object.assign([], mixedUserList);
-            copiedList[0].userId = undefined;
-            let copiedFilteredList = userManager.filteredList(copiedList, defaultCheck);
+            let copiedFilteredList = filterAlteredList(mixedUserList, (list) => { list[0].userId = undefined });
             expect(copiedFilteredList.length).toBe(mixedUserList.length - 1);
         });
 
         test('filters out people whose nickname begins with a blank space', () => {
-            let copiedList = Object.assign([], mixedUserList);
-            copiedList[0].nickname = ' begins with a blank space';
-            let copiedFilteredList = userManager.filteredList(copiedList, defaultCheck);
+            let copiedFilteredList = filterAlteredList(mixedUserList, (list) => { list[0].nickname = ' blank' });
             expect(copiedFilteredList.length).toBe(mixedUserList.length - 1);
         });
 
