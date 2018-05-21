@@ -376,10 +376,9 @@
         width: 100%;
         margin: 0;
         padding: 0;
-        list-style-type: none;
 
         li {
-          width: calc(100% - 24px);
+          width: 93%;
           height: 48px;
           background-color: $color-white;
           cursor: pointer;
@@ -392,8 +391,8 @@
 
           .item {
             width: 100%;
-            height: calc(100% - 12px - 1px);
-            padding: 6px 0;
+            height: 100%;
+            margin: 2% 0;
             border-bottom: 1px solid $color-list-border;
           }
         }
@@ -401,15 +400,15 @@
         .image {
           float: left;
           width: 36px;
-          margin-right: 4%;
+          margin: 0 4%;
           height: 100%;
           @include icon($icon-channel-1);
         }
 
         .content {
           float: right;
-          width: calc(100% - 36px - 8px);
-          height: 100%;
+          width: 100%;
+          height: 85%;
           margin-left: 8px;
         }
         .content-top {
