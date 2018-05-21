@@ -95,10 +95,35 @@ class UserManagement extends Element {
 
     restrictEmployeeAccess(user) { return user.metadata && user.metadata.role === 'employee'; }
 
+    restrictManagerAccess(user) {
+        let supportedRoles = ['administrator', 'supervisor', 'employee'];
+        return user.metadata && supportedRoles.includes(user.metadata.role);
+    }
+
     filterUsersAlgo(additionalReqs) {
         let firstLetterBlank = (user) => { return user.nickname[0] !== ' '; };
-        let employeeRestriction = this.role === 'employee' ? this.restrictEmployeeAccess : () => true;
-        return (user) => { return user.nickname && user.userId && firstLetterBlank(user) && employeeRestriction(user) && additionalReqs(user); };
+        let roleRestriction = this.determineRoleRestriction();
+        return (user) => { return user.nickname && user.userId && firstLetterBlank(user) && roleRestriction(user) && additionalReqs(user); };
+    }
+
+    determineRoleRestriction() {
+        let roleRestriction;
+        switch(this.role) {
+            case 'administrator':
+            case 'supervisor':
+                roleRestriction = this.restrictManagerAccess;
+                break;
+            case 'employee':
+                roleRestriction = this.restrictEmployeeAccess;
+                break;
+            case 'test':
+                roleRestriction = () => { return true };
+                break;
+            default:
+                throw `The role ${this.role} is not supported; please contact your administrator`
+        }
+        return roleRestriction;
+
     }
 
     alphabetizeAlgo(firstUser, nextUser) {
