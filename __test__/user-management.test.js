@@ -105,6 +105,21 @@ describe('filteredList', () => {
         test('filters out all users who are not employees', () => {
             let employeeCount = mixedUserList.filter((u) => { return u.metadata && u.metadata.role === 'employee' }).length;
             expect(filteredList.length).toBe(employeeCount);
-        })
-    })
+        });
+    });
+
+    describe('userManager in an "administrator" role', () => {
+        let userManager = new UserManagement('administrator');
+        let filteredList = userManager.filteredList(mixedUserList, defaultCheck);
+
+        test('filters out all users do not have a supported engage role', () => {
+            let userCount = mixedUserList.filter((u) => {
+                let metadata = u.metadata;
+                return metadata && (metadata.role === 'administrator' ||
+                                    metadata.role === 'supervisor' ||
+                                    metadata.role === 'employee')
+            }).length;
+            expect(filteredList.length).toBe(userCount);
+        });
+    });
 });
