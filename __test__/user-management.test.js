@@ -90,6 +90,21 @@ describe('filteredList', () => {
             expect(copiedFilteredList.length).toBe(mixedUserList.length - 1);
         });
 
+        test('processes any additional req we pass in', () => {
+            let disallowedNickname = mixedUserList[0].nickname;
+            let additionalCheck = (user) => { return user.nickname !== disallowedNickname };
+            let filteredList = userManager.filteredList(mixedUserList, additionalCheck);
+            expect(filteredList.length).toBe(mixedUserList.length - 1);
+        });
+    });
 
+    describe('userManager in an "employee" role', () => {
+        let userManager = new UserManagement('employee');
+        let filteredList = userManager.filteredList(mixedUserList, defaultCheck);
+
+        test('filters out all users who are not employees', () => {
+            let employeeCount = mixedUserList.filter((u) => { return u.metadata && u.metadata.role === 'employee' }).length;
+            expect(filteredList.length).toBe(employeeCount);
+        })
     })
 });
