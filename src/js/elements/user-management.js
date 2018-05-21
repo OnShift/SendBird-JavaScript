@@ -117,10 +117,10 @@ class UserManagement extends Element {
                 roleRestriction = this.restrictEmployeeAccess;
                 break;
             case 'test':
-                roleRestriction = () => { return true };
+                roleRestriction = () => { return true; };
                 break;
             default:
-                throw `The role ${this.role} is unsupported; please contact your administrator`
+                throw `The role ${this.role} is unsupported; please contact your administrator`;
         }
         return roleRestriction;
 
