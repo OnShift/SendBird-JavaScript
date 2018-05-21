@@ -50,6 +50,7 @@
   }
 
   .ic-minimize {
+    // todo mobile styling here
     margin-right: 4%;
     @include icon($icon-minimize);
     @include hover {
@@ -68,6 +69,7 @@
   }
 
   .ic-new-chat {
+    // todo mobile styling here
     margin-right: 4%;
     @include icon($icon-new-chat);
     @include hover {
@@ -289,8 +291,7 @@
               bottom: 100%;
               left: calc(50% + 21px);
               margin-left: -5px;
-              border-width: 7px;
-              border-style: solid;
+              border: 7px solid;
               border-color: transparent transparent $color-white transparent;
             }
           }
@@ -380,7 +381,6 @@
         li {
           width: calc(100% - 24px);
           height: 48px;
-          padding: 0 12px;
           background-color: $color-white;
           cursor: pointer;
           @include hover {
@@ -401,6 +401,7 @@
         .image {
           float: left;
           width: 36px;
+          margin-right: 4%;
           height: 100%;
           @include icon($icon-channel-1);
         }
@@ -419,7 +420,7 @@
             padding: 0;
             float: left;
             width: 125px;
-            height: 18px;
+            height: 100%;
             font-size: 14px;
             color: $color-content-text;
             line-height: 18px;
@@ -431,7 +432,7 @@
           time {
             float: right;
             font-size: 12px;
-            line-height: 18px;
+            height: 100%;
             color: $color-gray-light;
           }
         }
