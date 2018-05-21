@@ -1,32 +1,35 @@
 import UserManagement from '../src/js/elements/user-management';
 import { className } from "../src/js/consts";
+import { mixedUserList } from "./__data__/users";
+
+let defaultCheck = () => { return true };
 
 describe('new', () => {
-    let testUserManager = new UserManagement('test');
+    let userManager = new UserManagement('test');
     test('it can be instantiated', () => {
-        expect(testUserManager).toBeInstanceOf(UserManagement);
+        expect(userManager).toBeInstanceOf(UserManagement);
     });
 
     test('it initializes member variables correctly', () => {
-        expect(testUserManager.role).toBe('test');
-        expect(testUserManager.searchImage).toBeNull();
-        expect(testUserManager.searchInput).toBeNull();
-        expect(testUserManager.emptySearchResults).toBeNull();
+        expect(userManager.role).toBe('test');
+        expect(userManager.searchImage).toBeNull();
+        expect(userManager.searchInput).toBeNull();
+        expect(userManager.emptySearchResults).toBeNull();
     });
 });
 
 describe('createSearchBox', () => {
-    let testUserManager = new UserManagement('test');
-    let searchBox = testUserManager.createSearchBox();
+    let userManager = new UserManagement('test');
+    let searchBox = userManager.createSearchBox();
 
     test('when called, sets searchImage to a div', () => {
-        let searchImage = testUserManager.searchImage;
+        let searchImage = userManager.searchImage;
         expect(searchImage).toBeInstanceOf(HTMLDivElement);
         expect(searchImage.className).toBe(className.SEARCH_IMG);
     });
 
     test('when called, sets searchInput to an editable div', () => {
-        let searchInput = testUserManager.searchInput;
+        let searchInput = userManager.searchInput;
         expect(searchInput).toBeInstanceOf(HTMLDivElement);
         expect(searchInput.className).toContain(className.TEXT);
         expect(searchInput.className).toContain(className.SEARCH_INPUT);
@@ -44,4 +47,49 @@ describe('createSearchBox', () => {
         expect(searchContainer.childNodes[1].className).toContain(className.TEXT);
         expect(searchContainer.childNodes[1].className).toContain(className.SEARCH_INPUT);
     });
+});
+
+describe('filteredList', () => {
+    describe('userManager in a "test" role', () =>{
+        let userManager = new UserManagement('test');
+        let filteredList = userManager.filteredList(mixedUserList, defaultCheck);
+
+        test('does no filtering based on metadata', () => {
+            expect(filteredList.length).toBe(mixedUserList.length)
+        });
+
+        test('alphabetizes the list based on nickname', () => {
+            let isAlphabetized = true;
+            let firstLetterOfNicknames = filteredList.map((u) => { return u.nickname[0]; });
+            for(let i = 0; i <= firstLetterOfNicknames; i++) {
+                if(firstLetterOfNicknames[i + 1] && firstLetterOfNicknames[i] > firstLetterOfNicknames[i + 1]) {
+                    isAlphabetized = false
+                }
+            }
+            expect(isAlphabetized).toBeTruthy();
+        });
+
+        test('filters out people who do not have a nickname', () => {
+            let copiedList = Object.assign([], mixedUserList);
+            copiedList[0].nickname = undefined;
+            let copiedFilteredList = userManager.filteredList(copiedList, defaultCheck);
+            expect(copiedFilteredList.length).toBe(mixedUserList.length - 1);
+        });
+
+        test('filters out people who do not have a user id', () => {
+            let copiedList = Object.assign([], mixedUserList);
+            copiedList[0].userId = undefined;
+            let copiedFilteredList = userManager.filteredList(copiedList, defaultCheck);
+            expect(copiedFilteredList.length).toBe(mixedUserList.length - 1);
+        });
+
+        test('filters out people whose nickname begins with a blank space', () => {
+            let copiedList = Object.assign([], mixedUserList);
+            copiedList[0].nickname = ' begins with a blank space';
+            let copiedFilteredList = userManager.filteredList(copiedList, defaultCheck);
+            expect(copiedFilteredList.length).toBe(mixedUserList.length - 1);
+        });
+
+
+    })
 });
