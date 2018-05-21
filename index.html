@@ -19,15 +19,16 @@
   </body>
   <script src="build/widget.SendBird.js"></script>
   <script>
-    var channelBoard = document.getElementsByClassName('channel-board')[0];
     var userId;
 
     function open_widget() {
+        var channelBoard = document.getElementsByClassName('channel-board')[0]
         channelBoard.style = 'display: block';
         channelBoard.className = "channel-board sb-fade-in";
 
     }
     function close_widget() {
+        var channelBoard = document.getElementsByClassName('channel-board')[0]
         channelBoard.style = '';
         channelBoard.className = "channel-board sb-fade-out";
 
