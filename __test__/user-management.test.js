@@ -50,7 +50,7 @@ describe('createSearchBox', () => {
 });
 
 describe('filteredList', () => {
-    describe('userManager in a "test" role', () =>{
+    describe('userManager in a "test" role', () => {
         let userManager = new UserManagement('test');
         let filteredList = userManager.filteredList(mixedUserList, defaultCheck);
 

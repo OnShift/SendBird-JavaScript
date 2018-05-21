@@ -6,7 +6,7 @@ export const mixedUserList =
         connectionStatus: 'offline',
         userId: '36314',
         isActive: true,
-        metaData: {
+        metadata: {
             engage_role: 'administrator',
             role: 'administrator',
             role_description: 'administrator',
@@ -19,7 +19,7 @@ export const mixedUserList =
         connectionStatus: 'online',
         userId: '15352',
         isActive: true,
-        metaData: {
+        metadata: {
             engage_role: 'administrator',
             role: 'administrator',
             role_description: 'administrator',
@@ -32,7 +32,7 @@ export const mixedUserList =
         connectionStatus: 'offline',
         userId: '35122',
         isActive: false,
-        metaData: {
+        metadata: {
             engage_role: 'supervisor',
             role: 'supervisor',
             role_description: 'supervisor',
@@ -45,7 +45,7 @@ export const mixedUserList =
         connectionStatus: 'online',
         userId: '20931',
         isActive: true,
-        metaData: {
+        metadata: {
             engage_role: 'employee',
             role: 'employee',
             role_description: 'employee',
@@ -58,7 +58,7 @@ export const mixedUserList =
         connectionStatus: 'offline',
         userId: '18888',
         isActive: true,
-        metaData: {
+        metadata: {
             engage_role: 'employee',
             role: 'employee',
             role_description: 'employee',
@@ -71,7 +71,7 @@ export const mixedUserList =
         connectionStatus: 'online',
         userId: '941322',
         isActive: true,
-        metaData: {
+        metadata: {
             engage_role: 'unrecognized',
             role: 'unrecognized',
             role_description: 'unrecognized',
