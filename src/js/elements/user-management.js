@@ -120,7 +120,7 @@ class UserManagement extends Element {
                 roleRestriction = () => { return true };
                 break;
             default:
-                throw `The role ${this.role} is not supported; please contact your administrator`
+                throw `The role ${this.role} is unsupported; please contact your administrator`
         }
         return roleRestriction;
 

@@ -122,4 +122,12 @@ describe('filteredList', () => {
             expect(filteredList.length).toBe(userCount);
         });
     });
+
+    describe('userManager is an unsupported role', () => {
+        let userManager = new UserManagement('not a role');
+
+        test('throws an error', () => {
+            expect(() => { userManager.filteredList(mixedUserList, defaultCheck) }).toThrow(/unsupported/);
+        })
+    });
 });
