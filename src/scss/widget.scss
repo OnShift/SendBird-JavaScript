@@ -378,7 +378,7 @@
         padding: 0;
 
         li {
-          width: 93%;
+          width: 95%;
           height: 48px;
           background-color: $color-white;
           cursor: pointer;
@@ -441,7 +441,7 @@
 
           .last-message {
             float: left;
-            width: 170px;
+            width: 50%;
             height: 18px;
             font-size: 13px;
             color: $color-gray-light;
@@ -584,15 +584,15 @@
     }
 
     .top {
-      width: calc(100% - 24px);
+      width: 100%;
       height: 35px;
-      padding: 0 12px;
       background-color: $color-gray-lightest;
       border-bottom: 1px solid $color-list-border;
       @include box-shadow(0 1px 1px -2px rgba(0, 0, 0, 0.20));
 
       .title {
         float: left;
+        padding-left: 4%;
         max-width: 123px;
         font-size: 13px;
         color: $color-content-text;
@@ -624,6 +624,7 @@
         width: 24px;
         height: 26px;
         position: relative;
+        margin-right: 3%;
         top: 50%;
         cursor: pointer;
         @include transform-translate(0, -50%);
@@ -673,7 +674,7 @@
           list-style-type: none;
 
           li {
-            width: calc(100% - 24px);
+            width: 100%;
             height: 44px;
             padding: 0 12px;
             cursor: pointer;
@@ -722,10 +723,7 @@
       }
 
       .content-bottom {
-        width: 91%;
-        @media #{$mobile} {
-          width: 97%;
-        }
+        width: 100%;
         height: calc(52px - 7px);
         padding: 4px 0 0 9px;
         background-color: $color-gray-lightest;
