@@ -128,8 +128,7 @@
       top: 100%;
       left: 50%;
       margin-left: -5px;
-      border-width: 5px;
-      border-style: solid;
+      border: solid 5px;
       border-color: $color-black transparent transparent transparent;
     }
   }
@@ -677,7 +676,8 @@
             cursor: pointer;
           }
         }
-        @include user-search(60%, '../assets/mag-glass.svg', '../assets/user-search-clear.svg');
+        @include user-search(60%, '../assets/mag-glass.svg', '../assets/user-search-clear.svg', '../assets/search-error-yellow.svg');
+
         .user-item {
           width: 100%;
           height: calc(100% - 12px - 1px);
@@ -1025,6 +1025,9 @@
     z-index: 999999;
     top: 36px;
 
+    // todo can we make this more specific?
+    @include user-search(100%, '../assets/mag-glass.svg', '../assets/user-search-clear.svg', '../assets/search-error-yellow.svg');
+
     .popup-body {
       @media #{$desktop} {
         width: 280px;
@@ -1067,7 +1070,6 @@
             background: $color-white;
             padding: 0 12px;
             cursor: pointer;
-            @include user-search(100%, '../assets/mag-glass.svg', '../assets/user-search-clear.svg');
 
             & > div {
               display: inline-block;
