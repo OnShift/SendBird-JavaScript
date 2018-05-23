@@ -473,12 +473,9 @@
           }
           & > .new-chat-btn {
             @extend .sb-common-btn;
-            display: block;
             margin: 0 auto;
-            width: 48px;
-            height: 30px;
+            width: 33%;
             line-height: 30px;
-            padding: 0 16px;
           }
         }
       }
