@@ -759,7 +759,7 @@
       }
 
       .message-content {
-        width: calc(100% - 16px);
+        width: 100%;
         max-height: 92%;
         height: 92%;
         min-height: 240px;
@@ -992,6 +992,7 @@
         .text {
           background: $color-purple;
           color: $color-white;
+          margin-right: 7px;
         }
         .image {
           display: inline-block;
