@@ -41,7 +41,7 @@
         possibleNames.push('a_widget_user_' + i);
       }
       userId = possibleNames[Math.floor(Math.random() * Math.floor(limit))];
-      document.cookie = `sendbirdUserId=${name}`;
+      document.cookie = `sendbirdUserId=${userId}`;
     }
     document.getElementById("currentUser").innerText = 'LOGGED IN AS: ' + name;
 
