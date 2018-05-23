@@ -197,14 +197,16 @@ class ListBoard extends Element {
         let item = this.createDiv();
         this._setClass(item, [className.ITEM]);
         let itemImg = this.createDiv();
-        this._setClass(itemImg, [className.IMAGE]);
-        this._setBackgroundImage(itemImg, DEFAULT_PROFILE_PIC);
-        item.appendChild(itemImg);
 
         let itemContent = this.createDiv();
-        this._setClass(itemContent, [className.CONTENT]);
 
+        this._setClass(itemContent, [className.CONTENT]);
+        this._setClass(itemImg, [className.IMAGE]);
+
+        this._setBackgroundImage(itemImg, DEFAULT_PROFILE_PIC);
         let contentTop = this.createDiv();
+        itemContent.appendChild(itemImg);
+
         this._setClass(contentTop, [className.CONTENT_TOP]);
         let contentTitle = this.createDiv();
         this._setClass(contentTitle, [className.TITLE]);
