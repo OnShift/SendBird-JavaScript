@@ -104,13 +104,18 @@ export const styleValue = {
     CURSOR_INIT: ''
 };
 
-export const DEFAULT_PROFILE_PIC = 'https://dxstmhyqfqr1o.cloudfront.net/widget/thumnail-member-01.svg';
-
 export const MAX_COUNT = '+9';
 export const MAX_FONT_SIZE = '11';
 export const TYPE_STRING = 'string';
 
 export const NO_SEARCH_RESULTS_MSG = "We couldn't find anyone with that name.";
+
+export const ROLES = {
+    EMPLOYEE: 'employee',
+    ADMINISTRATOR: 'administrator',
+    SUPERVISOR: 'supervisor',
+    TEST: 'test'
+};
 
 export const ANIMATION_EVENT = 'animationend';
 export const ANIMATION_REGEX = 'sb-fade.*';
