@@ -429,9 +429,7 @@ class SBWidget {
             } else {
                 for (let i = 0; i < this.searchedUserList.length; i++) {
                     let user = this.searchedUserList[i];
-                    if (!activeUserIds.includes(user.userId)) {
-                        renderUser(user, false);
-                    }
+                    if (!activeUserIds.includes(user.userId)) { renderUser(user, false); }
                 }
             }
 
