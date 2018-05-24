@@ -24,7 +24,7 @@ import {
     xssEscape
 } from './utils';
 
-import { className, TYPE_STRING, MAX_COUNT } from './consts';
+import { className, TYPE_STRING } from './consts';
 
 const ERROR_MESSAGE = 'Please create "sb_widget" element first.';
 const EVENT_TYPE_CLICK = 'click';

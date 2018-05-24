@@ -978,14 +978,14 @@
         overflow-y: scroll;
         overflow-x: hidden;
         height: 95%;
-        margin: 0;
+        @media #{$mobile} {
+          margin-top: 6%;
+        }
 
         & > ul {
           width: 100%;
           min-height: 306px;
           margin: 0 0 2px 0;
-          padding: 0;
-          list-style-type: none;
 
           & > .sb-spinner {
             position: absolute;
