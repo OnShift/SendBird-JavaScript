@@ -112,11 +112,21 @@ export function xssEscape(target) {
 
 export function requestNotification() {
     if (window.Notification && Notification.permission !== 'granted') {
-        Notification.requestPermission(function (permission) {
+        Notification.requestPermission().then((permission) => {
             if (Notification.permission !== permission) {
                 Notification.permission = permission;
             }
         });
+    }
+}
+
+export function determineNotificationMessage(message) {
+    if(message.isFileMessage()) {
+        return message.name;
+    } else if(message.isAdminMessage()) {
+        return `${message.message} Invited by ${JSON.parse(message.data).inviter.nickname}`;
+    } else {
+        return `${message._sender.nickname}: ${message.message}`;
     }
 }
 
