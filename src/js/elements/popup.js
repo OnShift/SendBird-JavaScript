@@ -1,4 +1,4 @@
-import { className, MAX_COUNT } from '../consts.js';
+import { className, MAX_COUNT, NO_SEARCH_RESULTS_MSG } from '../consts.js';
 import Element from './elements.js';
 import { addClass, show, hide, xssEscape } from '../utils.js';
 
@@ -25,11 +25,7 @@ class Popup extends Element {
         this._setContent(this.invitePopup.count, '0');
         this._setContent(this.invitePopup.inviteBtn, TITLE_POPUP_INVITE_BTN);
         addClass(this.invitePopup.inviteBtn, className.DISABLED);
-    }
-
-    showMemberPopup(chatSection) {
-        chatSection.appendChild(this.memberPopup);
-        show(this.memberPopup);
+        this.emptySearchResults = null;
     }
 
     showInvitePopup(chatSection) {
@@ -104,6 +100,31 @@ class Popup extends Element {
 
         li.appendChild(div);
         return li;
+    }
+
+    createUserSearchEmptyResults() {
+        let errorContainer = this.createDiv();
+        this._setClass(errorContainer, [className.SEARCH_ERROR_CONTAINER]);
+        this.emptySearchResults = errorContainer;
+
+        let emptySearchResults = this.createDiv();
+        this._setClass(emptySearchResults, [className.NO_SEARCH_RESULTS]);
+        this._setContent(emptySearchResults, NO_SEARCH_RESULTS_MSG);
+
+        let errorImage = this.createDiv();
+        this._setClass(errorImage, [className.SEARCH_ERROR_IMG]);
+
+        errorContainer.appendChild(errorImage);
+        errorContainer.appendChild(emptySearchResults);
+        return errorContainer;
+    }
+
+    removeEmptySearchResults() {
+        if(this.emptySearchResults) {
+            let emptySearchResults = this.emptySearchResults;
+            emptySearchResults.parentNode.removeChild(emptySearchResults);
+        }
+        this.emptySearchResults = null;
     }
 
     _createInvitePopup() {

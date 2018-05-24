@@ -46,6 +46,8 @@
   }
 
   .ic-minimize {
+    // todo mobile styling here
+    margin-right: 4%;
     @include local-icon('../assets/btn-minimize-default.svg');
     @include hover {
       @include local-icon('../assets/btn-minimize-over.svg');
@@ -63,6 +65,8 @@
   }
 
   .ic-new-chat {
+    // todo mobile styling here
+    margin-right: 3%;
     @include icon($icon-new-chat);
     @include hover {
       @include icon($icon-new-chat-hover);
@@ -114,7 +118,6 @@
     z-index: 1;
     font-size: 12px;
     color: $color-white;
-    padding: 0 12px;
     height: 32px;
     line-height: 32px;
 
@@ -124,8 +127,7 @@
       top: 100%;
       left: 50%;
       margin-left: -5px;
-      border-width: 5px;
-      border-style: solid;
+      border: solid 5px;
       border-color: $color-black transparent transparent transparent;
     }
   }
@@ -214,16 +216,16 @@
     @include box-shadow(0 3px 6px rgba(0, 0, 0, 0.3));
 
     .board-top {
-      width: calc(100% - 24px);
+      width: 100%;
       height: 36px;
       background-color: $color-purple;
-      padding: 0 12px;
       border-bottom: 1px solid $color-list-top-border;
 
       .title {
         display: inline-block;
         float: left;
         font-size: 16px;
+        padding-left: 4%;
         color: $color-list-top-title;
         letter-spacing: 0.85px;
         line-height: 36px;
@@ -250,10 +252,10 @@
 
         .tooltip {
           @extend .tooltip;
-          width: 74px;
+          width: 79px;
           position: absolute;
           top: -37px;
-          left: -37px;
+          left: -29px;
         }
 
         .option-menu {
@@ -283,8 +285,7 @@
               bottom: 100%;
               left: calc(50% + 21px);
               margin-left: -5px;
-              border-width: 7px;
-              border-style: solid;
+              border: 7px solid;
               border-color: transparent transparent $color-white transparent;
             }
           }
@@ -322,12 +323,10 @@
         width: 100%;
         margin: 0;
         padding: 0;
-        list-style-type: none;
 
         li {
-          width: calc(100% - 24px);
+          width: 95%;
           height: 48px;
-          padding: 0 12px;
           background-color: $color-white;
           cursor: pointer;
           @include hover {
@@ -339,8 +338,8 @@
 
           .item {
             width: 100%;
-            height: calc(100% - 12px - 1px);
-            padding: 6px 0;
+            height: 100%;
+            margin: 2% 0;
             border-bottom: 1px solid $color-list-border;
           }
         }
@@ -348,14 +347,15 @@
         .image {
           float: left;
           width: 36px;
+          margin: 0 4%;
           height: 100%;
           @include icon($icon-channel-1);
         }
 
         .content {
           float: right;
-          width: calc(100% - 36px - 8px);
-          height: 100%;
+          width: 100%;
+          height: 85%;
           margin-left: 8px;
         }
         .content-top {
@@ -366,7 +366,7 @@
             padding: 0;
             float: left;
             width: 125px;
-            height: 18px;
+            height: 100%;
             font-size: 14px;
             color: $color-content-text;
             line-height: 18px;
@@ -378,7 +378,7 @@
           time {
             float: right;
             font-size: 12px;
-            line-height: 18px;
+            height: 100%;
             color: $color-gray-light;
           }
         }
@@ -388,7 +388,7 @@
 
           .last-message {
             float: left;
-            width: 170px;
+            width: 50%;
             height: 18px;
             font-size: 13px;
             color: $color-gray-light;
@@ -422,12 +422,9 @@
           }
           & > .new-chat-btn {
             @extend .sb-common-btn;
-            display: block;
             margin: 0 auto;
-            width: 48px;
-            height: 30px;
+            width: 33%;
             line-height: 30px;
-            padding: 0 16px;
           }
         }
       }
@@ -531,15 +528,15 @@
     }
 
     .top {
-      width: calc(100% - 24px);
+      width: 100%;
       height: 35px;
-      padding: 0 12px;
       background-color: $color-gray-lightest;
       border-bottom: 1px solid $color-list-border;
       @include box-shadow(0 1px 1px -2px rgba(0, 0, 0, 0.20));
 
       .title {
         float: left;
+        padding-left: 4%;
         max-width: 123px;
         font-size: 13px;
         color: $color-content-text;
@@ -571,6 +568,7 @@
         width: 24px;
         height: 26px;
         position: relative;
+        margin-right: 3%;
         top: 50%;
         cursor: pointer;
         @include transform-translate(-50%);
@@ -586,10 +584,10 @@
       .btn.ic-invite {
         .tooltip {
           @extend .tooltip;
-          width: 78px;
+          width: 86px;
           position: absolute;
           top: -37px;
-          left: -39px;
+          left: -31px;
         }
       }
     }
@@ -620,16 +618,16 @@
           list-style-type: none;
 
           li {
-            width: calc(100% - 24px);
+            width: 100%;
             height: 44px;
             padding: 0 12px;
             cursor: pointer;
           }
         }
-        @include user-search(60%, '../assets/mag-glass.svg', '../assets/user-search-clear.svg');
+        @include user-search(90%, '../assets/mag-glass.svg', '../assets/user-search-clear.svg', '../assets/search-error-yellow.svg');
         .user-item {
           width: 100%;
-          height: calc(100% - 12px - 1px);
+          height: 100%;
           padding: 6px 0;
           border-bottom: 1px solid $color-list-border;
 
@@ -669,10 +667,7 @@
       }
 
       .content-bottom {
-        width: 91%;
-        @media #{$mobile} {
-          width: 97%;
-        }
+        width: 100%;
         height: calc(52px - 7px);
         padding: 4px 0 0 9px;
         background-color: $color-gray-lightest;
@@ -683,15 +678,13 @@
           @extend .sb-common-btn;
           display: inline-block;
           width: 33%;
-          height: 56%;
-          @media #{$mobile} {
-            height: 61%;
-          }
+          height: 70%;
           padding: 0 12px;
           text-align: center;
           line-height: 26px;
           font-size: 13px;
           letter-spacing: 0.85px;
+          margin-top: 0.5%;
 
           .sb-spinner {
             div {
@@ -711,7 +704,7 @@
       }
 
       .message-content {
-        width: calc(100% - 16px);
+        width: 100%;
         max-height: 92%;
         height: 92%;
         min-height: 240px;
@@ -944,6 +937,7 @@
         .text {
           background: $color-purple;
           color: $color-white;
+          margin-right: 7px;
         }
         .image {
           display: inline-block;
@@ -973,6 +967,9 @@
     bottom: 26px;
     z-index: 999999;
     top: 36px;
+
+    // todo can we make this more specific?
+    @include user-search(90%, '../assets/mag-glass.svg', '../assets/user-search-clear.svg', '../assets/search-error-yellow.svg');
 
     .popup-body {
       @media #{$desktop} {
@@ -1011,12 +1008,10 @@
 
           & > li {
             display: inline-table;
-            width: calc(100% - 24px);
-            height: calc(44px - 11px);
+            width: 95%;
             background: $color-white;
             padding: 0 12px;
             cursor: pointer;
-            @include user-search(100%, '../assets/mag-glass.svg', '../assets/user-search-clear.svg');
 
             & > div {
               display: inline-block;
@@ -1147,10 +1142,15 @@
         float: right;
         position: relative;
         top: 42%;
+        margin-right: 2%;
+        width: 30%;
+        text-align: center;
         @media #{$mobile} {
           top: 22%;
+          margin-right: 10%;
+          padding: 0 7%;
+          width: 25%;
         }
-        width: 41px;
         height: 24px;
         font-size: 14px;
         line-height: 24px;
