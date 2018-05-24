@@ -1002,7 +1002,8 @@
         overflow-x: hidden;
         height: 96%;
         @media #{$mobile} {
-          margin-top: 6%;
+          margin-top: 1%;
+          height: 100%
         }
 
         & > ul {
@@ -1112,6 +1113,9 @@
 
     .popup-bottom {
       height: 14%;
+      @media #{$mobile} {
+        height: 17%;
+      }
       background-color: $color-gray-lightest;
       border-top: 1px solid rgba(0, 0, 0, 0.2);
       padding: 0 12px;
