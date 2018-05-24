@@ -46,7 +46,6 @@
   }
 
   .ic-minimize {
-    // todo mobile styling here
     margin-right: 4%;
     @include local-icon('../assets/btn-minimize-default.svg');
     @include hover {
@@ -65,8 +64,9 @@
   }
 
   .ic-new-chat {
-    // todo mobile styling here
-    margin-right: 3%;
+    @media #{$mobile} {
+      margin-right: 3%;
+    }
     @include icon($icon-new-chat);
     @include hover {
       @include icon($icon-new-chat-hover);
@@ -541,7 +541,7 @@
       .title {
         float: left;
         padding-left: 4%;
-        max-width: 123px;
+        max-width: 70%;
         font-size: 13px;
         color: $color-content-text;
         line-height: 35px;
@@ -584,7 +584,7 @@
           width: 86px;
           position: absolute;
           top: -37px;
-          left: -31px;
+          left: -37px;
         }
       }
     }
@@ -969,7 +969,6 @@
     top: 36px;
     height: 84%;
 
-    // todo can we make this more specific?
     @include user-search(90%, '../assets/mag-glass.svg', '../assets/user-search-clear.svg', '../assets/search-error-yellow.svg');
 
     .popup-body {
@@ -986,7 +985,7 @@
       & > .content {
         overflow-y: scroll;
         overflow-x: hidden;
-        height: 98%;
+        height: 96%;
         @media #{$mobile} {
           margin-top: 6%;
         }
