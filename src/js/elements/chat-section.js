@@ -11,7 +11,6 @@ const DISPLAY_NONE = 'none';
 const EMPTY_STRING = '';
 const IMAGE_MAX_SIZE = 160;
 const MARGIN_TOP_MESSAGE = '3px';
-const MEMBER_COUNT_DEFAULT = '0';
 const MESSAGE_TYPING_MEMBER = ' is typing...';
 const MESSAGE_TYPING_SEVERAL = 'Several people are typing...';
 const TEXT_FILE_DOWNLOAD = 'Download';
@@ -63,12 +62,6 @@ class ChatSection extends Element {
         chatBoard.topTitle = chatTitle;
         chatTop.appendChild(chatTitle);
 
-        let chatMemberCount = this.createDiv();
-        this._setClass(chatMemberCount, [className.COUNT]);
-        this._setContent(chatMemberCount, MEMBER_COUNT_DEFAULT);
-        chatBoard.count = chatMemberCount;
-        chatTop.appendChild(chatMemberCount);
-
         let topBtnClose = this.createDiv();
         this._setClass(topBtnClose, [className.BTN, className.IC_CLOSE]);
         chatBoard.closeBtn = topBtnClose;
@@ -108,11 +101,8 @@ class ChatSection extends Element {
         this._setClickEvent(target, action);
     }
 
-    updateChatTop(target, count, title) {
-        this._setContent(target.count, count);
-        if (title !== null) {
-            this._setContent(target.topTitle, title);
-        }
+    updateChatTop(target, title) {
+        if (title !== null) { this._setContent(target.topTitle, title); }
     }
 
     getChatBoard(channelUrl) {

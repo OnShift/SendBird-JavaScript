@@ -1,4 +1,4 @@
-import { className, MAX_COUNT } from '../consts.js';
+import { className } from '../consts.js';
 import Element from './elements.js';
 import { addClass, show, hide, xssEscape } from '../utils.js';
 
@@ -22,7 +22,6 @@ class Popup extends Element {
     closeInvitePopup() {
         hide(this.invitePopup);
         this._setContent(this.invitePopup.list, EMPTY_STRING);
-        this._setContent(this.invitePopup.count, '0');
         this._setContent(this.invitePopup.inviteBtn, TITLE_POPUP_INVITE_BTN);
         addClass(this.invitePopup.inviteBtn, className.DISABLED);
     }
@@ -47,11 +46,6 @@ class Popup extends Element {
         this._setContent(topTitle, TITLE_POPUP_MEMBER_LIST);
         popupTop.appendChild(topTitle);
 
-        let topCount = this.createDiv();
-        this._setClass(topCount, [className.COUNT]);
-        this._setContent(topCount, '0');
-        popupTop.appendChild(topCount);
-
         this.memberCloseBtn = this.createDiv();
         this._setClass(this.memberCloseBtn, [className.BTN, className.IC_CLOSE]);
         popupTop.appendChild(this.memberCloseBtn);
@@ -67,14 +61,7 @@ class Popup extends Element {
         popupBody.appendChild(popupContent);
 
         this.memberPopup.list = ul;
-        this.memberPopup.count = topCount;
         this.memberPopup.appendChild(popupBody);
-    }
-
-    updateCount(target, count) {
-        count = parseInt(count);
-        let text = count > 9 ? MAX_COUNT : count.toString();
-        this._setContent(target, text);
     }
 
     createMemberItem(member, isActive) {
@@ -123,11 +110,6 @@ class Popup extends Element {
         this._setContent(bottomTitle, TITLE_POPUP_INVITE_LIST);
         popupBottom.appendChild(bottomTitle);
 
-        let bottomCount = this.createDiv();
-        this._setClass(bottomCount, [className.COUNT]);
-        this._setContent(bottomCount, '0');
-        popupBottom.appendChild(bottomCount);
-
         let bottomInvite = this.createDiv();
         this._setClass(bottomInvite, [className.INVITE_BTN, className.DISABLED]);
         this._setContent(bottomInvite, TITLE_POPUP_INVITE_BTN);
@@ -136,7 +118,6 @@ class Popup extends Element {
         popupBody.appendChild(popupBottom);
         this.invitePopup.content = popupContent;
         this.invitePopup.list = ul;
-        this.invitePopup.count = bottomCount;
         this.invitePopup.inviteBtn = bottomInvite;
         this.invitePopup.appendChild(popupBody);
     }

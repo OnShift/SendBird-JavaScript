@@ -11,7 +11,6 @@ export const className = {
     OPTION_MENU: 'option-menu',
 
     BTN: 'btn',
-    COUNT: 'count',
     IMAGE: 'image',
     INPUT: 'input',
     ITEM: 'item',

@@ -384,7 +384,7 @@ class SBWidget {
                     flipClass(userItem.select, className.ACTIVE);
 
                     let selectedUserCount = this.userManagement.getSelectedUserIds(userContent.list).length;
-                    this.chatSection.updateChatTop(target, selectedUserCount > 9 ? MAX_COUNT : selectedUserCount.toString(), null);
+                    this.chatSection.updateChatTop(target, null);
                     selectedUserCount > 0 ? removeClass(target.startBtn, className.DISABLED) : addClass(target.startBtn, className.DISABLED);
                 });
             };
@@ -542,12 +542,7 @@ class SBWidget {
             return () => {
                 flipClass(item.select, className.ACTIVE);
                 let selectedUserCount = this.userManagement.getSelectedUserIds(this.popup.invitePopup.list).length;
-                this.popup.updateCount(this.popup.invitePopup.count, selectedUserCount);
-                if(selectedUserCount > 0) {
-                    removeClass(this.popup.invitePopup.inviteBtn, className.DISABLED);
-                } else {
-                    addClass(this.popup.invitePopup.inviteBtn, className.DISABLED);
-                }
+                selectedUserCount > 0 ? removeClass(this.popup.invitePopup.inviteBtn, className.DISABLED) : addClass(this.popup.invitePopup.inviteBtn, className.DISABLED);
             };
         };
 
@@ -610,7 +605,7 @@ class SBWidget {
     }
 
     updateChannelInfo(target, channel) {
-        this.chatSection.updateChatTop(target, this.sbWrapper.getMemberCount(channel), this.sbWrapper.getNicknamesString(channel));
+        this.chatSection.updateChatTop(target, this.sbWrapper.getNicknamesString(channel));
     }
 
     updateUnreadMessageCount(channel) {

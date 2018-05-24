@@ -1,4 +1,3 @@
-import { MAX_COUNT } from './consts.js';
 import { xssEscape } from './utils.js';
 
 import SendBird from 'sendbird';
@@ -210,10 +209,6 @@ class SendBirdWrapper {
             }
         });
         return nicknameList.toString();
-    }
-
-    getMemberCount(channel) {
-        return channel.memberCount > 9 ? MAX_COUNT : channel.memberCount.toString();
     }
 
     getLastMessage(channel) {

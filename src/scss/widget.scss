@@ -554,28 +554,6 @@
         }
       }
 
-      .count {
-        float: left;
-        width: 16px;
-        height: 16px;
-        margin-left: 8px;
-        background-color: $color-gray-lighter;
-        font-weight: 700;
-        font-size: 10px;
-        @media #{$mobile} {
-          width: 26px;
-          height: 26px;
-          font-size: 18px;
-          line-height: 24px;
-
-        }
-        color: $color-gray-darker;
-        text-align: center;
-        line-height: 16px;
-        position: relative;
-        top: 28%;
-      }
-
       .btn {
         float: right;
         @media #{$mobile} {
@@ -728,9 +706,6 @@
         overflow-x: hidden;
         overflow-y: scroll;
         padding: 0 8px 8px 8px;
-
-        .message-list {
-        }
       }
 
       .typing {
@@ -819,7 +794,7 @@
           @media #{$mobile} {
             background-size: 21px 21px;
             background-position-x: 35%;
-            background-position-y: 28%;
+            background-position-y: 18%;
           }
         }
       }
@@ -1091,22 +1066,6 @@
         line-height: 36px;
       }
 
-      .count {
-        float: left;
-        width: 16px;
-        height: 16px;
-        margin-left: 8px;
-        background-color: $color-gray-lighter;
-        font-weight: 700;
-        font-size: 10px;
-        color: $color-gray-darker;
-        text-align: center;
-        line-height: 16px;
-        position: relative;
-        top: 50%;
-        @include transform-translate(-50%);
-      }
-
       .btn {
         float: right;
         width: 24px;
@@ -1134,22 +1093,6 @@
         }
         line-height: 52px;
         color: $color-gray-darker;
-      }
-
-      .count {
-        float: left;
-        margin-left: 8px;
-        font-size: 10px;
-        top: 40%;
-        @media #{$mobile} {
-          font-size: 14px;
-          top: 22%;
-        }
-        color: $color-gray-darker;
-        text-align: center;
-        line-height: 16px;
-        position: relative;
-        @include transform-translate(-50%);
       }
 
       .invite-btn {
