@@ -62,7 +62,6 @@ export const className = {
     USER: 'user',
     DATA_USER_ID: 'data-user-id',
 
-    IMAGE_ME: 'image-me',
     INVITE_BTN: 'invite-btn',
     INVITE: 'invite',
     MEMBERS: 'members',

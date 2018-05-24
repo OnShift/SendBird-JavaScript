@@ -1024,12 +1024,7 @@
               @include icon($icon-checked);
             }
 
-            .image-me {
-              width: 31px;
-              height: 31px;
-              position: absolute;
-              @include icon($icon-member-me);
-            }
+
             .image {
               display: inline-block;
               margin-right: 8px;
