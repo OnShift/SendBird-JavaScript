@@ -382,9 +382,11 @@
             color: $color-gray-light;
           }
         }
+
         .content-bottom {
           width: 100%;
           height: 50%;
+
 
           .last-message {
             float: left;
@@ -663,6 +665,7 @@
 
       .content-bottom {
         height: 10%;
+        border-top: 1px solid rgba(0, 0, 0, 0.2);
         padding: 4px 0 0 9px;
         background-color: $color-gray-lightest;
         text-align: center;
@@ -983,7 +986,7 @@
       & > .content {
         overflow-y: scroll;
         overflow-x: hidden;
-        height: 95%;
+        height: 98%;
         @media #{$mobile} {
           margin-top: 6%;
         }
@@ -1109,7 +1112,7 @@
         @media #{$mobile} {
           margin: 0;
           position: absolute;
-          top: 106%;
+          top: 107%;
           left: 29%;
           width: 40%;
           height: 6%;

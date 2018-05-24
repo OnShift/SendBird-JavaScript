@@ -90,7 +90,7 @@ class ChatSection extends Element {
     }
 
     removeInvitePopup() {
-        let items = this.self.querySelectorAll(`.${  className.CHAT_BOARD}`);
+        let items = this.self.querySelectorAll(`.${className.CHAT_BOARD}`);
         for (let i = 0; i < items.length; i++) {
             let item = items[i];
             removeClass(item.inviteBtn, className.ACTIVE);
@@ -106,7 +106,7 @@ class ChatSection extends Element {
     }
 
     getChatBoard(channelUrl) {
-        let items = this.self.querySelectorAll(`.${  className.CHAT_BOARD}`);
+        let items = this.self.querySelectorAll(`.${className.CHAT_BOARD}`);
         let targetBoard;
         for (let i = 0; i < items.length; i++) {
             let item = items[i];
