@@ -47,20 +47,16 @@
   .search-error-container {
     margin-top: 2%;
     .no-search-results {
-      text-align: left;
       color: $color-gray-darkest;
-      padding: 3%;
+      padding: 2%;
       @media #{$mobile} {
-        font-size: 18px;
+        font-size: 16px;
       }
       font-size: 14px;
     }
     .search-error-image {
-      height: 3em;
-      @media #{$mobile} {
-        height: 4em;
-      }
-      width: 13%;
+      height: 35px;
+      width: 35px;
       margin: 0 4% 0 4% ;
       background: url($path-to-error-image) no-repeat center;
       background-size: 100%;
