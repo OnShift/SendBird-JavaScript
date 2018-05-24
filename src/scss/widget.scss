@@ -662,18 +662,23 @@
       }
 
       .content-bottom {
-        width: 100%;
-        height: calc(52px - 7px);
+        height: 10%;
         padding: 4px 0 0 9px;
         background-color: $color-gray-lightest;
         text-align: center;
-        @include box-shadow(0 1px 1px rgba(0, 0, 0, 0.20));
 
         .new-chat-btn {
           @extend .sb-common-btn;
           display: inline-block;
-          width: 33%;
-          height: 70%;
+          @media #{$mobile} {
+            height: 40px;
+            width: 127px;
+            line-height: 35px;
+            font-size: 18px;
+            margin-top: 1.5%;
+          }
+          width: 102px;
+          height: 28px;
           padding: 0 12px;
           text-align: center;
           line-height: 26px;
