@@ -964,6 +964,7 @@
     bottom: 26px;
     z-index: 999999;
     top: 36px;
+    height: 84%;
 
     // todo can we make this more specific?
     @include user-search(90%, '../assets/mag-glass.svg', '../assets/user-search-clear.svg', '../assets/search-error-yellow.svg');
@@ -1080,7 +1081,7 @@
 
     .popup-bottom {
       height: 14%;
-      background-color: $color-white;
+      background-color: $color-gray-lightest;
       border-top: 1px solid rgba(0, 0, 0, 0.2);
       padding: 0 12px;
 
@@ -1097,22 +1098,25 @@
 
       .invite-btn {
         @extend .sb-common-btn;
-        float: right;
-        position: relative;
-        top: 42%;
-        margin-right: 2%;
-        width: 30%;
+        width: 39%;
         text-align: center;
-        @media #{$mobile} {
-          top: 22%;
-          margin-right: 10%;
-          padding: 0 7%;
-          width: 25%;
-        }
-        height: 24px;
+        height: 27px;
         font-size: 14px;
         line-height: 24px;
         letter-spacing: 0.85px;
+        margin-left: 29%;
+        margin-top: 7%;
+        @media #{$mobile} {
+          margin: 0;
+          position: absolute;
+          top: 106%;
+          left: 29%;
+          width: 40%;
+          height: 6%;
+          font-size: 18px;
+          line-height: 29px;
+        }
+
         @include transform-translate(-50%);
         .sb-spinner {
           margin-top: 4px;

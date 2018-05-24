@@ -4,7 +4,6 @@ import { addClass, show, hide, xssEscape } from '../utils.js';
 
 const EMPTY_STRING = '';
 const TITLE_POPUP_INVITE_BTN = 'Invite';
-const TITLE_POPUP_INVITE_LIST = 'Invite Members';
 const TITLE_POPUP_MEMBER_LIST = 'Member List';
 
 class Popup extends Element {
@@ -104,11 +103,6 @@ class Popup extends Element {
 
         let popupBottom = this.createDiv();
         this._setClass(popupBottom, [className.POPUP_BOTTOM]);
-
-        let bottomTitle = this.createDiv();
-        this._setClass(bottomTitle, [className.TITLE]);
-        this._setContent(bottomTitle, TITLE_POPUP_INVITE_LIST);
-        popupBottom.appendChild(bottomTitle);
 
         let bottomInvite = this.createDiv();
         this._setClass(bottomInvite, [className.INVITE_BTN, className.DISABLED]);
