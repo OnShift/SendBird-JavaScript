@@ -11,7 +11,7 @@ class WidgetBtn extends Element {
 
     _create() {
         this.self = this.createDiv();
-        this._setClass(this.self, [className.WIDGET_BTN, className.IC_LOGIN]);
+        this._setClass(this.self, [className.WIDGET_BTN, className.IC_CONNECTED]);
 
         this.unread = this.createDiv();
         this._setClass(this.unread, [className.NOTIFICATION]);
@@ -33,12 +33,6 @@ class WidgetBtn extends Element {
             hide(this.unread);
             addClass(this.self, className.UNREAD);
         }
-    }
-
-    toggleIcon(isConnected) {
-        isConnected ?
-        addClass(removeClass(this.self, className.IC_LOGIN), className.IC_CONNECTED) :
-        addClass(removeClass(this.self, className.IC_CONNECTED), className.IC_LOGIN);
     }
 }
 
