@@ -534,6 +534,7 @@
       height: 8%;
       @media #{$mobile} {
         height: 7%;
+        min-height: 39px;
       }
       background-color: $color-gray-lightest;
       border-bottom: 1px solid $color-list-border;
@@ -725,6 +726,9 @@
         width: 100%;
         max-height: 92%;
         height: 92%;
+        @media #{$mobile} {
+          height: 87%;
+        }
         min-height: 240px;
         overflow-x: hidden;
         overflow-y: scroll;
