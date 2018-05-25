@@ -3,6 +3,7 @@ import Element from './elements.js';
 import { addClass } from "../utils";
 
 class UserManagement extends Element {
+    // DOM CREATION
     constructor(role) {
         super();
         this.initializeMemberVariables(role);
@@ -60,7 +61,7 @@ class UserManagement extends Element {
         errorContainer.appendChild(emptySearchResults);
         return errorContainer;
     }
-
+    //FUNCTIONALITY
     removeEmptySearchResults() {
         if(this.emptySearchResults) {
             let emptySearchResults = this.emptySearchResults;
@@ -108,7 +109,8 @@ class UserManagement extends Element {
 
     determineRoleRestriction() {
         let roleRestriction;
-        switch(this.role) {
+        let role = this.role;
+        switch(role) {
             case ROLES.ADMINISTRATOR:
             case ROLES.SUPERVISOR:
                 roleRestriction = this.restrictManagerAccess;
@@ -120,7 +122,7 @@ class UserManagement extends Element {
                 roleRestriction = () => { return true; };
                 break;
             default:
-                throw `The role ${this.role} is unsupported; please contact your administrator`;
+                throw `The role ${role} is unsupported; please contact your administrator`;
         }
         return roleRestriction;
 
