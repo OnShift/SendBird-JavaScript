@@ -19,6 +19,7 @@ import {
     isEmptyString,
     removeClass,
     requestNotification,
+    determineNotificationMessage,
     show,
     xssEscape
 } from './utils';
@@ -91,7 +92,6 @@ class SBWidget {
     _init(providedRole) {
         this.spinner = new Spinner();
 
-        this.widgetBtn = new WidgetBtn(this.widget);
         this.listBoard = new ListBoard(this.widget);
         this.chatSection = new ChatSection(this.widget);
         this.userManagement = new UserManagement(providedRole);
@@ -160,16 +160,6 @@ class SBWidget {
         this.popup.addCloseBtnClickEvent(() => {
             this.closePopup();
         });
-
-        this.widgetBtn.addClickEvent(() => {
-            this.sbWrapper.isConnected() ? this.listBoard.showChannelList() : this.listBoard.showLoginForm();
-            this.toggleBoard(true);
-            this.listBoard.addChannelListScrollEvent(() => {
-                this.getChannelList();
-            });
-            this.responsiveChatSection.bind(this);
-        });
-
         this.listBoard.addNewChatClickEvent(() => {
             let chatBoard = this.chatSection.createChatBoard(NEW_CHAT_BOARD_ID);
             this.responsiveChatSection(null);
@@ -205,21 +195,6 @@ class SBWidget {
             this.toggleBoard(false);
             this.responsiveChatSection.bind(this);
         });
-
-        this.listBoard.addLoginClickEvent(() => {
-            if (!hasClass(this.listBoard.btnLogin, className.DISABLED)) {
-                this.spinner.insert(this.listBoard.btnLogin);
-                this.listBoard.enabledToggle(this.listBoard.btnLogin, false);
-                this.listBoard.userId.disabled = true;
-                this.listBoard.nickname.disabled = true;
-                this._connect(this.listBoard.getUserId(), this.listBoard.getNickname());
-            }
-        });
-        this.listBoard.addKeyDownEvent(this.listBoard.nickname, (event) => {
-            if (event.keyCode === KEY_DOWN_ENTER) {
-                this.listBoard.btnLogin.click();
-            }
-        });
     }
 
     loadUsersForChatboard(chatBoard) {
@@ -242,7 +217,16 @@ class SBWidget {
 
     _connect(userId, nickname, accessToken) {
         this.sbWrapper.connect(userId, nickname, accessToken, () => {
-            this.widgetBtn.toggleIcon(true);
+            this.widgetBtn = new WidgetBtn(this.widget);
+            this.widgetBtn.addClickEvent(() => {
+                this.listBoard.showChannelList();
+                this.toggleBoard(true);
+                this.listBoard.addChannelListScrollEvent(() => {
+                    this.getChannelList();
+                });
+                this.responsiveChatSection.bind(this);
+
+            });
             this.listBoard.showChannelList();
             this.spinner.insert(this.listBoard.list);
             this.getChannelList();
@@ -311,19 +295,15 @@ class SBWidget {
             this.setMessageItem(channelSet.channel, targetBoard, [message], false, isBottom, lastMessage);
             channel.markAsRead();
             this.updateUnreadMessageCount(channel);
-        }
-        if (!targetBoard) {
-            if ('Notification' in window) {
+        } else {
+            if('Notification' in window) {
                 let notification = new Notification(
-                    "New Message",
+                    "New Chat Message",
                     {
-                        "body": message.isFileMessage() ? message.name : message.message,
-                        "icon": "http://qnimate.com/wp-content/uploads/2014/07/web-notification-api-300x150.jpg"
+                        "body": determineNotificationMessage(message)
                     }
                 );
-                notification.onclick = function() {
-                    window.focus();
-                };
+                notification.onclick = () => { window.focus(); };
             }
         }
     }
