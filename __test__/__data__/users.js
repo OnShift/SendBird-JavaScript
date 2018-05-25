@@ -6,7 +6,7 @@ export const mixedUserList =
         connectionStatus: 'offline',
         userId: '36314',
         isActive: true,
-        metadata: {
+        metaData: {
             role: 'administrator',
             title: 'Administrator'
         }
@@ -17,7 +17,7 @@ export const mixedUserList =
         connectionStatus: 'online',
         userId: '15352',
         isActive: true,
-        metadata: {
+        metaData: {
             role: 'administrator',
             title: 'Administrator'
         }
@@ -28,7 +28,7 @@ export const mixedUserList =
         connectionStatus: 'offline',
         userId: '35122',
         isActive: false,
-        metadata: {
+        metaData: {
             role: 'supervisor',
             title: 'Deputy Director Chalmers'
         }
@@ -39,7 +39,7 @@ export const mixedUserList =
         connectionStatus: 'online',
         userId: '20931',
         isActive: true,
-        metadata: {
+        metaData: {
             role: 'employee',
             title: 'Gold Day'
         }
@@ -50,7 +50,7 @@ export const mixedUserList =
         connectionStatus: 'offline',
         userId: '18888',
         isActive: true,
-        metadata: {
+        metaData: {
             role: 'employee',
             title: 'Underwriter'
         }
@@ -61,7 +61,7 @@ export const mixedUserList =
         connectionStatus: 'online',
         userId: '941322',
         isActive: true,
-        metadata: {
+        metaData: {
             role: 'unrecognized',
             title: 'The Immortal and Forbidden One'
         }

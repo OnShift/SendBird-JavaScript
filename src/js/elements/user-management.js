@@ -93,11 +93,11 @@ class UserManagement extends Element {
         return fullUserList.filter(this.filterUsersAlgo(additionalCheck)).sort(this.alphabetizeAlgo);
     }
 
-    restrictEmployeeAccess(user) { return user.metadata && user.metadata.role === ROLES.EMPLOYEE; }
+    restrictEmployeeAccess(user) { return user.metaData && user.metaData.role === ROLES.EMPLOYEE; }
 
     restrictManagerAccess(user) {
         let supportedRoles = [ROLES.ADMINISTRATOR, ROLES.SUPERVISOR, ROLES.EMPLOYEE];
-        return user.metadata && supportedRoles.includes(user.metadata.role);
+        return user.metaData && supportedRoles.includes(user.metaData.role);
     }
 
     filterUsersAlgo(additionalReqs) {

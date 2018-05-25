@@ -103,7 +103,7 @@ describe('filteredList', () => {
         let filteredList = userManager.filteredList(mixedUserList, defaultCheck);
 
         test('filters out all users who are not employees', () => {
-            let employeeCount = mixedUserList.filter((u) => { return u.metadata && u.metadata.role === ROLES.EMPLOYEE }).length;
+            let employeeCount = mixedUserList.filter((u) => { return u.metaData && u.metaData.role === ROLES.EMPLOYEE }).length;
             expect(filteredList.length).toBe(employeeCount);
         });
     });
@@ -114,7 +114,7 @@ describe('filteredList', () => {
 
         test('filters out all users do not have a supported engage role', () => {
             let userCount = mixedUserList.filter((u) => {
-                let metadata = u.metadata;
+                let metadata = u.metaData;
                 return metadata && (metadata.role === ROLES.ADMINISTRATOR ||
                                     metadata.role === ROLES.SUPERVISOR ||
                                     metadata.role === ROLES.EMPLOYEE)
