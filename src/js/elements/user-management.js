@@ -1,4 +1,4 @@
-import { className, NO_SEARCH_RESULTS_MSG }  from '../consts.js';
+import { className, NO_SEARCH_RESULTS_MSG, ROLES }  from '../consts.js';
 import Element from './elements.js';
 import { addClass } from "../utils";
 
@@ -93,11 +93,11 @@ class UserManagement extends Element {
         return fullUserList.filter(this.filterUsersAlgo(additionalCheck)).sort(this.alphabetizeAlgo);
     }
 
-    restrictEmployeeAccess(user) { return user.metadata && user.metadata.role === 'employee'; }
+    restrictEmployeeAccess(user) { return user.metaData && user.metaData.role === ROLES.EMPLOYEE; }
 
     restrictManagerAccess(user) {
-        let supportedRoles = ['administrator', 'supervisor', 'employee'];
-        return user.metadata && supportedRoles.includes(user.metadata.role);
+        let supportedRoles = [ROLES.ADMINISTRATOR, ROLES.SUPERVISOR, ROLES.EMPLOYEE];
+        return user.metaData && supportedRoles.includes(user.metaData.role);
     }
 
     filterUsersAlgo(additionalReqs) {
@@ -109,14 +109,14 @@ class UserManagement extends Element {
     determineRoleRestriction() {
         let roleRestriction;
         switch(this.role) {
-            case 'administrator':
-            case 'supervisor':
+            case ROLES.ADMINISTRATOR:
+            case ROLES.SUPERVISOR:
                 roleRestriction = this.restrictManagerAccess;
                 break;
-            case 'employee':
+            case ROLES.EMPLOYEE:
                 roleRestriction = this.restrictEmployeeAccess;
                 break;
-            case 'test':
+            case ROLES.TEST:
                 roleRestriction = () => { return true; };
                 break;
             default:

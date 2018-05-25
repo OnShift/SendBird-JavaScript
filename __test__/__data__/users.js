@@ -6,10 +6,8 @@ export const mixedUserList =
         connectionStatus: 'offline',
         userId: '36314',
         isActive: true,
-        metadata: {
-            engage_role: 'administrator',
+        metaData: {
             role: 'administrator',
-            role_description: 'administrator',
             title: 'Administrator'
         }
     },
@@ -19,10 +17,8 @@ export const mixedUserList =
         connectionStatus: 'online',
         userId: '15352',
         isActive: true,
-        metadata: {
-            engage_role: 'administrator',
+        metaData: {
             role: 'administrator',
-            role_description: 'administrator',
             title: 'Administrator'
         }
     },
@@ -32,10 +28,8 @@ export const mixedUserList =
         connectionStatus: 'offline',
         userId: '35122',
         isActive: false,
-        metadata: {
-            engage_role: 'supervisor',
+        metaData: {
             role: 'supervisor',
-            role_description: 'supervisor',
             title: 'Deputy Director Chalmers'
         }
     },
@@ -45,10 +39,8 @@ export const mixedUserList =
         connectionStatus: 'online',
         userId: '20931',
         isActive: true,
-        metadata: {
-            engage_role: 'employee',
+        metaData: {
             role: 'employee',
-            role_description: 'employee',
             title: 'Gold Day'
         }
     },
@@ -58,10 +50,8 @@ export const mixedUserList =
         connectionStatus: 'offline',
         userId: '18888',
         isActive: true,
-        metadata: {
-            engage_role: 'employee',
+        metaData: {
             role: 'employee',
-            role_description: 'employee',
             title: 'Underwriter'
         }
     },
@@ -71,10 +61,8 @@ export const mixedUserList =
         connectionStatus: 'online',
         userId: '941322',
         isActive: true,
-        metadata: {
-            engage_role: 'unrecognized',
+        metaData: {
             role: 'unrecognized',
-            role_description: 'unrecognized',
             title: 'The Immortal and Forbidden One'
         }
     },

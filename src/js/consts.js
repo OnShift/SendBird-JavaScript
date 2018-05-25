@@ -108,6 +108,13 @@ export const TYPE_STRING = 'string';
 
 export const NO_SEARCH_RESULTS_MSG = "We couldn't find anyone with that name.";
 
+export const ROLES = {
+    EMPLOYEE: 'employee',
+    ADMINISTRATOR: 'administrator',
+    SUPERVISOR: 'supervisor',
+    TEST: 'test'
+};
+
 export const ANIMATION_EVENT = 'animationend';
 export const ANIMATION_REGEX = 'sb-fade.*';
 export const DISPLAY_BLOCK = 'block';

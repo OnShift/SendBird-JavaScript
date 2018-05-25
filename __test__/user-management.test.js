@@ -1,17 +1,17 @@
 import UserManagement from '../src/js/elements/user-management';
-import { className } from "../src/js/consts";
+import { className, ROLES } from "../src/js/consts";
 import { mixedUserList } from "./__data__/users";
 
 let defaultCheck = () => { return true };
 
 describe('new', () => {
-    let userManager = new UserManagement('test');
+    let userManager = new UserManagement(ROLES.TEST);
     test('it can be instantiated', () => {
         expect(userManager).toBeInstanceOf(UserManagement);
     });
 
     test('it initializes member variables correctly', () => {
-        expect(userManager.role).toBe('test');
+        expect(userManager.role).toBe(ROLES.TEST);
         expect(userManager.searchImage).toBeNull();
         expect(userManager.searchInput).toBeNull();
         expect(userManager.emptySearchResults).toBeNull();
@@ -19,7 +19,7 @@ describe('new', () => {
 });
 
 describe('createSearchBox', () => {
-    let userManager = new UserManagement('test');
+    let userManager = new UserManagement(ROLES.TEST);
     let searchBox = userManager.createSearchBox();
 
     test('when called, sets searchImage to a div', () => {
@@ -33,7 +33,7 @@ describe('createSearchBox', () => {
         expect(searchInput).toBeInstanceOf(HTMLDivElement);
         expect(searchInput.className).toContain(className.TEXT);
         expect(searchInput.className).toContain(className.SEARCH_INPUT);
-        expect(searchInput.getAttribute('contenteditable')).toBe("true");
+        expect(searchInput.getAttribute('contenteditable')).toBe('true');
     });
 
     test('returns a list element', () => {
@@ -51,7 +51,7 @@ describe('createSearchBox', () => {
 
 describe('filteredList', () => {
     describe('userManager in a "test" role', () => {
-        let userManager = new UserManagement('test');
+        let userManager = new UserManagement(ROLES.TEST);
         let filteredList = userManager.filteredList(mixedUserList, defaultCheck);
 
         function filterAlteredList(baseList, action) {
@@ -99,25 +99,25 @@ describe('filteredList', () => {
     });
 
     describe('userManager in an "employee" role', () => {
-        let userManager = new UserManagement('employee');
+        let userManager = new UserManagement(ROLES.EMPLOYEE);
         let filteredList = userManager.filteredList(mixedUserList, defaultCheck);
 
         test('filters out all users who are not employees', () => {
-            let employeeCount = mixedUserList.filter((u) => { return u.metadata && u.metadata.role === 'employee' }).length;
+            let employeeCount = mixedUserList.filter((u) => { return u.metaData && u.metaData.role === ROLES.EMPLOYEE }).length;
             expect(filteredList.length).toBe(employeeCount);
         });
     });
 
     describe('userManager in an "administrator" role', () => {
-        let userManager = new UserManagement('administrator');
+        let userManager = new UserManagement(ROLES.ADMINISTRATOR);
         let filteredList = userManager.filteredList(mixedUserList, defaultCheck);
 
         test('filters out all users do not have a supported engage role', () => {
             let userCount = mixedUserList.filter((u) => {
-                let metadata = u.metadata;
-                return metadata && (metadata.role === 'administrator' ||
-                                    metadata.role === 'supervisor' ||
-                                    metadata.role === 'employee')
+                let metadata = u.metaData;
+                return metadata && (metadata.role === ROLES.ADMINISTRATOR ||
+                                    metadata.role === ROLES.SUPERVISOR ||
+                                    metadata.role === ROLES.EMPLOYEE)
             }).length;
             expect(filteredList.length).toBe(userCount);
         });
