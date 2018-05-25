@@ -3,8 +3,12 @@
   "version": "0.8.1",
   "description": "A chat widget based on and utilizing SendBird.",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/OnShift/SendBird-JavaScript"
+  },
   "scripts": {
-    "prepublish": "npm run prod-build",
+    "prepublishOnly": "npm run prod-build",
     "prod-build": "npm run prod-lint && webpack -p --config webpack.prod.js",
     "start-dev": "npm run dev-lint && webpack-dev-server --config webpack.dev.js",
     "start-demo": "npm run prod-build && node test_server/server.js",
@@ -26,7 +30,7 @@
   "devDependencies": {
     "babel-core": "^6.24.0",
     "babel-eslint": "^7.1.1",
-    "babel-loader": "^6.4.1",
+    "babel-loader": "^7.1.4",
     "babel-plugin-transform-runtime": "6.15.0",
     "babel-preset-env": "^1.2.2",
     "babel-preset-es2015": "^6.24.0",
