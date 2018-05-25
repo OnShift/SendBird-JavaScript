@@ -7,9 +7,7 @@ export const mixedUserList =
         userId: '36314',
         isActive: true,
         metadata: {
-            engage_role: 'administrator',
             role: 'administrator',
-            role_description: 'administrator',
             title: 'Administrator'
         }
     },
@@ -20,9 +18,7 @@ export const mixedUserList =
         userId: '15352',
         isActive: true,
         metadata: {
-            engage_role: 'administrator',
             role: 'administrator',
-            role_description: 'administrator',
             title: 'Administrator'
         }
     },
@@ -33,9 +29,7 @@ export const mixedUserList =
         userId: '35122',
         isActive: false,
         metadata: {
-            engage_role: 'supervisor',
             role: 'supervisor',
-            role_description: 'supervisor',
             title: 'Deputy Director Chalmers'
         }
     },
@@ -46,9 +40,7 @@ export const mixedUserList =
         userId: '20931',
         isActive: true,
         metadata: {
-            engage_role: 'employee',
             role: 'employee',
-            role_description: 'employee',
             title: 'Gold Day'
         }
     },
@@ -59,9 +51,7 @@ export const mixedUserList =
         userId: '18888',
         isActive: true,
         metadata: {
-            engage_role: 'employee',
             role: 'employee',
-            role_description: 'employee',
             title: 'Underwriter'
         }
     },
@@ -72,9 +62,7 @@ export const mixedUserList =
         userId: '941322',
         isActive: true,
         metadata: {
-            engage_role: 'unrecognized',
             role: 'unrecognized',
-            role_description: 'unrecognized',
             title: 'The Immortal and Forbidden One'
         }
     },
