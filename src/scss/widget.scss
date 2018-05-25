@@ -136,7 +136,7 @@
   // Widget Button
   .widget {
     z-index: 99991;
-    position: absolute;
+    position: fixed;
     right: 20px;
     bottom: 20px;
     width: 60px;
@@ -204,7 +204,7 @@
     }
     display: none;
     z-index: 99992;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     right: 0;
     width: 280px;
@@ -452,7 +452,7 @@
   // Chat Board
   .chat-section {
     z-index: 99992;
-    position: absolute;
+    position: fixed;
     display: none;
     @media #{$mobile} {
       height: 100%;
@@ -461,10 +461,10 @@
     }
     bottom: 0;
     @media #{$desktop} {
-      margin-right: 10px;
       right: 60px;
+      height: 428px;
       max-height: 520px;
-      width: 220px;
+      width: 230px;
     }
 
     .chat-board {
