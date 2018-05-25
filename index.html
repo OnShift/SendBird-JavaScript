@@ -17,18 +17,32 @@
     <button id="closeWidget" onclick="close_widget()">Press Me to Close the Widget</button>
     <div id="sb_widget"></div>
   </body>
+
+  <script src="https://www.gstatic.com/firebasejs/5.0.3/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyBQStdZp-0taWROjUGgP_wcn5Kpmle0Po8",
+        authDomain: "android-push-spike.firebaseapp.com",
+        databaseURL: "https://android-push-spike.firebaseio.com",
+        projectId: "android-push-spike",
+        storageBucket: "android-push-spike.appspot.com",
+        messagingSenderId: "429643698611"
+      };
+      firebase.initializeApp(config);
+    </script>
   <script src="build/widget.SendBird.js"></script>
   <script>
     var userId;
 
     function open_widget() {
-        var channelBoard = document.getElementsByClassName('channel-board')[0]
+        var channelBoard = document.getElementsByClassName('channel-board')[0];
         channelBoard.style = 'display: block';
         channelBoard.className = "channel-board sb-fade-in";
 
     }
     function close_widget() {
-        var channelBoard = document.getElementsByClassName('channel-board')[0]
+        var channelBoard = document.getElementsByClassName('channel-board')[0];
         channelBoard.style = '';
         channelBoard.className = "channel-board sb-fade-out";
 
@@ -48,7 +62,7 @@
     document.getElementById("currentUser").innerText = 'LOGGED IN AS: ' + userId;
     var sb = new window.onshiftChatWidget.default();
     var loginData = {
-      appId:'9DA1B1F4-0BE6-4DA8-82C5-2E81DAB56F23',
+      appId:'C8FEBEEA-89EB-40F7-8710-DBA751C13694',
       nickname: userId,
       role: 'test',
       userId: userId,
