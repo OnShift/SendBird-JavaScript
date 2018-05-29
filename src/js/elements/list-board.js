@@ -11,7 +11,7 @@ import Element from './elements.js';
 const NEW_CHAT_TOOLTIP_TEXT = 'New Message';
 const TITLE_EMPTY_BTN = 'Create';
 const TITLE_EMPTY_ITEM = 'Click below to start';
-const TITLE_TOP_CHANNEL = 'Channel List';
+const TITLE_TOP_CHANNEL = 'Chats';
 const TITLE_TOP_LOGIN = 'SendBird Widget';
 
 class ListBoard extends Element {

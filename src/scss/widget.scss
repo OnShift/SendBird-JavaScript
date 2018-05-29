@@ -232,8 +232,10 @@
       }
 
       .btn {
-        display: inline-block;
         float: right;
+        @media #{$desktop} {
+          margin-right: 4%;
+        }
         position: relative;
         top: 50%;
         width: 24px;
