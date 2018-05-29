@@ -54,9 +54,9 @@
 
   .ic-new-chat {
     margin-right: 4%;
-    @include icon($icon-new-chat);
+    @include local-icon('../assets/btn-new-chat-default.svg');
     @include hover {
-      @include icon($icon-new-chat-hover);
+      @include local-icon('../assets/btn-new-chat-over.svg');
     }
   }
 

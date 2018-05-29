@@ -1,9 +1,6 @@
 // Icons
 $icon-prefix:                 'https://dxstmhyqfqr1o.cloudfront.net/widget/';
 
-$icon-new-chat:               'btn-new-chat-default.svg';
-$icon-new-chat-hover:         'btn-new-chat-over.svg';
-
 $icon-close-selected:         'btn-close-select.svg';
 $icon-friend-add:             'btn-friend-add-default.svg';
 $icon-friend-add-hover:       'btn-friend-add-over.svg';
@@ -24,9 +21,6 @@ $icon-file:                   'icon-file.svg';
 
 $icon-member-me:              'icon-member-me.svg';
 $icon-member-1:               'thumnail-member-01.svg';
-$icon-member-2:               'thumnail-member-02.svg';
-$icon-member-3:               'thumnail-member-03.svg';
-$icon-member-4:               'thumnail-member-04.svg';
 
 @mixin icon($name) {
   background: url($icon-prefix + $name) center no-repeat;
