@@ -102,8 +102,10 @@ describe('filteredList', () => {
         let userManager = new UserManagement(ROLES.EMPLOYEE);
         let filteredList = userManager.filteredList(mixedUserList, defaultCheck);
 
-        test('filters out all users who are not employees', () => {
-            let employeeCount = mixedUserList.filter((u) => { return u.metaData && u.metaData.role === ROLES.EMPLOYEE }).length;
+        test('filters out all users who are not admins or supervisors', () => {
+            let employeeCount = mixedUserList.filter((u) => {
+                return u.metaData && (u.metaData.role === ROLES.ADMINISTRATOR || u.metaData.role === ROLES.SUPERVISOR)
+            }).length;
             expect(filteredList.length).toBe(employeeCount);
         });
     });
