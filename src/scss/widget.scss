@@ -47,9 +47,9 @@
 
   .ic-minimize {
     margin-right: 4%;
-    @include local-icon('../assets/btn-minimize-default.svg');
+    @include local-icon('../assets/close-btn.svg');
     @include hover {
-      @include local-icon('../assets/btn-minimize-over.svg');
+      @include local-icon('../assets/btn-close-over.svg');
     }
   }
 
@@ -76,7 +76,7 @@
   .ic-close {
     @include local-icon('../assets/close-btn.svg');
     @include hover {
-      @include icon($icon-close-hover);
+      @include local-icon('../assets/btn-close-over.svg');
     }
   }
   .ic-close.active {
