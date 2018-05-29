@@ -93,14 +93,10 @@ class UserManagement extends Element {
         return fullUserList.filter(this.filterUsersAlgo(additionalCheck)).sort(this.alphabetizeAlgo);
     }
 
-    restrictEmployeeAccess(user) {
-        let supportedRoles = [ROLES.ADMINISTRATOR, ROLES.SUPERVISOR];
-        return user.metaData && supportedRoles.includes(user.metaData.role);
-    }
-
-    restrictManagerAccess(user) {
-        let supportedRoles = [ROLES.ADMINISTRATOR, ROLES.SUPERVISOR, ROLES.EMPLOYEE];
-        return user.metaData && supportedRoles.includes(user.metaData.role);
+    restrictAccessTo(allowedRoles) {
+        return (user) => {
+            return user.metaData && allowedRoles.includes(user.metaData.role)
+        }
     }
 
     filterUsersAlgo(additionalReqs) {
@@ -114,10 +110,10 @@ class UserManagement extends Element {
         switch(this.role) {
             case ROLES.ADMINISTRATOR:
             case ROLES.SUPERVISOR:
-                roleRestriction = this.restrictManagerAccess;
+                roleRestriction = this.restrictAccessTo([ROLES.ADMINISTRATOR, ROLES.SUPERVISOR, ROLES.EMPLOYEE]);
                 break;
             case ROLES.EMPLOYEE:
-                roleRestriction = this.restrictEmployeeAccess;
+                roleRestriction = this.restrictAccessTo([ROLES.ADMINISTRATOR, ROLES.SUPERVISOR]);
                 break;
             case ROLES.TEST:
                 roleRestriction = () => { return true; };
