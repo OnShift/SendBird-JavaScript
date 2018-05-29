@@ -1,32 +1,3 @@
-// Icons
-$icon-prefix:                 'https://dxstmhyqfqr1o.cloudfront.net/widget/';
-
-$icon-close-selected:         'btn-close-select.svg';
-$icon-friend-add:             'btn-friend-add-default.svg';
-$icon-friend-add-hover:       'btn-friend-add-over.svg';
-$icon-friend-add-selected:    'btn-friend-add-select.svg';
-
-$icon-file-add:               'btn-file-add-default.svg';
-$icon-file-add-hover:         'btn-file-add-over.svg';
-
-$icon-channel-1:              'thumnail-channel-01.svg';
-$icon-channel-2:              'thumnail-channel-02.svg';
-$icon-channel-3:              'thumnail-channel-03.svg';
-$icon-channel-4:              'thumnail-channel-04.svg';
-
-$icon-unchecked:              'btn-check-off.svg';
-$icon-checked:                'btn-check-on.svg';
-
-$icon-file:                   'icon-file.svg';
-
-$icon-member-me:              'icon-member-me.svg';
-$icon-member-1:               'thumnail-member-01.svg';
-
-@mixin icon($name) {
-  background: url($icon-prefix + $name) center no-repeat;
-  background-size: cover;
-}
-
 @mixin local-icon($path) {
   background: url($path) center no-repeat;
   background-size: cover;
