@@ -76,11 +76,8 @@ export const className = {
     IC_CLOSE: 'ic-close',
     IC_CONNECTED: 'ic-connected',
     IC_INVITE: 'ic-invite',
-    IC_LEAVE: 'ic-leave',
-    IC_MEMBERS: 'ic-members',
     IC_MINIMIZE: 'ic-minimize',
     IC_NEW_CHAT: 'ic-new-chat',
-    IC_OPTION: 'ic-option',
 
     SEARCH: 'user-search',
     SEARCH_IMG: 'search-input-image',
