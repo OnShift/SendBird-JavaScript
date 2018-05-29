@@ -1,11 +1,11 @@
-const path = require('path');
-const merge = require('webpack-merge');
-let webpack = require('webpack');
+const BundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const common = require('./webpack.common');
-const Uglify = require('uglifyjs-webpack-plugin');
+const merge = require('webpack-merge');
+const path = require('path');
 const OptimizeCss = require('optimize-css-assets-webpack-plugin');
 const OptimizeCssClassNames = require('optimize-css-classnames-plugin');
-const BundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const Uglify = require('uglifyjs-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = merge(common, {
     output: {
